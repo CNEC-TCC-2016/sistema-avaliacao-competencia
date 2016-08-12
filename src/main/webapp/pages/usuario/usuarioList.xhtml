@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:bnu="http://bootsfaces.net/ui">
+
+<ui:composition template="/tampletes/modeloGeral.xhtml">
+	<ui:define name="conteudo">
+		<f:view>
+			<f:event listener="#{usuarioBean.onLoad()}" type="preRenderView"></f:event>
+		</f:view>
+
+		<bnu:panel id="userPanel" title="Usuarios" look="primary"
+			panel-footer="primary">
+			<h:form id="usuarioForm">
+
+
+				<h:panelGrid>
+						<bnu:commandButton value="Adicionar" action="#{usuarioBean.add()}"
+							update="UsuarioDataTable" ajax="true" look="success" />
+
+				</h:panelGrid>
+				<br />
+				<bnu:dataTable id="UsuarioDataTable" widgetVar="dataTable"
+					var="usuario" value="#{usuarioBean.usuarios}" paginator="true"
+					rows="10"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="5,10,20" rowKey="#{usuario.id}" select="false"
+					selectionMode="single">
+					<bnu:column>
+						<f:facet name="header">
+							<h:outputText value="ID" />
+						</f:facet>
+						<h:outputText value="#{usuario.id}" />
+					</bnu:column>
+
+					<bnu:column>
+						<f:facet name="header">
+							<h:outputText value="Nome usuario" />
+						</f:facet>
+						<h:outputText value="#{usuario.username}" />
+					</bnu:column>
+
+
+					<bnu:column>
+						<f:facet name="header">
+							<h:outputText value="Senha" />
+						</f:facet>
+						<h:outputText value="#{usuario.password}" />
+					</bnu:column>
+
+					<bnu:column>
+						<f:facet name="header">
+							<h:outputText value="E-mail" />
+						</f:facet>
+						<h:outputText value="#{usuario.email}" />
+					</bnu:column>
+
+					<bnu:column>
+						<f:facet name="header">
+							<h:outputText value="Permissão" />
+						</f:facet>
+						<ui:repeat var="permissao" value="#{usuario.permissions}">
+							<h:outputText value="#{permissao.role}" />
+							<br />
+						</ui:repeat>
+
+					</bnu:column>
+					<p:column>
+					<f:facet name="header">
+					<h:outputText value="Opções" />
+					</f:facet>
+					<p:row>
+						<bnu:button outcome="#{usuarioBean.editar()}" value="Editar"  look="warning">
+							<f:param value="#{usuario.id}" name="usercod"/>
+						</bnu:button>
+						<bnu:button outcome="#{usuarioBean.excluir()}" value="Excluir"  look="danger">
+							<f:param value="#{usuario.id}" name="usercod"/>
+						</bnu:button>
+					</p:row>
+					
+					</p:column>
+					
+				</bnu:dataTable>
+			</h:form>
+		</bnu:panel>
+	</ui:define>
+</ui:composition>
+
+
+</html>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:bnu="http://bootsfaces.net/ui">
+
+<ui:composition template="/tampletes/modeloGeral.xhtml">
+	<ui:define name="conteudo">
+		<f:view>
+			<f:event listener="#{funcionarioBean.onLoad()}" type="preRenderView"></f:event>
+		</f:view>
+
+		<bnu:panel id="funcPanel" title="Funcionarios" look="primary"
+			panel-footer="primary">
+			<h:form id="funcionarioForm">
+
+
+				<h:panelGrid>
+						<bnu:commandButton value="Adicionar" action="#{funcionarioBean.add()}"
+							update="FuncionarioDataTable" ajax="true" look="success" />
+
+				</h:panelGrid>
+				<br />
+				<bnu:dataTable id="FuncionarioDataTable" widgetVar="dataTable"
+					var="funcionario" value="#{funcionarioBean.funcionarios}" paginator="true"
+					rows="10"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="5,10,20" rowKey="#{funcionario.id}" select="false"
+					selectionMode="single">
+					<bnu:column>
+						<f:facet name="header">
+							<h:outputText value="ID" />
+						</f:facet>
+						<h:outputText value="#{funcionario.id}" />
+					</bnu:column>
+
+					<bnu:column>
+						<f:facet name="header">
+							<h:outputText value="Nome funcionario" />
+						</f:facet>
+						<h:outputText value="#{funcionario.nome}" />
+					</bnu:column>
+					
+					<bnu:column>
+						<f:facet name="header">
+							<h:outputText value="Username" />
+						</f:facet>
+						<h:outputText value="#{funcionario.usuarioEntity.username}" />
+					</bnu:column>
+					
+					<bnu:column>
+						<f:facet name="header">
+							<h:outputText value="Permissão" />
+						</f:facet>
+						<ui:repeat var="permissao" value="#{funcionario.usuarioEntity.permissions}">
+							<h:outputText value="#{permissao.role}" />
+							<br />
+						</ui:repeat>
+
+					</bnu:column>
+					
+					
+					<p:column>
+					<f:facet name="header">
+					<h:outputText value="Opções" />
+					</f:facet>
+					<p:row>
+						<bnu:button outcome="#{funcionarioBean.editar()}" value="Editar"  look="warning">
+							<f:param value="#{funcionario.id}" name="codigo"/>
+						</bnu:button>
+						<bnu:button outcome="#{funcionarioBean.excluir()}" value="Excluir"  look="danger">
+							<f:param value="#{funcionario.id}" name="codigo"/>
+						</bnu:button>
+					</p:row>
+					
+					</p:column>
+					
+				</bnu:dataTable>
+			</h:form>
+		</bnu:panel>
+	</ui:define>
+</ui:composition>
+
+
+</html>

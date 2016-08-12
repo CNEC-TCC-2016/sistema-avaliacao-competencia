@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:bnu="http://bootsfaces.net/ui">
+
+
+<ui:composition template="/tampletes/modeloGeral.xhtml">
+
+	<ui:define name="conteudo">
+		<f:view>
+			<f:event listener="#{usuarioBean.loadCadastro()}"
+				type="preRenderView"></f:event>
+		</f:view>
+		<h:form id="frmuser">
+			<h:inputHidden value="#{usuarioBean.usuarioEntity.id}" />
+		
+
+			<bnu:panel title="Dados do Usuário">
+
+
+				<h:message for="frm_user_nome" />
+				<bnu:inputText id="frm_nome"
+					value="#{usuarioBean.usuarioEntity.username}" label="Nome Usuário"
+					required="true" required-message="Campo obrigatório" />
+
+
+				<h:message for="frm_mail" />
+				<bnu:inputText id="frm_mail"
+					value="#{usuarioBean.usuarioEntity.email}" label="E-mail"
+					required="true" required-message="Campo obrigatório" />
+
+
+				<h:message for="frm_senha" />
+				<bnu:inputText id="frm_senha"
+					value="#{usuarioBean.usuarioEntity.password}" label="Password"
+					size="20" required="true" required-message="Campo obrigatório" />
+
+				<p:selectManyCheckbox value="#{usuarioBean.permissaoSelecionadas}"
+					layout="pageDirection"  converter="omnifaces.SelectItemsConverter">
+					<f:selectItems value="#{usuarioBean.loadPermissoes()}"
+						var="permissao" itemValue="#{permissao}" itemLabel="#{permissao.role}" />
+				</p:selectManyCheckbox>
+
+				
+							<h:commandButton value="salvar"
+								action="#{usuarioBean.salvarOuDeletar()}" />
+
+							<h:commandButton value="Excluir"
+								action="#{usuarioBean.deletar()}" />
+
+							<h:commandButton value="Editar"
+								action="#{usuarioBean.salvarOuDeletar()}" />
+
+							<h:commandButton value="cancelar"
+								action="/pages/usuario/usuarioList.xhtml"  />
+			</bnu:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
