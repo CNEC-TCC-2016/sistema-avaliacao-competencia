@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.project</groupId>
-	<artifactId>br.com.project.checkskills</artifactId>
+	<artifactId>checkskills</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
@@ -293,14 +293,14 @@
 		</plugins>
 
 		<resources>
-			<resource>
+			<resource>				
 				<directory>src/main/resources</directory>
 				<includes>
 					<include>**/*.xml</include>
 					<include>**/*.properties</include>
 				</includes>
 				<filtering>true</filtering>
-			</resource>
+			</resource>			
 		</resources>
 	</build>
 </project>
