@@ -84,32 +84,32 @@ public class UserRepositoryTest extends AbstractDatabaseTest {
 	@Test
 	public void userPermission(){
 	
-		UsuarioEntity usuarioEntity = new UsuarioEntity();
-		usuarioEntity.setId(254L);
-		usuarioEntity.setUsername("Luan lucsa");
-		usuarioEntity.setPassword("sasdfasd");
-		usuarioEntity.setEmail("asdfsad@adsfdas");
-		
-		PermissaoEntity permissaoEntity1 = new PermissaoEntity();
-		permissaoEntity1.setId(1L);
-		permissaoEntity1.setRole("ROLE_USER");
-		
-		PermissaoEntity permissaoEntity2 = new PermissaoEntity();
-		permissaoEntity2.setId(2L);
-		permissaoEntity2.setRole("ROLE_ADMIN");
-		
-		List<PermissaoEntity> list = new ArrayList<>();
-		list.add(permissaoEntity1);
-	
-		
-		
-		
-		usuarioEntity.setPermissions(list);
-		
-		
-		this.userRepository.save(usuarioEntity);
-		
-		LOGGER.info(usuarioEntity);
+//		UsuarioEntity usuarioEntity = new UsuarioEntity();
+//		usuarioEntity.setId(254L);
+//		usuarioEntity.setUsername("Luan lucsa");
+//		usuarioEntity.setPassword("sasdfasd");
+//		usuarioEntity.setEmail("asdfsad@adsfdas");
+//		
+//		PermissaoEntity permissaoEntity1 = new PermissaoEntity();
+//		permissaoEntity1.setId(1L);
+//		permissaoEntity1.setRole("ROLE_USER");
+//		
+//		PermissaoEntity permissaoEntity2 = new PermissaoEntity();
+//		permissaoEntity2.setId(2L);
+//		permissaoEntity2.setRole("ROLE_ADMIN");
+//		
+//		List<PermissaoEntity> list = new ArrayList<>();
+//		list.add(permissaoEntity1);
+//	
+//		
+//		
+//		
+//		usuarioEntity.setPermissions(list);
+//		
+//		
+//		this.userRepository.save(usuarioEntity);
+//		
+//		LOGGER.info(usuarioEntity);
 	}
 	
 	public IFuncionarioRepository getFuncionarioRepository() {

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 public class AppConfiguration {
 
 	public AppConfiguration() {
-		System.out.println(AppConfiguration.class.toString());
 	}
 	
 	
