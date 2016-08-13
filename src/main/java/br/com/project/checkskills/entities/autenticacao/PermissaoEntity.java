@@ -1,12 +1,9 @@
 
 package br.com.project.checkskills.entities.autenticacao;
 
-import java.util.List;
-
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import br.com.project.checkskills.utils.BaseEntity;

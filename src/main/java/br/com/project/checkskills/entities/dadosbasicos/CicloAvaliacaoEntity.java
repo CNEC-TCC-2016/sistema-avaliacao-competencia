@@ -5,7 +5,6 @@
  */
 package br.com.project.checkskills.entities.dadosbasicos;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -14,11 +13,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -33,7 +27,7 @@ import br.com.project.checkskills.utils.BaseEntity;
  * @author luana
  */
 @Entity
-@Table(name = "TB_CICLO_AVALIACAOo")
+@Table(name = "TB_CICLO_AVALIACAO")
 @AttributeOverride(name = "id", column = @Column(name = "ID_CICLO_AVALIACAO"))
 @Component(value="cicloAvaliacaoEntity")
 public class CicloAvaliacaoEntity extends BaseEntity<Long> {
