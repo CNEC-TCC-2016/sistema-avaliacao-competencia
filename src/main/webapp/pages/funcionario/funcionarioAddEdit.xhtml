@@ -20,49 +20,57 @@
 			<bnu:panel title="Dados do Funcionario">
 				<bnu:inputText id="frm_fun_nome"
 					value="#{funcionarioBean.funcionarioEntity.nome}" label="Nome Do Funcionário"
-					required="true" required-message="Campo obrigatório" />
+					required="true" required-message="Campo obrigatório" readonly="#{funcionarioBean.acao == 'DELETE'}"/>
 			
 			</bnu:panel>
 
 			<bnu:panel title="Dados do Usuário">
-
+				
+				<h:inputHidden value="#{funcionarioBean.usuarioEntity.id}" />
 
 				<h:message for="frm_user_nome" />
 				<bnu:inputText id="frm_user_nome"
 					value="#{funcionarioBean.usuarioEntity.username}" label="Nome Usuário"
-					required="true" required-message="Campo obrigatório" />
+					required="true" required-message="Campo obrigatório" readonly="#{funcionarioBean.acao == 'DELETE'}"/>
 
 
 				<h:message for="frm_mail" />
 				<bnu:inputText id="frm_mail"
 					value="#{funcionarioBean.usuarioEntity.email}" label="E-mail"
-					required="true" required-message="Campo obrigatório" />
+					required="true" required-message="Campo obrigatório" readonly="#{funcionarioBean.acao == 'DELETE'}" />
 
 
 				<h:message for="frm_senha" />
 				<bnu:inputText id="frm_senha"
 					value="#{funcionarioBean.usuarioEntity.password}" label="Password"
-					size="20" required="true" required-message="Campo obrigatório" />
+					size="20" required="true" required-message="Campo obrigatório" readonly="#{funcionarioBean.acao == 'DELETE'}" />
 
-				<h:selectManyCheckbox value="#{funcionarioBean.permissaoSelecionadas}"
-					layout="pageDirection"  converter="omnifaces.SelectItemsConverter">
+				<!--Rendereriza se for adicionar -->
+				<h:selectManyCheckbox value="#{funcionarioBean.permissaoSelecionadas}"  rendered="#{funcionarioBean.acao != 'EDIT'}"
+					layout="pageDirection"  converter="omnifaces.SelectItemsConverter" readonly="#{funcionarioBean.acao == 'DELETE'}">
 					<f:selectItems value="#{funcionarioBean.loadPermissoes()}"
-						var="permissao" itemValue="#{permissao}" itemLabel="#{permissao.role}" />
+						var="permissao" itemValue="#{permissao}" itemLabel="#{permissao.role}" itemDisabled="#{funcionarioBean.acao == 'DELETE'}"/>
 				</h:selectManyCheckbox>
 
+				<!--Rendereriza se for editar ou excluir -->
+				<h:selectManyCheckbox value="#{funcionarioBean.permissaoSelecionadas}" rendered="#{funcionarioBean.acao == 'EDIT'}"
+					layout="pageDirection"  converter="omnifaces.SelectItemsConverter" readonly="#{funcionarioBean.acao == 'DELETE'}">
+					<f:selectItems value="#{funcionarioBean.loadPermissoes()}"
+						var="permissao" itemValue="#{permissao}" itemLabel="#{permissao.role}" itemDisabled="#{funcionarioBean.acao == 'DELETE'}"/>
+				</h:selectManyCheckbox>
 				
-				
-							<h:commandButton value="salvar" 
-								action="#{funcionarioBean.salvarOuDeletar()}" />
+							<bnu:commandButton value="salvar" 
+								action="#{funcionarioBean.salvarOuDeletar()}" rendered="#{funcionarioBean.acao == 'ADICIONAR'}" />
+							
 
-							<h:commandButton value="Excluir"
-								action="#{funcionarioBean.deletar()}" />
+							<bnu:commandButton value="Excluir"
+								action="#{funcionarioBean.deletar()}" rendered="#{funcionarioBean.acao == 'DELETE'}"/>
 
-							<h:commandButton value="Editar"
-								action="#{funcionarioBean.salvarOuDeletar()}" />
+							<bnu:commandButton value="Editar"
+								action="#{funcionarioBean.salvarOuDeletar()}" rendered="#{funcionarioBean.acao == 'EDIT'}"/>
 
-							<h:commandButton value="cancelar"
-								action="/pages/funcionario/funcionarioList.xhtml"  />
+							<bnu:button value="Voltar"
+								 outcome="/pages/funcionario/funcionarioList.xhtml"  />
 			</bnu:panel>
 		</h:form>
 	</ui:define>
