@@ -41,7 +41,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/db_projeto" />
 		<property name="username" value="root" />
-		<property name="password" value="qwe123" />
+		<property name="password" value="root" />
 	</bean>
 
 
