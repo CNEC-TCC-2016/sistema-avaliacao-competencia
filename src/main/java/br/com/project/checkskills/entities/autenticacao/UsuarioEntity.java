@@ -3,7 +3,6 @@ package br.com.project.checkskills.entities.autenticacao;
 import java.util.List;
 
 import javax.persistence.AttributeOverride;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -97,7 +96,7 @@ public class UsuarioEntity extends BaseEntity<Long> {
 	}
 
 	public UsuarioEntity() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override

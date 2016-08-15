@@ -53,7 +53,7 @@ private static final long serialVersionUID = 1L;
 	
 	private Long id;
 	
-	
+	private String acao;
 	
 	//carregar lista
 	public void onLoad(){
@@ -72,7 +72,11 @@ private static final long serialVersionUID = 1L;
 			LOGGER.info(funcionarioEntity);
 		}else {
 			//atualizar
-			this.funcionarioRepository.save(getFuncionarioEntity());
+			
+			this.usuarioEntity.setPermissions(permissaoSelecionadas);
+			//this.usuarioEntity.setFuncionarioEntity(funcionarioEntity);
+			funcionarioEntity.setUsuarioEntity(usuarioEntity);
+			this.funcionarioRepository.save(funcionarioEntity);
 		}
 		return "/pages/funcionario/funcionarioList.xhtml?faces-redirect=true";		
 	}
@@ -87,6 +91,8 @@ private static final long serialVersionUID = 1L;
 	
 	public void loadCadastro(){
 		try {
+			acao = FacesUtil.getParam("acao");
+			
 			String valor = FacesUtil.getParam("codigo");
 			if (valor != null) {
 				Long codigo = Long.parseLong(valor);
@@ -165,6 +171,8 @@ private static final long serialVersionUID = 1L;
 	public List<PermissaoEntity> getPermissaoSelecionadas() {
 		if (permissaoSelecionadas == null)
 			permissaoSelecionadas = new ArrayList<>();
+		if(usuarioEntity != null)
+			permissaoSelecionadas = usuarioEntity.getPermissions();
 		return permissaoSelecionadas;
 	}
 
@@ -210,6 +218,14 @@ private static final long serialVersionUID = 1L;
 
 	public void setUsuarioRepository(IUsuarioRepository usuarioRepository) {
 		this.usuarioRepository = usuarioRepository;
+	}
+
+	public String getAcao() {
+		return acao;
+	}
+
+	public void setAcao(String acao) {
+		this.acao = acao;
 	}
 	
 	
