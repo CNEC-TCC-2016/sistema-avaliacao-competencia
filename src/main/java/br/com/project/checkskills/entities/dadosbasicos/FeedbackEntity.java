@@ -61,7 +61,7 @@ public class FeedbackEntity extends BaseEntity<Long> {
 	}
 
 	public void setAvaliacao(AvaliacaoEntity avaliacao) {
-		avaliacao = avaliacao;
+		this.avaliacao = avaliacao;
 	}
     
     
