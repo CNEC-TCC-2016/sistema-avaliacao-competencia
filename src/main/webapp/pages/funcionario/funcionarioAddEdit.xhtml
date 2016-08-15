@@ -10,71 +10,95 @@
 <ui:composition template="/tampletes/modeloGeral.xhtml">
 
 	<ui:define name="conteudo">
-			<f:metadata>
+		<f:metadata>
 			<f:viewParam name="acao" value="#{funcionarioBean.acao}" />
 			<f:viewParam name="codigo" value="#{funcionarioBean.codigo}" />
 			<f:event listener="#{funcionarioBean.loadCadastro()}"
 				type="preRenderView"></f:event>
 		</f:metadata>
-		
-		
+
+
 		<h:form id="frmuser">
 			<h:inputHidden value="#{funcionarioBean.funcionarioEntity.id}" />
-		
+
 			<bnu:panel title="Dados do Funcionario">
 				<bnu:inputText id="frm_fun_nome"
-					value="#{funcionarioBean.funcionarioEntity.nome}" label="Nome Do Funcionário"
-					required="true" required-message="Campo obrigatório" readonly="#{funcionarioBean.acao == 'DELETE'}"/>
-			
+					value="#{funcionarioBean.funcionarioEntity.nome}"
+					label="Nome Do Funcionário" required="true"
+					required-message="Campo obrigatório"
+					readonly="#{funcionarioBean.acao == 'DELETE'}" />
+
 			</bnu:panel>
 
 			<bnu:panel title="Dados do Usuário">
-				
+
 				<h:inputHidden value="#{funcionarioBean.usuarioEntity.id}" />
 
 				<h:message for="frm_user_nome" />
 				<bnu:inputText id="frm_user_nome"
-					value="#{funcionarioBean.usuarioEntity.username}" label="Nome Usuário"
-					required="true" required-message="Campo obrigatório" readonly="#{funcionarioBean.acao == 'DELETE'}"/>
+					value="#{funcionarioBean.usuarioEntity.username}"
+					label="Nome Usuário" required="true"
+					required-message="Campo obrigatório"
+					readonly="#{funcionarioBean.acao == 'DELETE'}" />
 
 
 				<h:message for="frm_mail" />
 				<bnu:inputText id="frm_mail"
 					value="#{funcionarioBean.usuarioEntity.email}" label="E-mail"
-					required="true" required-message="Campo obrigatório" readonly="#{funcionarioBean.acao == 'DELETE'}" />
+					required="true" required-message="Campo obrigatório"
+					readonly="#{funcionarioBean.acao == 'DELETE'}" />
 
 
 				<h:message for="frm_senha" />
 				<bnu:inputText id="frm_senha"
 					value="#{funcionarioBean.usuarioEntity.password}" label="Password"
-					size="20" required="true" required-message="Campo obrigatório" readonly="#{funcionarioBean.acao == 'DELETE'}" />
+					size="20" required="true" required-message="Campo obrigatório"
+					readonly="#{funcionarioBean.acao == 'DELETE'}" />
 
 				<!--Rendereriza se for adicionar -->
-				<h:selectManyCheckbox value="#{funcionarioBean.permissaoSelecionadas}"
-					layout="pageDirection"  converter="omnifaces.SelectItemsConverter" readonly="#{funcionarioBean.acao == 'DELETE'}">
+				<h:selectManyCheckbox
+					value="#{funcionarioBean.permissaoSelecionadas}"
+					layout="pageDirection" converter="omnifaces.SelectItemsConverter"
+					readonly="#{funcionarioBean.acao == 'DELETE'}">
 					<f:selectItems value="#{funcionarioBean.loadPermissoes()}"
-						var="permissao" itemValue="#{permissao}" itemLabel="#{permissao.role}" itemDisabled="#{funcionarioBean.acao == 'DELETE'}"/>
+						var="permissao" itemValue="#{permissao}"
+						itemLabel="#{permissao.role}"
+						itemDisabled="#{funcionarioBean.acao == 'DELETE'}" />
 				</h:selectManyCheckbox>
 
-<!-- 				Rendereriza se for editar ou excluir -->
-<!-- 				<h:selectManyCheckbox value="#{funcionarioBean.permissaoSelecionadas}" rendered="#{funcionarioBean.acao == 'EDIT'}" -->
-<!-- 					layout="pageDirection"  converter="omnifaces.SelectItemsConverter" readonly="#{funcionarioBean.acao == 'DELETE'}"> -->
-<!-- 					<f:selectItems value="#{funcionarioBean.loadPermissoes()}" -->
-<!-- 						var="permissao" itemValue="#{permissao}" itemLabel="#{permissao.role}" itemDisabled="#{funcionarioBean.acao == 'DELETE'}"/> -->
-<!-- 				</h:selectManyCheckbox> -->
-				
-							<p:commandButton value="salvar" styleClass="but but-success"  rendered="#{funcionarioBean.acao == 'ADICIONAR'}"
-								action="#{funcionarioBean.salvarOuDeletar()}"/>
-							
+				<!-- 				Rendereriza se for editar ou excluir -->
+				<!-- 				<h:selectManyCheckbox value="#{funcionarioBean.permissaoSelecionadas}" rendered="#{funcionarioBean.acao == 'EDIT'}" -->
+				<!-- 					layout="pageDirection"  converter="omnifaces.SelectItemsConverter" readonly="#{funcionarioBean.acao == 'DELETE'}"> -->
+				<!-- 					<f:selectItems value="#{funcionarioBean.loadPermissoes()}" -->
+				<!-- 						var="permissao" itemValue="#{permissao}" itemLabel="#{permissao.role}" itemDisabled="#{funcionarioBean.acao == 'DELETE'}"/> -->
+				<!-- 				</h:selectManyCheckbox> -->
 
-							<p:commandButton value="Excluir" styleClass="but but-danger"
-								action="#{funcionarioBean.deletar()}" rendered="#{funcionarioBean.acao == 'DELETE'}"/>
+				<p:commandButton value="salvar" styleClass="but but-success"
+					rendered="#{funcionarioBean.acao == 'ADICIONAR'}"
+					action="#{funcionarioBean.salvarOuDeletar()}" />
 
-							<p:commandButton value="Editar" styleClass="but but-warning"
-								action="#{funcionarioBean.salvarOuDeletar()}" rendered="#{funcionarioBean.acao == 'EDIT'}"/>
 
-							<p:button value="Voltar" styleClass="but but-primary" 
-								 outcome="/pages/funcionario/funcionarioList.xhtml"  />
+				<p:commandButton value="Excluir" styleClass="but but-danger"
+					action="#{funcionarioBean.deletar()}"
+					rendered="#{funcionarioBean.acao == 'DELETE'}" >
+					 <p:confirm header="Confirmar" message="Todos Dados relacionados a funcionário serão perdidos. Deseja confirmar ?" 
+					 icon="ui-icon-alert" />
+					</p:commandButton>
+
+				<p:commandButton value="Editar" styleClass="but but-warning"
+					action="#{funcionarioBean.salvarOuDeletar()}"
+					rendered="#{funcionarioBean.acao == 'EDIT'}" />
+
+				<p:button value="Voltar" styleClass="but but-primary"
+					outcome="/pages/funcionario/funcionarioList.xhtml" />
+
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Sim" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+
+					<p:commandButton value="Não" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
 			</bnu:panel>
 		</h:form>
 	</ui:define>
