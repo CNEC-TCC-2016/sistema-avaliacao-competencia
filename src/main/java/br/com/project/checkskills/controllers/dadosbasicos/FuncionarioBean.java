@@ -50,6 +50,8 @@ public class FuncionarioBean extends BaseEntity<Long> {
 
 	private Long id;
 
+	private String codigo;
+	
 	private String acao;
 
 	// carregar lista
@@ -86,11 +88,9 @@ public class FuncionarioBean extends BaseEntity<Long> {
 
 	public void loadCadastro() {
 		try {
-			acao = FacesUtil.getParam("acao");
 
-			String valor = FacesUtil.getParam("codigo");
-			if (valor != null) {
-				Long codigo = Long.parseLong(valor);
+			if (this.codigo != null) {
+				Long codigo = Long.parseLong(this.codigo);
 				funcionarioEntity = new FuncionarioEntity();
 				funcionarioEntity = this.funcionarioRepository.findOne(codigo);
 				usuarioEntity = funcionarioEntity.getUsuarioEntity();
@@ -208,6 +208,14 @@ public class FuncionarioBean extends BaseEntity<Long> {
 
 	public void setAcao(String acao) {
 		this.acao = acao;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 }

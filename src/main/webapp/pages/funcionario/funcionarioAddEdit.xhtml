@@ -10,10 +10,14 @@
 <ui:composition template="/tampletes/modeloGeral.xhtml">
 
 	<ui:define name="conteudo">
-		<f:view>
+			<f:metadata>
+			<f:viewParam name="acao" value="#{funcionarioBean.acao}" />
+			<f:viewParam name="codigo" value="#{funcionarioBean.codigo}" />
 			<f:event listener="#{funcionarioBean.loadCadastro()}"
 				type="preRenderView"></f:event>
-		</f:view>
+		</f:metadata>
+		
+		
 		<h:form id="frmuser">
 			<h:inputHidden value="#{funcionarioBean.funcionarioEntity.id}" />
 		
@@ -46,20 +50,20 @@
 					size="20" required="true" required-message="Campo obrigatório" readonly="#{funcionarioBean.acao == 'DELETE'}" />
 
 				<!--Rendereriza se for adicionar -->
-				<h:selectManyCheckbox value="#{funcionarioBean.permissaoSelecionadas}"  rendered="#{funcionarioBean.acao != 'EDIT'}"
+				<h:selectManyCheckbox value="#{funcionarioBean.permissaoSelecionadas}"
 					layout="pageDirection"  converter="omnifaces.SelectItemsConverter" readonly="#{funcionarioBean.acao == 'DELETE'}">
 					<f:selectItems value="#{funcionarioBean.loadPermissoes()}"
 						var="permissao" itemValue="#{permissao}" itemLabel="#{permissao.role}" itemDisabled="#{funcionarioBean.acao == 'DELETE'}"/>
 				</h:selectManyCheckbox>
 
-				<!--Rendereriza se for editar ou excluir -->
-				<h:selectManyCheckbox value="#{funcionarioBean.permissaoSelecionadas}" rendered="#{funcionarioBean.acao == 'EDIT'}"
-					layout="pageDirection"  converter="omnifaces.SelectItemsConverter" readonly="#{funcionarioBean.acao == 'DELETE'}">
-					<f:selectItems value="#{funcionarioBean.loadPermissoes()}"
-						var="permissao" itemValue="#{permissao}" itemLabel="#{permissao.role}" itemDisabled="#{funcionarioBean.acao == 'DELETE'}"/>
-				</h:selectManyCheckbox>
+<!-- 				Rendereriza se for editar ou excluir -->
+<!-- 				<h:selectManyCheckbox value="#{funcionarioBean.permissaoSelecionadas}" rendered="#{funcionarioBean.acao == 'EDIT'}" -->
+<!-- 					layout="pageDirection"  converter="omnifaces.SelectItemsConverter" readonly="#{funcionarioBean.acao == 'DELETE'}"> -->
+<!-- 					<f:selectItems value="#{funcionarioBean.loadPermissoes()}" -->
+<!-- 						var="permissao" itemValue="#{permissao}" itemLabel="#{permissao.role}" itemDisabled="#{funcionarioBean.acao == 'DELETE'}"/> -->
+<!-- 				</h:selectManyCheckbox> -->
 				
-							<p:commandButton value="salvar" styleClass="but but-success"
+							<p:commandButton value="salvar" styleClass="but but-success"  rendered="#{funcionarioBean.acao == 'ADICIONAR'}"
 								action="#{funcionarioBean.salvarOuDeletar()}"/>
 							
 
@@ -69,7 +73,7 @@
 							<p:commandButton value="Editar" styleClass="but but-warning"
 								action="#{funcionarioBean.salvarOuDeletar()}" rendered="#{funcionarioBean.acao == 'EDIT'}"/>
 
-							<p:button value="Voltar" styleClass="but but-primary"
+							<p:button value="Voltar" styleClass="but but-primary" 
 								 outcome="/pages/funcionario/funcionarioList.xhtml"  />
 			</bnu:panel>
 		</h:form>
