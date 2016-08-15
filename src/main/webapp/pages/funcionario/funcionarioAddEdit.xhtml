@@ -59,17 +59,17 @@
 						var="permissao" itemValue="#{permissao}" itemLabel="#{permissao.role}" itemDisabled="#{funcionarioBean.acao == 'DELETE'}"/>
 				</h:selectManyCheckbox>
 				
-							<bnu:commandButton value="salvar" 
+							<p:commandButton value="salvar" styleClass="but but-success"
 								action="#{funcionarioBean.salvarOuDeletar()}" rendered="#{funcionarioBean.acao == 'ADICIONAR'}" />
 							
 
-							<bnu:commandButton value="Excluir"
+							<p:commandButton value="Excluir" styleClass="but but-danger"
 								action="#{funcionarioBean.deletar()}" rendered="#{funcionarioBean.acao == 'DELETE'}"/>
 
-							<bnu:commandButton value="Editar"
+							<p:commandButton value="Editar" styleClass="but but-warning"
 								action="#{funcionarioBean.salvarOuDeletar()}" rendered="#{funcionarioBean.acao == 'EDIT'}"/>
 
-							<bnu:button value="Voltar"
+							<p:button value="Voltar" styleClass="but but-primary"
 								 outcome="/pages/funcionario/funcionarioList.xhtml"  />
 			</bnu:panel>
 		</h:form>

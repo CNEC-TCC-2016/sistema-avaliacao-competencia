@@ -18,11 +18,11 @@
 
 
 				<h:panelGrid>
-						<bnu:commandButton value="Adicionar" action="#{funcionarioBean.add()}"
+						<p:button value="Adicionar" outcome="#{funcionarioBean.add()}" styleClass="but but-primary"
 							update="FuncionarioDataTable" ajax="true" look="success" >
 
 							<f:param value="ADICIONAR" name="acao"/>
-							</bnu:commandButton>
+							</p:button>
 
 				</h:panelGrid>
 				<br />
@@ -70,14 +70,14 @@
 					<h:outputText value="Opções" />
 					</f:facet>
 					<p:row>
-						<bnu:button outcome="#{funcionarioBean.editar()}" value="Editar"  look="warning">
+						<p:button outcome="#{funcionarioBean.editar()}" value="Editar" styleClass="but but-warning">
 							<f:param value="#{funcionario.id}" name="codigo"/>
 							<f:param value="EDIT" name="acao"/>
-						</bnu:button>
-						<bnu:button outcome="#{funcionarioBean.excluir()}" value="Excluir"  look="danger">
+						</p:button>
+						<p:button outcome="#{funcionarioBean.excluir()}" value="Excluir"  styleClass="but but-danger">
 							<f:param value="#{funcionario.id}" name="codigo"/>
 								<f:param value="DELETE" name="acao"/>
-						</bnu:button>
+						</p:button>
 					</p:row>
 					
 					</p:column>
