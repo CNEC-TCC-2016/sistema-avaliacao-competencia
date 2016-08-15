@@ -222,6 +222,12 @@
 			<version>1.5.1.RELEASE</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.2.3.Final</version>
+		</dependency>
+
 		<!-- HIBERNATE ENTITYMANAGER -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -270,7 +276,7 @@
 			<artifactId>bootsfaces</artifactId>
 			<version>0.9.1</version>
 		</dependency>
-		
+
 		<!-- FLYWAY - Migração de dados -->
 		<dependency>
 			<groupId>org.flywaydb</groupId>
@@ -293,14 +299,14 @@
 		</plugins>
 
 		<resources>
-			<resource>				
+			<resource>
 				<directory>src/main/resources</directory>
 				<includes>
 					<include>**/*.xml</include>
 					<include>**/*.properties</include>
 				</includes>
 				<filtering>true</filtering>
-			</resource>			
+			</resource>
 		</resources>
 	</build>
 </project>

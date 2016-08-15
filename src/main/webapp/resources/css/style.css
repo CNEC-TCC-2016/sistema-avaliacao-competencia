@@ -1,0 +1,56 @@
+
+
+button {
+	background-color: #fff !important;
+	border-color: rgba(0, 0, 0, 0.1) !important;
+	border: 1px solid #777777;
+	color: #E3E3E3;
+	display: inline-block !important;
+	margin-bottom: 0 !important;
+	font-weight: normal !important;
+	text-align: center !important;
+	vertical-align: middle !important;
+	touch-action: manipulation !important;
+	cursor: pointer !important;
+	background-image: none !important;
+	white-space: nowrap !important;
+	line-height: 1.428571429 !important;
+	border-radius: 4px !important;
+	-webkit-user-select: none !important;
+	font-family: Arial, sans-serif !important;
+}
+
+.but-primary {
+	color: #fff !important;
+	background-color: #0068B4 !important;
+}
+
+but-warning:hover, .btn-warning:focus {
+	background-color: #eb9316 !important;
+	background-position: 0 -15px !important;
+}
+
+.but-warning {
+	font-family: inherit !important;
+	color: #fff !important;
+	background-color: #f0ad4e !important;
+	border-color: #eea236 !important;
+}
+
+.but-success {
+	font-family: inherit !important;
+	color: #fff !important;
+	background-color: #5cb85c !important;
+	border-color: #4cae4c !important;
+}
+
+.but-danger:hover, .but-danger:focus {
+	background-color: #c12e2a !important;
+	background-position: 0 -15px !important;
+}
+
+.but-danger {
+	color: #fff !important;
+	background-color: #d9534f !important;
+	border-color: #d43f3a !important;
+}

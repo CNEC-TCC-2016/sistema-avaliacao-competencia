@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:bnu="http://bootsfaces.net/ui">
+
+
+<ui:composition template="/tampletes/modeloGeral.xhtml">
+
+	<ui:define name="conteudo">
+		<f:metadata>
+			<f:viewParam name="acao" value="#{organizacaoBean.acao}" />
+			<f:viewParam name="codigo" value="#{organizacaoBean.codigo}" />
+			<f:event listener="#{organizacaoBean.loadCadastro()}"
+				type="preRenderView"></f:event>
+		</f:metadata>
+
+		<h:form id="frm">
+			<h:inputHidden value="#{organizacaoBean.organizacaoEntity.id}" />
+
+			<bnu:panel id="pnl_cad" title="Dados do Organizacao">
+				<h:message for="org_razao" />
+				<bnu:inputText id="org_razao"
+					value="#{organizacaoBean.organizacaoEntity.razaoSocial}"
+					label="Razao social" required="true"
+					required-message="Campo obrigatório"
+					readonly="#{organizacaoBean.acao == 'DELETE'}">
+					<f:validateBean />
+
+				</bnu:inputText>
+
+				<h:message for="org_ramo" />
+				<bnu:inputText id="org_ramo"
+					value="#{organizacaoBean.organizacaoEntity.ramoAtuacao}"
+					label="Ramo de atuação" required="true"
+					required-message="Campo obrigatório"
+					readonly="#{organizacaoBean.acao == 'DELETE'}">
+					<f:validateBean />
+				</bnu:inputText>
+
+
+				<p:commandButton value="salvar" update="frm" styleClass="but but-success"
+					action="#{organizacaoBean.salvarOuDeletar()}"
+					rendered="#{organizacaoBean.acao == 'ADICIONAR'}" />
+
+				<p:commandButton value="Editar" update="frm" styleClass="but but-warning"
+					action="#{organizacaoBean.salvarOuDeletar()}"
+					rendered="#{organizacaoBean.acao == 'EDIT'}" />
+
+				<p:commandButton value="Excluir" update="frm" styleClass="but but-danger"
+					action="#{organizacaoBean.deletar()}" 
+					rendered="#{organizacaoBean.acao == 'DELETE'}" >
+					 <p:confirm header="Confirmar" message="Todos Dados relacionados a organização serão perdidos. Deseja confirmar ?" 
+					 icon="ui-icon-alert" />
+					</p:commandButton>
+
+				
+
+				<p:button value="Voltar" styleClass="but but-primary"
+					outcome="/pages/organizacao/organizacaoList.xhtml" />
+			</bnu:panel>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
