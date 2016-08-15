@@ -18,84 +18,79 @@ import br.com.project.checkskills.repositories.dadosbasicos.IFuncionarioReposito
 import br.com.project.checkskills.utils.BaseEntity;
 import br.com.project.checkskills.utils.FacesUtil;
 
-@ManagedBean(name="funcionarioBean")
+@ManagedBean(name = "funcionarioBean")
 @ViewScoped
-public class FuncionarioBean extends BaseEntity<Long>{
+public class FuncionarioBean extends BaseEntity<Long> {
 
-private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;
+
 	private static final Logger LOGGER = Logger.getLogger(FuncionarioBean.class);
 
-	@ManagedProperty(value="#{funcionarioRepository}")
+	@ManagedProperty(value = "#{funcionarioRepository}")
 	private IFuncionarioRepository funcionarioRepository;
-	
-	@ManagedProperty(value="#{usuarioRepository}")
-	private IUsuarioRepository usuarioRepository;
-	
-	private List<FuncionarioEntity> funcionarios;
-	
 
-	@ManagedProperty(value="#{funcionarioEntity}")
+	@ManagedProperty(value = "#{usuarioRepository}")
+	private IUsuarioRepository usuarioRepository;
+
+	private List<FuncionarioEntity> funcionarios;
+
+	@ManagedProperty(value = "#{funcionarioEntity}")
 	private FuncionarioEntity funcionarioEntity;
-	
-	@ManagedProperty(value="#{usuarioEntity}")
+
+	@ManagedProperty(value = "#{usuarioEntity}")
 	private UsuarioEntity usuarioEntity;
-	
-	@ManagedProperty(value="#{permissaoEntity}")
+
+	@ManagedProperty(value = "#{permissaoEntity}")
 	private PermissaoEntity permissaoEntity;
-	
-	
-	
-	private List<PermissaoEntity> permissaoSelecionadas ;
-	
-	@ManagedProperty(value="#{permissaoRepository}")
+
+	private List<PermissaoEntity> permissaoSelecionadas;
+
+	@ManagedProperty(value = "#{permissaoRepository}")
 	private IPermissaoRepository permissaoRepository;
-	
+
 	private Long id;
+
+	private String codigo;
 	
 	private String acao;
-	
-	//carregar lista
-	public void onLoad(){
+
+	// carregar lista
+	public void onLoad() {
 		this.funcionarios = this.funcionarioRepository.findAll();
 	}
 
-	//salvar ou atualizar
-	
-	public String salvarOuDeletar(){
-			if(this.funcionarioEntity.getId() == null){
-			//add
-				this.usuarioEntity.setPermissions(permissaoSelecionadas);
-				//this.usuarioEntity.setFuncionarioEntity(funcionarioEntity);
-				funcionarioEntity.setUsuarioEntity(usuarioEntity);
+	// salvar ou atualizar
+
+	public String salvarOuDeletar() {
+		if (this.funcionarioEntity.getId() == null) {
+			// add
+			this.usuarioEntity.setPermissions(permissaoSelecionadas);
+			// this.usuarioEntity.setFuncionarioEntity(funcionarioEntity);
+			funcionarioEntity.setUsuarioEntity(usuarioEntity);
 			this.funcionarioRepository.save(funcionarioEntity);
 			LOGGER.info(funcionarioEntity);
-		}else {
-			//atualizar
-			
+		} else {
+			// atualizar
 			this.usuarioEntity.setPermissions(permissaoSelecionadas);
-			//this.usuarioEntity.setFuncionarioEntity(funcionarioEntity);
+			// this.usuarioEntity.setFuncionarioEntity(funcionarioEntity);
 			funcionarioEntity.setUsuarioEntity(usuarioEntity);
 			this.funcionarioRepository.save(funcionarioEntity);
 		}
-		return "/pages/funcionario/funcionarioList.xhtml?faces-redirect=true";		
-	}
-	
-	
-	public String deletar(){
-		if(this.funcionarioEntity.getId() != null)
-			this.funcionarioRepository.delete(this.funcionarioEntity.getId());
-		
 		return "/pages/funcionario/funcionarioList.xhtml?faces-redirect=true";
 	}
-	
-	public void loadCadastro(){
+
+	public String deletar() {
+		if (this.funcionarioEntity.getId() != null)
+			this.funcionarioRepository.delete(this.funcionarioEntity.getId());
+
+		return "/pages/funcionario/funcionarioList.xhtml?faces-redirect=true";
+	}
+
+	public void loadCadastro() {
 		try {
-			acao = FacesUtil.getParam("acao");
-			
-			String valor = FacesUtil.getParam("codigo");
-			if (valor != null) {
-				Long codigo = Long.parseLong(valor);
+
+			if (this.codigo != null) {
+				Long codigo = Long.parseLong(this.codigo);
 				funcionarioEntity = new FuncionarioEntity();
 				funcionarioEntity = this.funcionarioRepository.findOne(codigo);
 				usuarioEntity = funcionarioEntity.getUsuarioEntity();
@@ -106,59 +101,48 @@ private static final long serialVersionUID = 1L;
 			e.printStackTrace();
 		}
 	}
-	
-	
-	public List<PermissaoEntity> loadPermissoes(){
+
+	public List<PermissaoEntity> loadPermissoes() {
 		return this.permissaoRepository.findAll();
 	}
-	
-	//botão cancelar
+
+	// botão cancelar
 	public String cancel() {
 		this.setFuncionarioEntity(null);
 		return "/pages/funcionario/funcionarioList.xhtml?faces-redirect=true";
 	}
-	
-	
-	//botão adicionar
-	public String add(){
+
+	// botão adicionar
+	public String add() {
 		this.funcionarioEntity = null;
 		return "/pages/funcionario/funcionarioAddEdit.xhtml?faces-redirect=true";
 	}
-	
-	//botão editar
-		public String editar(){
-			return "/pages/funcionario/funcionarioAddEdit.xhtml?faces-redirect=true";
-		}
-		
-		public String excluir(){
-			return "/pages/funcionario/funcionarioAddEdit.xhtml?faces-redirect=true";
-		}
-		
-		
-		
-		
-	
-	//todos get e set
+
+	// botão editar
+	public String editar() {
+		return "/pages/funcionario/funcionarioAddEdit.xhtml?faces-redirect=true";
+	}
+
+	public String excluir() {
+		return "/pages/funcionario/funcionarioAddEdit.xhtml?faces-redirect=true";
+	}
+
+	// todos get e set
 	public IFuncionarioRepository getFuncionarioRepository() {
 		return funcionarioRepository;
 	}
-
 
 	public void setFuncionarioRepository(IFuncionarioRepository funcionarioRepository) {
 		this.funcionarioRepository = funcionarioRepository;
 	}
 
-
 	public List<FuncionarioEntity> getFuncionarios() {
 		return funcionarios;
 	}
 
-
 	public void setFuncionarios(List<FuncionarioEntity> funcionarios) {
 		this.funcionarios = funcionarios;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -169,10 +153,8 @@ private static final long serialVersionUID = 1L;
 	}
 
 	public List<PermissaoEntity> getPermissaoSelecionadas() {
-		if (permissaoSelecionadas == null)
-			permissaoSelecionadas = new ArrayList<>();
-		if(usuarioEntity != null)
-			permissaoSelecionadas = usuarioEntity.getPermissions();
+		if (usuarioEntity.getId() != null)
+			permissaoSelecionadas = new ArrayList<>(usuarioEntity.getPermissions());
 		return permissaoSelecionadas;
 	}
 
@@ -227,8 +209,13 @@ private static final long serialVersionUID = 1L;
 	public void setAcao(String acao) {
 		this.acao = acao;
 	}
-	
-	
 
-	
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
 }
