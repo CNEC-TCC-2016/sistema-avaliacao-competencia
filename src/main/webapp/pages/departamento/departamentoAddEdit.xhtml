@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:bnu="http://bootsfaces.net/ui">
+
+
+<ui:composition template="/tampletes/modeloGeral.xhtml">
+
+	<ui:define name="conteudo">
+		<f:metadata>
+			<f:viewParam name="acao" value="#{departamentoBean.acao}" />
+			<f:viewParam name="codigo" value="#{departamentoBean.codigo}" />
+			<f:event listener="#{departamentoBean.loadCadastro()}"
+				type="preRenderView"></f:event>
+			<f:event listener="#{departamentoBean.onLoad()}"
+				type="preRenderView"></f:event>
+		</f:metadata>
+
+		<h:form id="frm">
+			<h:inputHidden value="#{departamentoBean.departamentoEntity.id}" />
+
+			<bnu:panel id="pnl_cad" title="Dados do Departamento">
+				<h:message for="org_razao" />
+				<bnu:inputText id="org_razao"
+					value="#{departamentoBean.departamentoEntity.nomeDepartamento}"
+					label="Nome departamento" required="true"
+					required-message="Campo obrigatório"
+					readonly="#{departamentoBean.acao == 'DELETE'}">
+					<f:validateBean />
+
+				</bnu:inputText>
+				
+				<h:selectOneRadio value="#{departamentoBean.tipoCadastro}" required="true">
+					<f:selectItem  itemLabel="Departamento" itemValue="false" />
+					<f:selectItem  itemLabel="Subdepartamento" itemValue="true"/>
+					<f:ajax event="change"  update="panelGrup:labelpanel" render="panelGrup"/>
+				</h:selectOneRadio>
+				
+				<h:panelGroup id="panelGrup">
+				<bnu:label id="labelpanel" text="Qual é o departamento superior ?" rendered="#{departamentoBean.tipoCadastro}"/>
+				<h:selectOneMenu id="oneMenu" value="#{departamentoBean.departamentoSelecionado}"   rendered="#{departamentoBean.tipoCadastro}"
+				 converter="omnifaces.SelectItemsConverter">
+					<f:selectItems value="#{departamentoBean.departamentos}" 
+						var="departamento" itemValue="#{departamento}" itemLabel="#{departamento.nomeDepartamento}">
+						</f:selectItems>
+				</h:selectOneMenu>
+				</h:panelGroup>
+				<br/>
+				<br/>
+				
+				<bnu:label text="Organização:" />
+				<h:selectOneMenu value="#{departamentoBean.organizacaoSelecionado}" converter="omnifaces.SelectItemsConverter">
+					<f:selectItems value="#{departamentoBean.organizacoes}" 
+						var="organizacao" itemValue="#{organizacao}" itemLabel="#{organizacao.razaoSocial}">
+						</f:selectItems>
+				</h:selectOneMenu>
+				
+				<br/>
+				
+				<p:commandButton value="salvar" update="frm" styleClass="but but-success"
+					action="#{departamentoBean.salvarOuDeletar()}"
+					rendered="#{departamentoBean.acao == 'ADICIONAR'}" />
+
+				<p:commandButton value="Editar" update="frm" styleClass="but but-warning"
+					action="#{departamentoBean.salvarOuDeletar()}"
+					rendered="#{departamentoBean.acao == 'EDIT'}" />
+
+				<p:commandButton value="Excluir" update="frm" styleClass="but but-danger"
+					action="#{departamentoBean.deletar()}" 
+					rendered="#{departamentoBean.acao == 'DELETE'}" >
+					 <p:confirm header="Confirmar" message="Todos Dados relacionados a organização serão perdidos. Deseja confirmar ?" 
+					 icon="ui-icon-alert" />
+					</p:commandButton>
+
+				
+
+				<p:button value="Voltar" styleClass="but but-primary"
+					outcome="/pages/departamento/departamentoList.xhtml" />
+			</bnu:panel>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

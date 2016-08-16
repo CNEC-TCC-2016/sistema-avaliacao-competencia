@@ -66,12 +66,6 @@
 						itemDisabled="#{funcionarioBean.acao == 'DELETE'}" />
 				</h:selectManyCheckbox>
 
-				<!-- 				Rendereriza se for editar ou excluir -->
-				<!-- 				<h:selectManyCheckbox value="#{funcionarioBean.permissaoSelecionadas}" rendered="#{funcionarioBean.acao == 'EDIT'}" -->
-				<!-- 					layout="pageDirection"  converter="omnifaces.SelectItemsConverter" readonly="#{funcionarioBean.acao == 'DELETE'}"> -->
-				<!-- 					<f:selectItems value="#{funcionarioBean.loadPermissoes()}" -->
-				<!-- 						var="permissao" itemValue="#{permissao}" itemLabel="#{permissao.role}" itemDisabled="#{funcionarioBean.acao == 'DELETE'}"/> -->
-				<!-- 				</h:selectManyCheckbox> -->
 
 				<p:commandButton value="salvar" styleClass="but but-success"
 					rendered="#{funcionarioBean.acao == 'ADICIONAR'}"

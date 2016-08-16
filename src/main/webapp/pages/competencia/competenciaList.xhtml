@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:bnu="http://bootsfaces.net/ui">
+
+<ui:composition template="/tampletes/modeloGeral.xhtml">
+	<ui:define name="conteudo">
+		<f:view>
+			<f:event listener="#{competenciaBean.onLoad()}" type="preRenderView"></f:event>
+		</f:view>
+
+		<bnu:panel id="funcPanel" title="Competências" look="primary"
+			panel-footer="primary">
+			<h:form id="competenciaForm">
+
+
+				<h:panelGrid>
+						<p:button outcome="#{competenciaBean.add()}" value="Adicionar" styleClass="but but-success"  >
+								<f:param value="ADICIONAR" name="acao"/>
+						</p:button>
+
+				</h:panelGrid>
+				<br />
+				<bnu:dataTable id="CompetenciaDataTable" widgetVar="dataTable"
+					var="competencia" value="#{competenciaBean.competencias}" paginator="true"
+					rows="10"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="5,10,20" rowKey="#{competencia.id}" select="false"
+					selectionMode="single">
+					
+					<bnu:column>
+						<f:facet name="header">
+							<h:outputText value="Competência" />
+						</f:facet>
+						<h:outputText value="#{competencia.nome}" />
+					</bnu:column>
+					
+					<bnu:column>
+						<f:facet name="header">
+							<h:outputText value="Descrição" />
+						</f:facet>
+						<h:outputText value="#{competencia.descricao}" />
+					</bnu:column>
+					
+					<bnu:column>
+						<f:facet name="header">
+							<h:outputText value="Tipo Competencia" />
+						</f:facet>
+						<h:outputText value="#{competencia.tipoCompetencia.nome}" />
+					</bnu:column>
+					
+					
+					<p:column>
+					<f:facet name="header">
+					<h:outputText value="Opções" />
+					</f:facet>
+					<p:row>
+						<p:button outcome="#{competenciaBean.editar()}" value="Editar"   styleClass="but but-warning">
+							<f:param value="#{competencia.id}" name="codigo"/>
+							<f:param value="EDIT" name="acao"/>
+						</p:button>
+						<p:button outcome="#{competenciaBean.excluir()}" value="Excluir"  styleClass="but but-danger">
+							<f:param value="#{competencia.id}" name="codigo"/>
+								<f:param value="DELETE" name="acao"/>
+						</p:button>
+					</p:row>
+					
+					</p:column>
+										
+				</bnu:dataTable>
+			</h:form>
+		</bnu:panel>
+	</ui:define>
+</ui:composition>
+
+
+</html>

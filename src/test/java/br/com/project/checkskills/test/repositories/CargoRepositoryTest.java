@@ -14,6 +14,7 @@ import br.com.project.checkskills.repositories.dadosbasicos.ICargoRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.INivelRepository;
 import br.com.project.checkskills.test.utils.AbstractDatabaseTest;
 
+
 public class CargoRepositoryTest extends AbstractDatabaseTest {
 
 	private static final Logger LOGGER = Logger

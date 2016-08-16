@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:bnu="http://bootsfaces.net/ui">
+
+<ui:composition template="/tampletes/modeloGeral.xhtml">
+	<ui:define name="conteudo">
+		<f:view>
+			<f:event listener="#{departamentoBean.onLoad()}" type="preRenderView"></f:event>
+		</f:view>
+
+		<bnu:panel id="funcPanel" title="Departamentos" look="primary"
+			panel-footer="primary">
+			<h:form id="departamentoForm">
+
+
+				<h:panelGrid>
+						<p:button outcome="#{departamentoBean.add()}" value="Adicionar" styleClass="but but-success"  >
+								<f:param value="ADICIONAR" name="acao"/>
+						</p:button>
+
+				</h:panelGrid>
+				<br />
+				<bnu:dataTable id="DepartamentoDataTable" widgetVar="dataTable"
+					var="departamento" value="#{departamentoBean.departamentos}" paginator="true"
+					rows="10"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="5,10,20" rowKey="#{departamento.id}" select="false"
+					selectionMode="single">
+					
+					<bnu:column>
+						<f:facet name="header">
+							<h:outputText value="Departamento" />
+						</f:facet>
+						<h:outputText value="#{departamento.nomeDepartamento}" />
+					</bnu:column>
+				
+					
+					<p:column>
+					<f:facet name="header">
+					<h:outputText value="Opções" />
+					</f:facet>
+					<p:row>
+						<p:button outcome="#{departamentoBean.editar()}" value="Editar"   styleClass="but but-warning">
+							<f:param value="#{departamento.id}" name="codigo"/>
+							<f:param value="EDIT" name="acao"/>
+						</p:button>
+						<p:button outcome="#{departamentoBean.excluir()}" value="Excluir"  styleClass="but but-danger">
+							<f:param value="#{departamento.id}" name="codigo"/>
+								<f:param value="DELETE" name="acao"/>
+						</p:button>
+					</p:row>
+					
+					</p:column>
+										
+				</bnu:dataTable>
+			</h:form>
+		</bnu:panel>
+	</ui:define>
+</ui:composition>
+
+
+</html>

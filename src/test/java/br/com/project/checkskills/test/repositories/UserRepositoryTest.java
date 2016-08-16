@@ -14,6 +14,7 @@ import br.com.project.checkskills.repositories.autenticacao.IUsuarioRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.IFuncionarioRepository;
 import br.com.project.checkskills.test.utils.AbstractDatabaseTest;
 
+
 public class UserRepositoryTest extends AbstractDatabaseTest {
 
 	private static final Logger LOGGER = Logger.getLogger(UserRepositoryTest.class);

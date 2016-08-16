@@ -1,4 +1,6 @@
-
+.label{
+	font-size: 12px!important;
+}
 
 button {
 	background-color: #fff !important;
