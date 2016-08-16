@@ -47,8 +47,19 @@ private static final long serialVersionUID = 1L;
 	private String codigo;
 	private String acao;
 	
-    
+    private Boolean tipoCadastro;
 	
+
+	
+	
+	public Boolean getTipoCadastro() {
+		return tipoCadastro;
+	}
+
+	public void setTipoCadastro(Boolean tipoCadastro) {
+		this.tipoCadastro = tipoCadastro;
+	}
+
 	public String getCodigo() {
 		return codigo;
 	}
@@ -112,6 +123,7 @@ private static final long serialVersionUID = 1L;
 	//botão adicionar
 	public String add(){
 		this.departamentoEntity = new DepartamentoEntity();
+		this.tipoCadastro = false;
 		return "/pages/departamento/departamentoAddEdit.xhtml?faces-redirect=true";
 	}
 	
@@ -206,6 +218,7 @@ private static final long serialVersionUID = 1L;
 	public void setOrganizacoes(List<OrganizacaoEntity> organizacoes) {
 		this.organizacoes = organizacoes;
 	}
+
 
 	
 }

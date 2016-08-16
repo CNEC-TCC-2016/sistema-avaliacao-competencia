@@ -33,13 +33,21 @@
 
 				</bnu:inputText>
 				
-				<bnu:label text="Qual é o departamento superior ?" />
-				<h:selectOneMenu value="#{departamentoBean.departamentoSelecionado}" converter="omnifaces.SelectItemsConverter">
+				<h:selectOneRadio value="#{departamentoBean.tipoCadastro}" required="true">
+					<f:selectItem  itemLabel="Departamento" itemValue="false" />
+					<f:selectItem  itemLabel="Subdepartamento" itemValue="true"/>
+					<f:ajax event="change"  update="panelGrup:labelpanel" render="panelGrup"/>
+				</h:selectOneRadio>
+				
+				<h:panelGroup id="panelGrup">
+				<bnu:label id="labelpanel" text="Qual é o departamento superior ?" rendered="#{departamentoBean.tipoCadastro}"/>
+				<h:selectOneMenu id="oneMenu" value="#{departamentoBean.departamentoSelecionado}"   rendered="#{departamentoBean.tipoCadastro}"
+				 converter="omnifaces.SelectItemsConverter">
 					<f:selectItems value="#{departamentoBean.departamentos}" 
 						var="departamento" itemValue="#{departamento}" itemLabel="#{departamento.nomeDepartamento}">
 						</f:selectItems>
 				</h:selectOneMenu>
-
+				</h:panelGroup>
 				<br/>
 				<br/>
 				
