@@ -9,7 +9,6 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
-import br.com.project.checkskills.entities.autenticacao.UsuarioEntity;
 import br.com.project.checkskills.utils.BaseEntity;
 
 @Entity

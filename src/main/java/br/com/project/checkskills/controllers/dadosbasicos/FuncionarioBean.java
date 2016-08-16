@@ -16,7 +16,6 @@ import br.com.project.checkskills.repositories.autenticacao.IPermissaoRepository
 import br.com.project.checkskills.repositories.autenticacao.IUsuarioRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.IFuncionarioRepository;
 import br.com.project.checkskills.utils.BaseEntity;
-import br.com.project.checkskills.utils.FacesUtil;
 
 @ManagedBean(name = "funcionarioBean")
 @ViewScoped
