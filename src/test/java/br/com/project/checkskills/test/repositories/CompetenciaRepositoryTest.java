@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import br.com.project.checkskills.entities.dadosbasicos.CompetenciaEntity;
 import br.com.project.checkskills.repositories.dadosbasicos.ICompetenciaRepository;
-import br.com.project.checkskills.utils.AbstractDatabaseTest;
+import br.com.project.checkskills.test.utils.AbstractDatabaseTest;
 
 
 public class CompetenciaRepositoryTest  extends AbstractDatabaseTest{

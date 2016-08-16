@@ -12,7 +12,7 @@ import br.com.project.checkskills.entities.autenticacao.UsuarioEntity;
 import br.com.project.checkskills.entities.dadosbasicos.FuncionarioEntity;
 import br.com.project.checkskills.repositories.autenticacao.IUsuarioRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.IFuncionarioRepository;
-import br.com.project.checkskills.utils.AbstractDatabaseTest;
+import br.com.project.checkskills.test.utils.AbstractDatabaseTest;
 
 
 public class UserRepositoryTest extends AbstractDatabaseTest {
