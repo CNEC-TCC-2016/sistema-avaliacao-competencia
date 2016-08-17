@@ -8,11 +8,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import br.com.project.checkskills.entities.dadosbasicos.FuncionarioEntity;
 import br.com.project.checkskills.utils.BaseEntity;
 
 @Entity
@@ -28,7 +31,22 @@ public class AvaliacaoEntity extends BaseEntity<Long> {
 	@JoinColumn(name="ID_AVALICAO",referencedColumnName="ID_AVALIACAO")
 	private List<AvaliacaoCompetenciaEntity> avaliacaoCompetencias;
 
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "ASS_FUNCIONARIO_AVALIACAO", joinColumns = 
+	@JoinColumn(name = "ID_AVALIACAO"), inverseJoinColumns = 
+	@JoinColumn(name = "ID_FUNCIONARIO"))
+	private List<FuncionarioEntity> funcionarios;
 	
+	
+	
+	public List<FuncionarioEntity> getFuncionarios() {
+		return funcionarios;
+	}
+
+	public void setFuncionarios(List<FuncionarioEntity> funcionarios) {
+		this.funcionarios = funcionarios;
+	}
+
 	public AvaliacaoEntity() {
 	}
 	
