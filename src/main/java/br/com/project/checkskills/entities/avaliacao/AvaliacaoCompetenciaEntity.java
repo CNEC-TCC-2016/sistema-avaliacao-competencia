@@ -1,4 +1,4 @@
-package br.com.project.checkskills.entities.matriz;
+package br.com.project.checkskills.entities.avaliacao;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
