@@ -3,12 +3,10 @@ package br.com.project.checkskills.entities.matriz;
 import java.util.List;
 
 import javax.persistence.AttributeOverride;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -29,20 +27,7 @@ public class AvaliacaoEntity extends BaseEntity<Long> {
 	@JoinColumn(name="ID_AVALICAO",referencedColumnName="ID_AVALIACAO")
 	private List<AvaliacaoCompetenciaEntity> avaliacaoCompetencias;
 
-	@ManyToOne
-	@JoinColumn(name="ID_MATRIZ", referencedColumnName="ID_MATRIZ")
-	private MatrizEntity matrizEntity;
 	
-	
-	
-	public MatrizEntity getMatrizEntity() {
-		return matrizEntity;
-	}
-
-	public void setMatrizEntity(MatrizEntity matrizEntity) {
-		this.matrizEntity = matrizEntity;
-	}
-
 	public AvaliacaoEntity() {
 	}
 	
