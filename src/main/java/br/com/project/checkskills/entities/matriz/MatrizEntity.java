@@ -3,6 +3,7 @@ package br.com.project.checkskills.entities.matriz;
 import java.util.List;
 
 import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,7 +28,7 @@ public class MatrizEntity extends BaseEntity<Long> {
 	private static final long serialVersionUID = 1L;
 	
 	
-	@OneToMany(fetch=FetchType.EAGER)
+	@OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="ID_MATRIZ",referencedColumnName="ID_MATRIZ")
 	private List<AvaliacaoEntity> avaliacoes;
 
