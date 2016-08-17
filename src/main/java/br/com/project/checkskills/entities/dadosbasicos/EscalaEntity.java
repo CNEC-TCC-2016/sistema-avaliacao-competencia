@@ -32,8 +32,6 @@ public class EscalaEntity extends BaseEntity<Long>{
 	    @Column(name = "VALOR")
 	    private int valor;
 	    
-	    @OneToMany(cascade = CascadeType.ALL,mappedBy = "escala")
-	    private List<MatrizCompetenciaEntity> matrizCompetenciaList;
 
 		public String getNome() {
 			return nome;
@@ -51,14 +49,7 @@ public class EscalaEntity extends BaseEntity<Long>{
 			this.valor = valor;
 		}
 
-		public List<MatrizCompetenciaEntity> getMatrizCompetenciaList() {
-			return matrizCompetenciaList;
-		}
 
-		public void setMatrizCompetenciaList(List<MatrizCompetenciaEntity> matrizCompetenciaList) {
-			this.matrizCompetenciaList = matrizCompetenciaList;
-		}
-	    
 	    
 	
 }

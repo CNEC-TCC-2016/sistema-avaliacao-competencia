@@ -53,9 +53,5 @@ public class CicloAvaliacaoEntity extends BaseEntity<Long> {
     @Basic(optional = false)
     @Column(name = "STATUS")
     private boolean status;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cicloAvaliacao")
-    private List<AvaliacaoEntity> avaliacaoList;
-
-    
+   
 }
