@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoCompetenciaEntity;
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoEntity;
+import br.com.project.checkskills.entities.avaliacao.MatrizEntity;
 import br.com.project.checkskills.entities.dadosbasicos.CompetenciaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.EscalaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.FuncionarioEntity;
@@ -76,7 +77,11 @@ public class AvalicaoRepositoryTest extends AbstractDatabaseTest{
 		AvaliacaoEntity entity = new AvaliacaoEntity();
 		entity.setAvaliacaoCompetencias(avaliacaoCompetencia);
 	
+		MatrizEntity matrizEntity = new MatrizEntity();
+	
+		
 		entity.setFuncionarios(funcionarios);
+		entity.setMatriz(matrizEntity);
 		
 		this.avalicaoRepository.save(entity);
 		

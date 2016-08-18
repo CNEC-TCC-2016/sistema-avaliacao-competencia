@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -37,8 +38,20 @@ public class AvaliacaoEntity extends BaseEntity<Long> {
 	@JoinColumn(name = "ID_FUNCIONARIO"))
 	private List<FuncionarioEntity> funcionarios;
 	
+	@ManyToOne(fetch = FetchType.EAGER,optional = false, cascade = CascadeType.ALL)
+	@JoinColumn(name = "ID_MATRIZ", referencedColumnName = "ID_MATRIZ")
+	private MatrizEntity matriz;
 	
 	
+	
+	public MatrizEntity getMatriz() {
+		return matriz;
+	}
+
+	public void setMatriz(MatrizEntity matriz) {
+		this.matriz = matriz;
+	}
+
 	public List<FuncionarioEntity> getFuncionarios() {
 		return funcionarios;
 	}
