@@ -1,0 +1,11 @@
+/*
+-- Query: SELECT * FROM db_projeto.tb_escala
+LIMIT 0, 1000
+
+-- Date: 2016-08-17 19:35
+*/
+INSERT INTO `tb_escala` (`ID_ESCALA`,`NOME`,`VALOR`) VALUES (5,'INSUFICIENTE',1);
+INSERT INTO `tb_escala` (`ID_ESCALA`,`NOME`,`VALOR`) VALUES (6,'RUIM',2);
+INSERT INTO `tb_escala` (`ID_ESCALA`,`NOME`,`VALOR`) VALUES (7,'BOM',3);
+INSERT INTO `tb_escala` (`ID_ESCALA`,`NOME`,`VALOR`) VALUES (8,'OTIMIO',4);
+INSERT INTO `tb_escala` (`ID_ESCALA`,`NOME`,`VALOR`) VALUES (9,'EXELENTE',5);
