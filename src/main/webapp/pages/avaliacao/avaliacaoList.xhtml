@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:bnu="http://bootsfaces.net/ui">
+
+<ui:composition template="/tampletes/modeloGeral.xhtml">
+	<ui:define name="conteudo">
+		<f:view>
+			<f:event listener="#{avaliacaoBean.onLoad()}" type="preRenderView"></f:event>
+			<f:viewParam name="acao" value="#{avaliacaoBean.acao}" />
+		</f:view>
+
+		<bnu:panel id="funcPanel" title="Avaliacoes" look="primary"
+			panel-footer="primary">
+
+			<h:panelGrid columns="1" cellpadding="5">
+				<p:commandButton value="AVALIAR"  action="#{avaliacaoBean.loadForm()}"
+					oncomplete="PF('dialog').show();"  update="oForm">
+			<f:param value="AVALIAR" name="acao"/>		
+			</p:commandButton>
+
+			</h:panelGrid>
+
+			<p:dialog id="dlg" header="Formulario de avaliação" widgetVar="dialog" showEffect="explode" 
+				minHeight="40">
+				<h:form id="oForm">
+
+					<p:dataTable id="DataTable" widgetVar="dataTable" searching="false"  
+						var="avaliacao" value="#{avaliacaoBean.avaliacaoCompetencia}" paginated="false"
+						
+						select="false">
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="COMPETÊNCIA" />
+							</f:facet>
+							<h:outputText value="#{avaliacao.competencia.nome}" />
+						</p:column>
+						
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="TIPO" />
+							</f:facet>
+							<h:outputText value="#{avaliacao.competencia.tipoCompetencia.nome}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="ESCALA" />
+							</f:facet>
+							<h:selectOneMenu id="oneMenu"
+								value="#{avaliacao.escala}"
+								converter="omnifaces.SelectItemsConverter">
+								<f:selectItems value="#{avaliacaoBean.escalas}" var="escala"
+									itemValue="#{escala}" itemLabel="#{escala.nome}">
+								</f:selectItems>
+							</h:selectOneMenu>
+						</p:column>
+				
+							<f:facet name="footer">
+								<p:commandButton  action="#{avaliacaoBean.salvarAvaliacao()}" value="Salvar"/>
+							</f:facet>
+					
+					</p:dataTable>
+				</h:form>
+				</p:dialog>
+		</bnu:panel>
+	</ui:define>
+</ui:composition>
+
+
+</html>
