@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoEntity;
 
 @Repository(value="avaliacaoRepository")
-public interface IAvalicaoRepository extends JpaRepository<AvaliacaoEntity, Long> {
+public interface IAvaliacaoRepository extends JpaRepository<AvaliacaoEntity, Long> {
 
 }

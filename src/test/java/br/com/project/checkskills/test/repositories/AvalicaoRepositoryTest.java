@@ -14,20 +14,21 @@ import br.com.project.checkskills.entities.avaliacao.MatrizEntity;
 import br.com.project.checkskills.entities.dadosbasicos.CompetenciaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.EscalaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.FuncionarioEntity;
-import br.com.project.checkskills.repositories.avaliacao.IAvalicaoRepository;
+import br.com.project.checkskills.repositories.avaliacao.IAvaliacaoRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.ICompetenciaRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.IEscalaRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.IFuncionarioRepository;
-import br.com.project.checkskills.test.utils.AbstractDatabaseTest;
+import br.com.project.checkskills.test.utils.AbstractTest;
 
-public class AvalicaoRepositoryTest extends AbstractDatabaseTest{
+
+public class AvalicaoRepositoryTest extends AbstractTest{
 
 	
 	private static final Logger LOGGER = Logger
 			.getLogger(AvalicaoRepositoryTest.class);
 	
 	@Inject
-	private IAvalicaoRepository avalicaoRepository;
+	private IAvaliacaoRepository avaliacaoRepository;
 	
 	@Inject
 	private ICompetenciaRepository competenciaRepository;
@@ -83,7 +84,7 @@ public class AvalicaoRepositoryTest extends AbstractDatabaseTest{
 		entity.setFuncionarios(funcionarios);
 		entity.setMatriz(matrizEntity);
 		
-		this.avalicaoRepository.save(entity);
+		this.avaliacaoRepository.save(entity);
 		
 		LOGGER.info(entity);
 		

@@ -76,6 +76,14 @@ public class AvaliacaoEntity extends BaseEntity<Long> {
 		this.avaliacaoCompetencias = avaliacaoCompetencias;
 	}
 
+	public AvaliacaoEntity(List<AvaliacaoCompetenciaEntity> avaliacaoCompetencias, List<FuncionarioEntity> funcionarios,
+			MatrizEntity matriz) {
+		super();
+		this.avaliacaoCompetencias = avaliacaoCompetencias;
+		this.funcionarios = funcionarios;
+		this.matriz = matriz;
+	}
+
 	
 	
 	
