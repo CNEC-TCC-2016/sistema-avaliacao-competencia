@@ -10,6 +10,7 @@
 	<ui:define name="conteudo">
 		<f:view>
 			<f:event listener="#{funcionarioBean.onLoad()}" type="preRenderView"></f:event>
+			<f:event listener="#{departamentoBean.onLoad()}" type="preRenderView"></f:event>
 		</f:view>
 
 		<bnu:panel id="funcPanel" title="Funcionarios" look="primary"
@@ -62,6 +63,13 @@
 							<br />
 						</ui:repeat>
 
+					</bnu:column>
+					
+					<bnu:column>
+						<f:facet name="header">
+							<h:outputText value="DEPARTAMENTO" />
+						</f:facet>
+						<h:outputText value="#{funcionario.departamento.nomeDepartamento}" />
 					</bnu:column>
 					
 					
