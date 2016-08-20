@@ -17,11 +17,13 @@ import br.com.project.checkskills.entities.autenticacao.UsuarioEntity;
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoCompetenciaEntity;
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoEntity;
 import br.com.project.checkskills.entities.avaliacao.MatrizEntity;
+import br.com.project.checkskills.entities.dadosbasicos.CicloAvaliacaoEntity;
 import br.com.project.checkskills.entities.dadosbasicos.CompetenciaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.EscalaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.FuncionarioEntity;
 import br.com.project.checkskills.repositories.autenticacao.IUsuarioRepository;
 import br.com.project.checkskills.repositories.avaliacao.IAvaliacaoRepository;
+import br.com.project.checkskills.repositories.avaliacao.ICicloAvaliacaoRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.ICompetenciaRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.IEscalaRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.IFuncionarioRepository;
@@ -55,6 +57,8 @@ private static final long serialVersionUID = 1L;
 	@ManagedProperty(value="#{funcionarioRepository}")
 	private IFuncionarioRepository funcionarioRepository;
 
+	@ManagedProperty(value="#{cicloAvaliacaoRepository}")
+	private ICicloAvaliacaoRepository cicloAvaliacaoRepository;
 	
 	private List<EscalaEntity> escalas;
 	private List<CompetenciaEntity> competencias;
@@ -105,17 +109,20 @@ private static final long serialVersionUID = 1L;
 	
 	//salva avaliacao temporariamente
 	public void salvarAvaliacao(){
+		AvaliacaoEntity item = new AvaliacaoEntity(avaliacaoCompetencia, obterFuncionariosAvaliado());
+		item.setStatus(true);
+		this.avaliacaoRepository.save(item);
+		LOGGER.info(item);
+	}
+
+	public List<FuncionarioEntity> obterFuncionariosAvaliado() {
 		List<FuncionarioEntity> funcionarios = new ArrayList<>();
 		funcionarios.add(isLider());
 		funcionarios.add(isAvaliado());
-		getAvaliacaosTemp().add(new AvaliacaoEntity(avaliacaoCompetencia, funcionarios, newMatriz()));
-			
+		return funcionarios;
 	}
-	//Instancia uma nova matriz
-	public MatrizEntity newMatriz(){
-		return getMatrizAvaliacao();
-	}
-	
+
+
 	public FuncionarioEntity isAvaliado(){
 		Long valor = Long.parseLong(codigo);
 		return this.funcionarioRepository.findOne(valor);
@@ -301,16 +308,6 @@ private static final long serialVersionUID = 1L;
 		this.usuarioRepository = usuarioRepository;
 	}
 
-	public MatrizEntity getMatrizAvaliacao() {
-		if (matrizAvaliacao == null)
-			matrizAvaliacao = new MatrizEntity();
-		return matrizAvaliacao;
-	}
-
-	public void setMatrizAvaliacao(MatrizEntity matrizAvaliacao) {
-		this.matrizAvaliacao = matrizAvaliacao;
-	}
-
 
 	public IFuncionarioRepository getFuncionarioRepository() {
 		return funcionarioRepository;
@@ -326,6 +323,15 @@ private static final long serialVersionUID = 1L;
 
 	public void setFuncionarioColecao(List <FuncionarioEntity> funcionarioColecao) {
 		this.funcionarioColecao = funcionarioColecao;
+	}
+	
+
+	public ICicloAvaliacaoRepository getCicloAvaliacaoRepository() {
+		return cicloAvaliacaoRepository;
+	}
+
+	public void setCicloAvaliacaoRepository(ICicloAvaliacaoRepository cicloAvaliacaoRepository) {
+		this.cicloAvaliacaoRepository = cicloAvaliacaoRepository;
 	}
 
 }

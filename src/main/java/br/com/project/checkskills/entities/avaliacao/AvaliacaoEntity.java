@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import br.com.project.checkskills.entities.dadosbasicos.CicloAvaliacaoEntity;
 import br.com.project.checkskills.entities.dadosbasicos.FuncionarioEntity;
 import br.com.project.checkskills.utils.BaseEntity;
 
@@ -38,19 +39,8 @@ public class AvaliacaoEntity extends BaseEntity<Long> {
 	@JoinColumn(name = "ID_FUNCIONARIO"))
 	private List<FuncionarioEntity> funcionarios;
 	
-	@ManyToOne(fetch = FetchType.EAGER,optional = false, cascade = CascadeType.ALL)
-	@JoinColumn(name = "ID_MATRIZ", referencedColumnName = "ID_MATRIZ")
-	private MatrizEntity matriz;
-	
-	
-	
-	public MatrizEntity getMatriz() {
-		return matriz;
-	}
-
-	public void setMatriz(MatrizEntity matriz) {
-		this.matriz = matriz;
-	}
+	@Column(name="STATUS")
+	private Boolean status;
 
 	public List<FuncionarioEntity> getFuncionarios() {
 		return funcionarios;
@@ -76,18 +66,20 @@ public class AvaliacaoEntity extends BaseEntity<Long> {
 		this.avaliacaoCompetencias = avaliacaoCompetencias;
 	}
 
-	public AvaliacaoEntity(List<AvaliacaoCompetenciaEntity> avaliacaoCompetencias, List<FuncionarioEntity> funcionarios,
-			MatrizEntity matriz) {
+	public AvaliacaoEntity(List<AvaliacaoCompetenciaEntity> avaliacaoCompetencias, List<FuncionarioEntity> funcionarios) {
 		super();
 		this.avaliacaoCompetencias = avaliacaoCompetencias;
 		this.funcionarios = funcionarios;
-		this.matriz = matriz;
 	}
 
-	
-	
-	
-	
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
 
 	
 }
