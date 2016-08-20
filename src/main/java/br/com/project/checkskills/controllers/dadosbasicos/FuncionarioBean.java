@@ -72,21 +72,16 @@ public class FuncionarioBean extends BaseEntity<Long> {
 	// salvar ou atualizar
 
 	public String salvarOuDeletar() {
-		if (this.funcionarioEntity.getId() == null) {
-			// add
-			this.usuarioEntity.setPermissions(permissaoSelecionadas);
-			funcionarioEntity.setUsuarioEntity(usuarioEntity);
-			funcionarioEntity.setDepartamento(departamentoSelecionado);
+		atualizaModificacoesFuncionario();
 			this.funcionarioRepository.save(funcionarioEntity);
-			LOGGER.info(funcionarioEntity);
-		} else {
-			// atualizar
-			this.usuarioEntity.setPermissions(permissaoSelecionadas);
-			// this.usuarioEntity.setFuncionarioEntity(funcionarioEntity);
-			funcionarioEntity.setUsuarioEntity(usuarioEntity);
-			this.funcionarioRepository.save(funcionarioEntity);
-		}
-		return "/pages/funcionario/funcionarioList.xhtml?faces-redirect=true";
+		
+			return "/pages/funcionario/funcionarioList.xhtml?faces-redirect=true";
+	}
+
+	public void atualizaModificacoesFuncionario() {
+		this.usuarioEntity.setPermissions(permissaoSelecionadas);
+		funcionarioEntity.setUsuarioEntity(usuarioEntity);
+		funcionarioEntity.setDepartamento(departamentoSelecionado);
 	}
 
 	public String deletar() {

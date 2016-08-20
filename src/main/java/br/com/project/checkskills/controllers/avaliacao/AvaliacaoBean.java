@@ -6,24 +6,18 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 import org.omnifaces.util.Messages;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import br.com.project.checkskills.entities.autenticacao.UsuarioEntity;
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoCompetenciaEntity;
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoEntity;
-import br.com.project.checkskills.entities.avaliacao.MatrizEntity;
-import br.com.project.checkskills.entities.dadosbasicos.CicloAvaliacaoEntity;
 import br.com.project.checkskills.entities.dadosbasicos.CompetenciaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.EscalaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.FuncionarioEntity;
 import br.com.project.checkskills.repositories.autenticacao.IUsuarioRepository;
 import br.com.project.checkskills.repositories.avaliacao.IAvaliacaoRepository;
-import br.com.project.checkskills.repositories.avaliacao.ICicloAvaliacaoRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.ICompetenciaRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.IEscalaRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.IFuncionarioRepository;
@@ -57,15 +51,12 @@ private static final long serialVersionUID = 1L;
 	@ManagedProperty(value="#{funcionarioRepository}")
 	private IFuncionarioRepository funcionarioRepository;
 
-	@ManagedProperty(value="#{cicloAvaliacaoRepository}")
-	private ICicloAvaliacaoRepository cicloAvaliacaoRepository;
-	
+
 	private List<EscalaEntity> escalas;
 	private List<CompetenciaEntity> competencias;
 	private List<AvaliacaoEntity> avaliacaos;
 	private List<AvaliacaoCompetenciaEntity> avaliacaoCompetencia;
 	private List<AvaliacaoEntity> avaliacaosTemp;
-	private MatrizEntity matrizAvaliacao;
 	private List <FuncionarioEntity> funcionarioColecao;
 	
 	
@@ -89,7 +80,6 @@ private static final long serialVersionUID = 1L;
 		//this.avaliacaos = this.avaliacaoRepository.findAll();
 		this.escalas = this.escalaRepository.findAll();
 		funcionarioColecao = this.funcionarioRepository.findAll();
-
 		
 	}
 
@@ -326,12 +316,5 @@ private static final long serialVersionUID = 1L;
 	}
 	
 
-	public ICicloAvaliacaoRepository getCicloAvaliacaoRepository() {
-		return cicloAvaliacaoRepository;
-	}
-
-	public void setCicloAvaliacaoRepository(ICicloAvaliacaoRepository cicloAvaliacaoRepository) {
-		this.cicloAvaliacaoRepository = cicloAvaliacaoRepository;
-	}
 
 }
