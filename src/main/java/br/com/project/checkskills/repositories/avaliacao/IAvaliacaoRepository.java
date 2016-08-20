@@ -8,4 +8,5 @@ import br.com.project.checkskills.entities.avaliacao.AvaliacaoEntity;
 @Repository(value="avaliacaoRepository")
 public interface IAvaliacaoRepository extends JpaRepository<AvaliacaoEntity, Long> {
 
+	
 }
