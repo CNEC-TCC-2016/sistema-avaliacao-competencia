@@ -10,7 +10,6 @@ import org.junit.Test;
 
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoCompetenciaEntity;
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoEntity;
-import br.com.project.checkskills.entities.avaliacao.MatrizEntity;
 import br.com.project.checkskills.entities.dadosbasicos.CompetenciaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.EscalaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.FuncionarioEntity;
@@ -18,10 +17,10 @@ import br.com.project.checkskills.repositories.avaliacao.IAvaliacaoRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.ICompetenciaRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.IEscalaRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.IFuncionarioRepository;
-import br.com.project.checkskills.test.utils.AbstractTest;
 
 
-public class AvalicaoRepositoryTest extends AbstractTest{
+
+public class AvalicaoRepositoryTest   {
 
 	
 	private static final Logger LOGGER = Logger
@@ -78,11 +77,10 @@ public class AvalicaoRepositoryTest extends AbstractTest{
 		AvaliacaoEntity entity = new AvaliacaoEntity();
 		entity.setAvaliacaoCompetencias(avaliacaoCompetencia);
 	
-		MatrizEntity matrizEntity = new MatrizEntity();
 	
 		
 		entity.setFuncionarios(funcionarios);
-		entity.setMatriz(matrizEntity);
+	
 		
 		this.avaliacaoRepository.save(entity);
 		
