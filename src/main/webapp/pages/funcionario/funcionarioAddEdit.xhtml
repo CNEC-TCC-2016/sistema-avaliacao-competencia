@@ -15,13 +15,15 @@
 			<f:viewParam name="codigo" value="#{funcionarioBean.codigo}" />
 			<f:event listener="#{funcionarioBean.loadCadastro()}"
 				type="preRenderView"></f:event>
+			<f:event listener="#{funcionarioBean.onLoad()}"
+				type="preRenderView"></f:event>	
 		</f:metadata>
 
 
 		<h:form id="frmuser">
 			<h:inputHidden value="#{funcionarioBean.funcionarioEntity.id}" />
 
-			<bnu:panel title="Dados do Funcionario">
+			<bnu:panel title="Dados do Funcionario" look="primary">
 				<bnu:inputText id="frm_fun_nome"
 					value="#{funcionarioBean.funcionarioEntity.nome}"
 					label="Nome Do Funcionário" required="true"
@@ -30,7 +32,7 @@
 
 			</bnu:panel>
 
-			<bnu:panel title="Dados do Usuário">
+			<bnu:panel title="Dados do Usuário" look="success">
 
 				<h:inputHidden value="#{funcionarioBean.usuarioEntity.id}" />
 
@@ -65,8 +67,18 @@
 						itemLabel="#{permissao.role}"
 						itemDisabled="#{funcionarioBean.acao == 'DELETE'}" />
 				</h:selectManyCheckbox>
-
-
+				
+				<bnu:label text="Departamento"/>		
+				<h:selectOneMenu value="#{funcionarioBean.departamentoSelecionado}" 
+				converter="omnifaces.SelectItemsConverter">
+						<f:selectItems value="#{funcionarioBean.departamentos}"
+						var="departamento" itemValue="#{departamento}"
+						itemLabel="#{departamento.nomeDepartamento}"
+						itemDisabled="#{funcionarioBean.acao == 'DELETE'}" />
+				</h:selectOneMenu>
+				
+				<br/>
+					
 				<p:commandButton value="salvar" styleClass="but but-success"
 					rendered="#{funcionarioBean.acao == 'ADICIONAR'}"
 					action="#{funcionarioBean.salvarOuDeletar()}" />

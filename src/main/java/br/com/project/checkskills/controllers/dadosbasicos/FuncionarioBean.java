@@ -11,9 +11,11 @@ import org.apache.log4j.Logger;
 
 import br.com.project.checkskills.entities.autenticacao.PermissaoEntity;
 import br.com.project.checkskills.entities.autenticacao.UsuarioEntity;
+import br.com.project.checkskills.entities.dadosbasicos.DepartamentoEntity;
 import br.com.project.checkskills.entities.dadosbasicos.FuncionarioEntity;
 import br.com.project.checkskills.repositories.autenticacao.IPermissaoRepository;
 import br.com.project.checkskills.repositories.autenticacao.IUsuarioRepository;
+import br.com.project.checkskills.repositories.dadosbasicos.IDepartamentoRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.IFuncionarioRepository;
 import br.com.project.checkskills.utils.BaseEntity;
 
@@ -32,6 +34,8 @@ public class FuncionarioBean extends BaseEntity<Long> {
 	private IUsuarioRepository usuarioRepository;
 
 	private List<FuncionarioEntity> funcionarios;
+	
+	private List<DepartamentoEntity> departamentos;
 
 	@ManagedProperty(value = "#{funcionarioEntity}")
 	private FuncionarioEntity funcionarioEntity;
@@ -44,9 +48,15 @@ public class FuncionarioBean extends BaseEntity<Long> {
 
 	private List<PermissaoEntity> permissaoSelecionadas;
 
+	private DepartamentoEntity departamentoSelecionado;
+	
 	@ManagedProperty(value = "#{permissaoRepository}")
 	private IPermissaoRepository permissaoRepository;
 
+	@ManagedProperty(value="#{departamentoRepository}")
+	private IDepartamentoRepository departamentoRepository;
+	
+	
 	private Long id;
 
 	private String codigo;
@@ -56,32 +66,27 @@ public class FuncionarioBean extends BaseEntity<Long> {
 	// carregar lista
 	public void onLoad() {
 		this.funcionarios = this.funcionarioRepository.findAll();
+		this.departamentos = this.departamentoRepository.findAll();
 	}
 
 	// salvar ou atualizar
 
 	public String salvarOuDeletar() {
-		if (this.funcionarioEntity.getId() == null) {
-			// add
-			this.usuarioEntity.setPermissions(permissaoSelecionadas);
-			// this.usuarioEntity.setFuncionarioEntity(funcionarioEntity);
-			funcionarioEntity.setUsuarioEntity(usuarioEntity);
+		atualizaModificacoesFuncionario();
 			this.funcionarioRepository.save(funcionarioEntity);
-			LOGGER.info(funcionarioEntity);
-		} else {
-			// atualizar
-			this.usuarioEntity.setPermissions(permissaoSelecionadas);
-			// this.usuarioEntity.setFuncionarioEntity(funcionarioEntity);
-			funcionarioEntity.setUsuarioEntity(usuarioEntity);
-			this.funcionarioRepository.save(funcionarioEntity);
-		}
-		return "/pages/funcionario/funcionarioList.xhtml?faces-redirect=true";
+		
+			return "/pages/funcionario/funcionarioList.xhtml?faces-redirect=true";
+	}
+
+	public void atualizaModificacoesFuncionario() {
+		this.usuarioEntity.setPermissions(permissaoSelecionadas);
+		funcionarioEntity.setUsuarioEntity(usuarioEntity);
+		funcionarioEntity.setDepartamento(departamentoSelecionado);
 	}
 
 	public String deletar() {
 		if (this.funcionarioEntity.getId() != null)
 			this.funcionarioRepository.delete(this.funcionarioEntity.getId());
-
 		return "/pages/funcionario/funcionarioList.xhtml?faces-redirect=true";
 	}
 
@@ -215,6 +220,30 @@ public class FuncionarioBean extends BaseEntity<Long> {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+
+	public DepartamentoEntity getDepartamentoSelecionado() {
+		return departamentoSelecionado;
+	}
+
+	public void setDepartamentoSelecionado(DepartamentoEntity departamentoSelecionado) {
+		this.departamentoSelecionado = departamentoSelecionado;
+	}
+
+	public List<DepartamentoEntity> getDepartamentos() {
+		return departamentos;
+	}
+
+	public void setDepartamentos(List<DepartamentoEntity> departamentos) {
+		this.departamentos = departamentos;
+	}
+
+	public IDepartamentoRepository getDepartamentoRepository() {
+		return departamentoRepository;
+	}
+
+	public void setDepartamentoRepository(IDepartamentoRepository departamentoRepository) {
+		this.departamentoRepository = departamentoRepository;
 	}
 
 }
