@@ -12,6 +12,7 @@
 			<f:view>
 				<f:event listener="#{avaliacaoBean.onLoad()}" type="preRenderView"></f:event>
 				<f:event listener="#{funcionarioBean.onLoad()}" type="preRenderView"></f:event>
+				<f:event listener="#{competenciaBean.onLoad()}" type="preRenderView"></f:event>
 				<f:viewParam name="acao" value="#{avaliacaoBean.acao}" />
 				<f:viewParam name="codigo" value="#{avaliacaoBean.codigo}" />
 			</f:view>
@@ -62,19 +63,21 @@
 						paginated="false" select="false">
 						<p:column>
 							<f:facet name="header">
-								<h:outputText value="COMPETÊNCIA" />
+								<h:outputText value="CARGO" />
 							</f:facet>
-							<h:outputText value="#{avaliacao.competencia.nome}" />
+							<h:outputText value="#{avaliacao.cargoCompetencia.id.carogId}" />
 						</p:column>
 
 						<p:column>
 							<f:facet name="header">
-								<h:outputText value="TIPO" />
+								<h:outputText value="COMPETÊNCIA" />
 							</f:facet>
-							<h:outputText
-								value="#{avaliacao.competencia.tipoCompetencia.nome}" />
+							<ui:repeat var="item" value="#{competenciaBean.competencias}">
+								<h:outputText rendered="#{avaliacao.cargoCompetencia.id.competenciaId == item.id}" value="#{item.nome}"/>
+							</ui:repeat>						
 						</p:column>
-
+						
+						
 						<p:column>
 							<f:facet name="header">
 								<h:outputText value="ESCALA" />

@@ -127,7 +127,7 @@ public class FuncionarioBean extends BaseEntity<Long> {
 
 	// botão adicionar
 	public String add() {
-		this.funcionarioEntity = null;
+		codigo = null;
 		return "/pages/funcionario/funcionarioAddEdit.xhtml?faces-redirect=true";
 	}
 

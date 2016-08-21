@@ -13,11 +13,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoCompetenciaEntity;
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoEntity;
+import br.com.project.checkskills.entities.dadosbasicos.CargoCompetenciaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.CompetenciaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.EscalaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.FuncionarioEntity;
 import br.com.project.checkskills.repositories.autenticacao.IUsuarioRepository;
 import br.com.project.checkskills.repositories.avaliacao.IAvaliacaoRepository;
+import br.com.project.checkskills.repositories.avaliacao.ICargoCompetenciaRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.ICompetenciaRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.IEscalaRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.IFuncionarioRepository;
@@ -50,6 +52,9 @@ private static final long serialVersionUID = 1L;
 
 	@ManagedProperty(value="#{funcionarioRepository}")
 	private IFuncionarioRepository funcionarioRepository;
+
+	@ManagedProperty(value="#{cargoCompetenciaRepository}")
+	private ICargoCompetenciaRepository cargoCompetenciaRepository;
 
 
 	private List<EscalaEntity> escalas;
@@ -261,11 +266,15 @@ private static final long serialVersionUID = 1L;
 
 	public void loadForm(){
 		if (acao.equals("AVALIAR")) {
-			competencias =  this.competenciaRepository.findAll();
+			List<CargoCompetenciaEntity> cargoCompetencias = this.cargoCompetenciaRepository.findAll();
 			avaliacaoCompetencia = new ArrayList<AvaliacaoCompetenciaEntity>();
-			for (CompetenciaEntity competencia : competencias) {
-				AvaliacaoCompetenciaEntity item = new AvaliacaoCompetenciaEntity(competencia,new EscalaEntity());
-				avaliacaoCompetencia.add(item);
+			for (CargoCompetenciaEntity cargoCompetencia : cargoCompetencias) {
+				if (cargoCompetencia.getId().getCarogId() == funcionarioRepository.findOne( Long.parseLong(codigo))
+						.getCargo().getId() ) {
+					AvaliacaoCompetenciaEntity item = 
+							new AvaliacaoCompetenciaEntity(new EscalaEntity(), cargoCompetencia);
+					avaliacaoCompetencia.add(item);
+				}
 			}	
 		}
 		
@@ -315,6 +324,14 @@ private static final long serialVersionUID = 1L;
 		this.funcionarioColecao = funcionarioColecao;
 	}
 	
+
+	public ICargoCompetenciaRepository getCargoCompetenciaRepository() {
+		return cargoCompetenciaRepository;
+	}
+
+	public void setCargoCompetenciaRepository(ICargoCompetenciaRepository cargoCompetenciaRepository) {
+		this.cargoCompetenciaRepository = cargoCompetenciaRepository;
+	}
 
 
 }
