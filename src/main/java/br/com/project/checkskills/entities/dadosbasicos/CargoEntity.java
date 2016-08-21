@@ -2,8 +2,10 @@ package br.com.project.checkskills.entities.dadosbasicos;
 
 
 import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -27,9 +29,20 @@ public class CargoEntity extends BaseEntity<Long> {
 	@ManyToOne(optional = false)
 	private NivelEntity nivelEntity;
 
-	//@OneToOne(mappedBy ="cargoModelo")
-	//private cargoModeloEntity cargomodeloEntity;
+	@ManyToOne(fetch = FetchType.EAGER )
+	@JoinColumn(name="ID_DEPARTAMENTO", referencedColumnName="ID_DEPARTAMENTO")
+	private DepartamentoEntity departamento;
 	
+	
+	
+	public DepartamentoEntity getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(DepartamentoEntity departamento) {
+		this.departamento = departamento;
+	}
+
 	public String getNomeCargo() {
 		return nomeCargo;
 	}
@@ -69,6 +82,10 @@ public class CargoEntity extends BaseEntity<Long> {
 	//}
 	
 	
+	@Override
+	public String toString() {
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+	}
 	
 
 }

@@ -68,12 +68,12 @@
 						itemDisabled="#{funcionarioBean.acao == 'DELETE'}" />
 				</h:selectManyCheckbox>
 				
-				<bnu:label text="Departamento"/>		
-				<h:selectOneMenu value="#{funcionarioBean.departamentoSelecionado}" 
+				<bnu:label text="CARGO"/>		
+				<h:selectOneMenu value="#{funcionarioBean.cargoSelecionado}" 
 				converter="omnifaces.SelectItemsConverter">
-						<f:selectItems value="#{funcionarioBean.departamentos}"
-						var="departamento" itemValue="#{departamento}"
-						itemLabel="#{departamento.nomeDepartamento}"
+						<f:selectItems value="#{funcionarioBean.cargos}"
+						var="cargo" itemValue="#{cargo}"
+						itemLabel="#{cargo.nomeCargo}"
 						itemDisabled="#{funcionarioBean.acao == 'DELETE'}" />
 				</h:selectOneMenu>
 				

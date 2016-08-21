@@ -40,17 +40,18 @@ public class FuncionarioEntity extends BaseEntity<Long> {
 
 	@ManyToOne(cascade={CascadeType.MERGE}, 
 			optional = false, fetch = FetchType.EAGER)
-	@JoinColumn(name="ID_DEPARTAMENTO")
-	private DepartamentoEntity departamento;
+	@JoinColumn(name="ID_CARGO")
+	private CargoEntity cargo;
 
 	
 	
-	public DepartamentoEntity getDepartamento() {
-		return departamento;
+
+	public CargoEntity getCargo() {
+		return cargo;
 	}
 
-	public void setDepartamento(DepartamentoEntity departamento) {
-		this.departamento = departamento;
+	public void setCargo(CargoEntity cargo) {
+		this.cargo = cargo;
 	}
 
 	public String getNome() {
