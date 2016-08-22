@@ -36,8 +36,6 @@ private static final long serialVersionUID = 1L;
 	
 	private List<DepartamentoEntity> departamentos;
 	
-	private List<OrganizacaoEntity> organizacoes;
-		
 	private DepartamentoEntity departamentoSelecionado;
 	
 	private OrganizacaoEntity organizacaoSelecionado;
@@ -216,7 +214,6 @@ private static final long serialVersionUID = 1L;
 	}
 
 	public void setOrganizacoes(List<OrganizacaoEntity> organizacoes) {
-		this.organizacoes = organizacoes;
 	}
 
 

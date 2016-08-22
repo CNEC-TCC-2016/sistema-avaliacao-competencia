@@ -10,8 +10,6 @@ import org.junit.Test;
 
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoCompetenciaEntity;
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoEntity;
-import br.com.project.checkskills.entities.dadosbasicos.CompetenciaEntity;
-import br.com.project.checkskills.entities.dadosbasicos.EscalaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.FuncionarioEntity;
 import br.com.project.checkskills.repositories.avaliacao.IAvaliacaoRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.ICompetenciaRepository;
@@ -29,6 +27,7 @@ public class AvalicaoRepositoryTest   {
 	@Inject
 	private IAvaliacaoRepository avaliacaoRepository;
 	
+	@SuppressWarnings("unused")
 	@Inject
 	private ICompetenciaRepository competenciaRepository;
 	
@@ -41,17 +40,6 @@ public class AvalicaoRepositoryTest   {
 	@Test
 	public void saveAvaliacaoTest(){
 
-		CompetenciaEntity competencia = this.competenciaRepository.findOne(2L);
-		
-		EscalaEntity escala = this.escalaRepository.findOne(1L);
-//		
-//		AVALIACAOCOMPETENCIAENTITY A1 = NEW AVALIACAOCOMPETENCIAENTITY(COMPETENCIA, ESCALA);
-//		AVALIACAOCOMPETENCIAENTITY A2 = NEW AVALIACAOCOMPETENCIAENTITY(COMPETENCIA, ESCALA);
-//		AVALIACAOCOMPETENCIAENTITY A3 = NEW AVALIACAOCOMPETENCIAENTITY(COMPETENCIA, ESCALA);
-//		AVALIACAOCOMPETENCIAENTITY A4 = NEW AVALIACAOCOMPETENCIAENTITY(COMPETENCIA, ESCALA);
-//		AVALIACAOCOMPETENCIAENTITY A5 = NEW AVALIACAOCOMPETENCIAENTITY(COMPETENCIA, ESCALA);
-//		AVALIACAOCOMPETENCIAENTITY A6 = NEW AVALIACAOCOMPETENCIAENTITY(COMPETENCIA, ESCALA);
-		
 		List<AvaliacaoCompetenciaEntity> avaliacaoCompetencia = new ArrayList<>();
 		
 //		avaliacaoCompetencia.add(a1);
@@ -88,6 +76,14 @@ public class AvalicaoRepositoryTest   {
 		
 		
 		
+	}
+
+	public IEscalaRepository getEscalaRepository() {
+		return escalaRepository;
+	}
+
+	public void setEscalaRepository(IEscalaRepository escalaRepository) {
+		this.escalaRepository = escalaRepository;
 	}
 	
 }

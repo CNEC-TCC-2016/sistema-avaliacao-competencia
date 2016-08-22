@@ -12,7 +12,6 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 import br.com.project.checkskills.entities.dadosbasicos.CargoCompetenciaEntity;
-import br.com.project.checkskills.entities.dadosbasicos.CompetenciaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.EscalaEntity;
 import br.com.project.checkskills.utils.BaseEntity;
 
