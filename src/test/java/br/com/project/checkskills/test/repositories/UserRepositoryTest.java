@@ -1,5 +1,7 @@
 package br.com.project.checkskills.test.repositories;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -9,6 +11,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.project.checkskills.entities.autenticacao.UsuarioEntity;
+import br.com.project.checkskills.entities.dadosbasicos.CargoEntity;
+import br.com.project.checkskills.entities.dadosbasicos.DepartamentoEntity;
 import br.com.project.checkskills.entities.dadosbasicos.FuncionarioEntity;
 import br.com.project.checkskills.repositories.autenticacao.IUsuarioRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.IFuncionarioRepository;
@@ -29,6 +33,19 @@ public class UserRepositoryTest extends AbstractDatabaseTest {
 	@Test
 	public void testDelete() {
 		this.funcionarioRepository.delete(1L);
+	}
+	
+	@Test
+	public void testDepartamento()
+	{
+		FuncionarioEntity funcionario = this.funcionarioRepository.findOne(2L);
+		List<FuncionarioEntity> lider =  	
+		this.funcionarioRepository.procuraEmDepartamentos(
+				funcionario.getCargo().getDepartamento().getId());
+		
+		lider = new ArrayList<>( new HashSet<FuncionarioEntity>(lider));
+		
+		LOGGER.info(lider);
 	}
 	
 	@Ignore

@@ -44,23 +44,23 @@ public class AvalicaoRepositoryTest   {
 		CompetenciaEntity competencia = this.competenciaRepository.findOne(2L);
 		
 		EscalaEntity escala = this.escalaRepository.findOne(1L);
-		
-		AvaliacaoCompetenciaEntity a1 = new AvaliacaoCompetenciaEntity(competencia, escala);
-		AvaliacaoCompetenciaEntity a2 = new AvaliacaoCompetenciaEntity(competencia, escala);
-		AvaliacaoCompetenciaEntity a3 = new AvaliacaoCompetenciaEntity(competencia, escala);
-		AvaliacaoCompetenciaEntity a4 = new AvaliacaoCompetenciaEntity(competencia, escala);
-		AvaliacaoCompetenciaEntity a5 = new AvaliacaoCompetenciaEntity(competencia, escala);
-		AvaliacaoCompetenciaEntity a6 = new AvaliacaoCompetenciaEntity(competencia, escala);
+//		
+//		AVALIACAOCOMPETENCIAENTITY A1 = NEW AVALIACAOCOMPETENCIAENTITY(COMPETENCIA, ESCALA);
+//		AVALIACAOCOMPETENCIAENTITY A2 = NEW AVALIACAOCOMPETENCIAENTITY(COMPETENCIA, ESCALA);
+//		AVALIACAOCOMPETENCIAENTITY A3 = NEW AVALIACAOCOMPETENCIAENTITY(COMPETENCIA, ESCALA);
+//		AVALIACAOCOMPETENCIAENTITY A4 = NEW AVALIACAOCOMPETENCIAENTITY(COMPETENCIA, ESCALA);
+//		AVALIACAOCOMPETENCIAENTITY A5 = NEW AVALIACAOCOMPETENCIAENTITY(COMPETENCIA, ESCALA);
+//		AVALIACAOCOMPETENCIAENTITY A6 = NEW AVALIACAOCOMPETENCIAENTITY(COMPETENCIA, ESCALA);
 		
 		List<AvaliacaoCompetenciaEntity> avaliacaoCompetencia = new ArrayList<>();
 		
-		avaliacaoCompetencia.add(a1);
-		avaliacaoCompetencia.add(a2);
-		avaliacaoCompetencia.add(a3);
-		avaliacaoCompetencia.add(a4);
-		avaliacaoCompetencia.add(a5);
-		avaliacaoCompetencia.add(a6);
-		
+//		avaliacaoCompetencia.add(a1);
+//		avaliacaoCompetencia.add(a2);
+//		avaliacaoCompetencia.add(a3);
+//		avaliacaoCompetencia.add(a4);
+//		avaliacaoCompetencia.add(a5);
+//		avaliacaoCompetencia.add(a6);
+//		
 		
 		
 		FuncionarioEntity avaliado = new FuncionarioEntity();
