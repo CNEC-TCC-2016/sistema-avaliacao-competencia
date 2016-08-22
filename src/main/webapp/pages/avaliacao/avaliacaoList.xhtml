@@ -24,7 +24,7 @@
 			<h:form id="oForm">
 				<bnu:panelGrid columns="2" cellpadding="5">
 					<bnu:dataTable widgetVar="FormDataTable" var="funcionario"
-						value="#{funcionarioBean.funcionarios}" searching="false" paginated="false" >
+						value="#{avaliacaoBean.funcionarioColecao}" searching="false" paginated="false" >
 						<p:column>
 						<f:facet name="header">
 							<h:outputText value="FUNCIONÁRIO" />
@@ -37,6 +37,13 @@
 						</f:facet>
 							<h:outputText value="#{funcionario.usuarioEntity.email}" />
 						</p:column>
+						<p:column>
+						<f:facet name="header">
+							<h:outputText value="CARGO" />
+						</f:facet>
+							<h:outputText value="#{funcionario.cargo.nomeCargo}" />
+						</p:column>
+										
 						
 						<p:column>
 						<f:facet name="header">
