@@ -1,6 +1,7 @@
 package br.com.project.checkskills.controllers.avaliacao;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -13,11 +14,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoCompetenciaEntity;
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoEntity;
+import br.com.project.checkskills.entities.dadosbasicos.CargoCompetenciaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.CompetenciaEntity;
+import br.com.project.checkskills.entities.dadosbasicos.DepartamentoEntity;
 import br.com.project.checkskills.entities.dadosbasicos.EscalaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.FuncionarioEntity;
 import br.com.project.checkskills.repositories.autenticacao.IUsuarioRepository;
 import br.com.project.checkskills.repositories.avaliacao.IAvaliacaoRepository;
+import br.com.project.checkskills.repositories.avaliacao.ICargoCompetenciaRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.ICompetenciaRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.IEscalaRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.IFuncionarioRepository;
@@ -51,6 +55,9 @@ private static final long serialVersionUID = 1L;
 	@ManagedProperty(value="#{funcionarioRepository}")
 	private IFuncionarioRepository funcionarioRepository;
 
+	@ManagedProperty(value="#{cargoCompetenciaRepository}")
+	private ICargoCompetenciaRepository cargoCompetenciaRepository;
+
 
 	private List<EscalaEntity> escalas;
 	private List<CompetenciaEntity> competencias;
@@ -79,10 +86,19 @@ private static final long serialVersionUID = 1L;
 	public void onLoad(){
 		//this.avaliacaos = this.avaliacaoRepository.findAll();
 		this.escalas = this.escalaRepository.findAll();
-		funcionarioColecao = this.funcionarioRepository.findAll();
+		this.gerarMatrizFunPorDepartamento();
+	}
+
+	public void gerarMatrizFunPorDepartamento() {
+		DepartamentoEntity departamento = this.funcionarioRepository.findOne(isLider().getId()).getCargo().getDepartamento();
+		funcionarioColecao = this.funcionarioRepository.procuraEmDepartamentos(departamento.getId());
+		funcionarioColecao = new ArrayList<>( new HashSet<FuncionarioEntity>(funcionarioColecao));
 		
 	}
 
+	
+	
+	
 	
 	//salvar ou atualizar
 	public String salvarOuDeletar(){
@@ -259,16 +275,25 @@ private static final long serialVersionUID = 1L;
 		this.escalaRepository = escalaRepository;
 	}
 
+	/** <p> Prenche o formulário de avaliação com base no cargo que o funcionario possui</p>
+	 * 
+	 * **/
 	public void loadForm(){
 		if (acao.equals("AVALIAR")) {
-			competencias =  this.competenciaRepository.findAll();
-			avaliacaoCompetencia = new ArrayList<AvaliacaoCompetenciaEntity>();
-			for (CompetenciaEntity competencia : competencias) {
-				AvaliacaoCompetenciaEntity item = new AvaliacaoCompetenciaEntity(competencia,new EscalaEntity());
-				avaliacaoCompetencia.add(item);
-			}	
+			List<CargoCompetenciaEntity> cargoCompetencias = this.cargoCompetenciaRepository.findAll();
+			avaliacaoCompetencia = new ArrayList<AvaliacaoCompetenciaEntity>();	
+			cargoCompetencias.forEach(cargoCompetencia -> popularFomPorCargo(cargoCompetencia));
 		}
 		
+	}
+
+	public void popularFomPorCargo(CargoCompetenciaEntity cargoCompetencia) throws NumberFormatException {
+		if (cargoCompetencia.getId().getCarogId() == funcionarioRepository.findOne( Long.parseLong(codigo))
+				.getCargo().getId() ) {
+			AvaliacaoCompetenciaEntity item = 
+					new AvaliacaoCompetenciaEntity(new EscalaEntity(), cargoCompetencia);
+			avaliacaoCompetencia.add(item);
+		}
 	}
 	
 	public List<AvaliacaoCompetenciaEntity> getAvaliacaoCompetencia() {
@@ -315,6 +340,14 @@ private static final long serialVersionUID = 1L;
 		this.funcionarioColecao = funcionarioColecao;
 	}
 	
+
+	public ICargoCompetenciaRepository getCargoCompetenciaRepository() {
+		return cargoCompetenciaRepository;
+	}
+
+	public void setCargoCompetenciaRepository(ICargoCompetenciaRepository cargoCompetenciaRepository) {
+		this.cargoCompetenciaRepository = cargoCompetenciaRepository;
+	}
 
 
 }

@@ -1,8 +1,11 @@
 /*
--- Query: SELECT * FROM db_projeto.tb_tipo_competencia
+-- Query: SELECT * FROM db_projeto.tb_escala
 LIMIT 0, 1000
 
--- Date: 2016-08-20 17:46
+-- Date: 2016-08-22 13:43
 */
-INSERT INTO `tb_tipo_competencia` (`ID_TIPO_COMPETENCIA`,`TIPO_COMPETENCIA`) VALUES (1,'COMPORTAMENTAL');
-INSERT INTO `tb_tipo_competencia` (`ID_TIPO_COMPETENCIA`,`TIPO_COMPETENCIA`) VALUES (2,'TECNICA');
+INSERT INTO `tb_escala` (`ID_ESCALA`,`NOME`,`VALOR`) VALUES (1,'INSUFICIENTE',1);
+INSERT INTO `tb_escala` (`ID_ESCALA`,`NOME`,`VALOR`) VALUES (2,'RUIM',2);
+INSERT INTO `tb_escala` (`ID_ESCALA`,`NOME`,`VALOR`) VALUES (3,'BOM',3);
+INSERT INTO `tb_escala` (`ID_ESCALA`,`NOME`,`VALOR`) VALUES (4,'ÓTIMO',4);
+INSERT INTO `tb_escala` (`ID_ESCALA`,`NOME`,`VALOR`) VALUES (5,'EXELENTE',5);

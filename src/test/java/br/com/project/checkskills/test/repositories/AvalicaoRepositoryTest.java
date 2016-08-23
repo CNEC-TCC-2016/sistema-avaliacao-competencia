@@ -10,8 +10,6 @@ import org.junit.Test;
 
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoCompetenciaEntity;
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoEntity;
-import br.com.project.checkskills.entities.dadosbasicos.CompetenciaEntity;
-import br.com.project.checkskills.entities.dadosbasicos.EscalaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.FuncionarioEntity;
 import br.com.project.checkskills.repositories.avaliacao.IAvaliacaoRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.ICompetenciaRepository;
@@ -29,6 +27,7 @@ public class AvalicaoRepositoryTest   {
 	@Inject
 	private IAvaliacaoRepository avaliacaoRepository;
 	
+	@SuppressWarnings("unused")
 	@Inject
 	private ICompetenciaRepository competenciaRepository;
 	
@@ -41,26 +40,15 @@ public class AvalicaoRepositoryTest   {
 	@Test
 	public void saveAvaliacaoTest(){
 
-		CompetenciaEntity competencia = this.competenciaRepository.findOne(2L);
-		
-		EscalaEntity escala = this.escalaRepository.findOne(1L);
-		
-		AvaliacaoCompetenciaEntity a1 = new AvaliacaoCompetenciaEntity(competencia, escala);
-		AvaliacaoCompetenciaEntity a2 = new AvaliacaoCompetenciaEntity(competencia, escala);
-		AvaliacaoCompetenciaEntity a3 = new AvaliacaoCompetenciaEntity(competencia, escala);
-		AvaliacaoCompetenciaEntity a4 = new AvaliacaoCompetenciaEntity(competencia, escala);
-		AvaliacaoCompetenciaEntity a5 = new AvaliacaoCompetenciaEntity(competencia, escala);
-		AvaliacaoCompetenciaEntity a6 = new AvaliacaoCompetenciaEntity(competencia, escala);
-		
 		List<AvaliacaoCompetenciaEntity> avaliacaoCompetencia = new ArrayList<>();
 		
-		avaliacaoCompetencia.add(a1);
-		avaliacaoCompetencia.add(a2);
-		avaliacaoCompetencia.add(a3);
-		avaliacaoCompetencia.add(a4);
-		avaliacaoCompetencia.add(a5);
-		avaliacaoCompetencia.add(a6);
-		
+//		avaliacaoCompetencia.add(a1);
+//		avaliacaoCompetencia.add(a2);
+//		avaliacaoCompetencia.add(a3);
+//		avaliacaoCompetencia.add(a4);
+//		avaliacaoCompetencia.add(a5);
+//		avaliacaoCompetencia.add(a6);
+//		
 		
 		
 		FuncionarioEntity avaliado = new FuncionarioEntity();
@@ -88,6 +76,14 @@ public class AvalicaoRepositoryTest   {
 		
 		
 		
+	}
+
+	public IEscalaRepository getEscalaRepository() {
+		return escalaRepository;
+	}
+
+	public void setEscalaRepository(IEscalaRepository escalaRepository) {
+		this.escalaRepository = escalaRepository;
 	}
 	
 }
