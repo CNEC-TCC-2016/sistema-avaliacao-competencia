@@ -35,10 +35,7 @@ public class FeedbackEntity extends BaseEntity<Long> {
     @Column(name = "data_cadastro")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCadastro;
-    
-    @JoinColumn(name = "ID_AVALIACAO", referencedColumnName = "ID_AVALIACAO")
-    @ManyToOne(optional = false)
-    private AvaliacaoEntity avaliacao;
+
 
 	public byte[] getObservacao() {
 		return observacao;
@@ -56,16 +53,7 @@ public class FeedbackEntity extends BaseEntity<Long> {
 		this.dataCadastro = dataCadastro;
 	}
 
-	public AvaliacaoEntity getAvaliacao() {
-		return avaliacao;
-	}
-
-	public void setAvaliacao(AvaliacaoEntity avaliacao) {
-		this.avaliacao = avaliacao;
-	}
-    
-    
-    
+	
     
     
 }
