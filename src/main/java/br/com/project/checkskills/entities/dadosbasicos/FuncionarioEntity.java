@@ -1,24 +1,18 @@
 package br.com.project.checkskills.entities.dadosbasicos;
 
-import java.util.List;
-
 import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
 import org.springframework.stereotype.Component;
 
 import br.com.project.checkskills.entities.autenticacao.UsuarioEntity;
-import br.com.project.checkskills.entities.avaliacao.AvaliacaoEntity;
 import br.com.project.checkskills.utils.BaseEntity;
 
 @Entity
@@ -40,17 +34,18 @@ public class FuncionarioEntity extends BaseEntity<Long> {
 
 	@ManyToOne(cascade={CascadeType.MERGE}, 
 			optional = false, fetch = FetchType.EAGER)
-	@JoinColumn(name="ID_DEPARTAMENTO")
-	private DepartamentoEntity departamento;
+	@JoinColumn(name="ID_CARGO")
+	private CargoEntity cargo;
 
 	
 	
-	public DepartamentoEntity getDepartamento() {
-		return departamento;
+
+	public CargoEntity getCargo() {
+		return cargo;
 	}
 
-	public void setDepartamento(DepartamentoEntity departamento) {
-		this.departamento = departamento;
+	public void setCargo(CargoEntity cargo) {
+		this.cargo = cargo;
 	}
 
 	public String getNome() {

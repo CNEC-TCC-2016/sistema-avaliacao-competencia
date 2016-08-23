@@ -1,10 +1,15 @@
 package br.com.project.checkskills.entities.dadosbasicos;
 
 
+import java.util.List;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -27,9 +32,25 @@ public class CargoEntity extends BaseEntity<Long> {
 	@ManyToOne(optional = false)
 	private NivelEntity nivelEntity;
 
-	//@OneToOne(mappedBy ="cargoModelo")
-	//private cargoModeloEntity cargomodeloEntity;
+	@ManyToOne(fetch = FetchType.EAGER )
+	@JoinColumn(name="ID_DEPARTAMENTO", referencedColumnName="ID_DEPARTAMENTO")
+	private DepartamentoEntity departamento;
 	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "ASS_CARGO_COMPETENCIA", joinColumns = @JoinColumn(name = "ID_CARGO"),
+	inverseJoinColumns = @JoinColumn(name = "ID_COMPETENCIA"))
+	private List<CompetenciaEntity> competencias;
+	
+	
+	
+	public DepartamentoEntity getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(DepartamentoEntity departamento) {
+		this.departamento = departamento;
+	}
+
 	public String getNomeCargo() {
 		return nomeCargo;
 	}
@@ -60,6 +81,15 @@ public class CargoEntity extends BaseEntity<Long> {
 		return serialVersionUID;
 	}
 
+
+	public List<CompetenciaEntity> getCompetencias() {
+		return competencias;
+	}
+
+	public void setCompetencias(List<CompetenciaEntity> competencias) {
+		this.competencias = competencias;
+	}
+	
 //	public cargoModeloEntity getCargomodeloEntity() {
 	//	return cargomodeloEntity;
 	//}
@@ -69,6 +99,10 @@ public class CargoEntity extends BaseEntity<Long> {
 	//}
 	
 	
+	@Override
+	public String toString() {
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+	}
 	
 
 }
