@@ -41,8 +41,10 @@ public class CargoBean extends BaseEntity<Long> {
 	@ManagedProperty(value = "#{departamentoEntity}")
 	private DepartamentoEntity departamentoEntity;
 
-	@ManagedProperty(value = "#{nivelEntity}")
-	private NivelEntity nivelEntity;
+	private NivelEntity nivelSelecionado;
+	
+	private List<NivelEntity> niveis;
+	
 
 	private Long id;
 
@@ -60,12 +62,12 @@ public class CargoBean extends BaseEntity<Long> {
 
 	public void onLoad() {
 		this.cargos = this.cargoRepository.findAll();
-
+		this.niveis = this.nivelRepository.findAll();
 	}
 
 	public String salvarOuDeletar() {
 		if (this.cargoEntity.getId() == null) {
-
+			cargoEntity.setNivelEntity(nivelSelecionado);
 			this.cargoRepository.save(cargoEntity);
 			Messages.addFlashGlobalInfo("Cargo Salvo com Sucesso.");
 
@@ -178,13 +180,6 @@ public class CargoBean extends BaseEntity<Long> {
 		this.departamentoEntity = departamentoEntity;
 	}
 
-	public NivelEntity getNivelEntity() {
-		return nivelEntity;
-	}
-
-	public void setNivelEntity(NivelEntity nivelEntity) {
-		this.nivelEntity = nivelEntity;
-	}
 
 	public Long getId() {
 		return id;
@@ -200,6 +195,22 @@ public class CargoBean extends BaseEntity<Long> {
 
 	public void setAcao(String acao) {
 		this.acao = acao;
+	}
+
+	public NivelEntity getNivelSelecionado() {
+		return nivelSelecionado;
+	}
+
+	public void setNivelSelecionado(NivelEntity nivelSelecionado) {
+		this.nivelSelecionado = nivelSelecionado;
+	}
+
+	public List<NivelEntity> getNiveis() {
+		return niveis;
+	}
+
+	public void setNiveis(List<NivelEntity> niveis) {
+		this.niveis = niveis;
 	}
 	
 }
