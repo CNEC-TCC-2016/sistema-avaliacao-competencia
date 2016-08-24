@@ -43,7 +43,20 @@
 						</f:facet>
 							<h:outputText value="#{funcionario.cargo.nomeCargo}" />
 						</p:column>
-															
+						
+						<p:column>
+						<f:facet name="header">
+							<h:outputText value="NÍVEL" />
+						</f:facet>
+							<h:outputText value="#{funcionario.cargo.nivelEntity.nivel}" />
+						</p:column>								
+						
+						<p:column>
+						<f:facet name="header">
+							<h:outputText value="DEPARTAMENTO" />
+						</f:facet>
+							<h:outputText value="#{funcionario.cargo.departamento.nomeDepartamento}" />
+						</p:column>	
 						
 						<p:column>
 						<f:facet name="header">
