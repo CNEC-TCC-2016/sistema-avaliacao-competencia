@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:bnu="http://bootsfaces.net/ui"
+      xmlns:o="http://omnifaces.org/ui">
+
+<ui:composition template="/tampletes/modeloGeral.xhtml">
+	<ui:define name="conteudo">
+		<f:view>
+			<f:event listener="#{cargoBean.onLoad()}" type="preRenderView"></f:event>
+		</f:view>
+
+			<bnu:panel id="funcPanel" title="Avaliacoes" look="primary"
+				panel-footer="primary">
+				<h:form id="oForm">
+					<bnu:panelGrid columns="2" cellpadding="5">
+						<bnu:dataTable widgetVar="FormDataTable" var="cargo"
+							value="#{cargoBean.cargos}" searching="false" paginated="false">
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="CARGO" />
+								</f:facet>
+								<h:outputText value="#{cargo.nomeCargo}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="E-MAIL" />
+								</f:facet>
+								<h:outputText value="#{cargo.nivelEntity.nivel}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="OPÇÕES" />
+								</f:facet>
+								<p:commandButton value="Parametrizar"
+									action="#{ParametrizarBean.loadForm()}"
+									oncomplete="PF('dialog').show();" update="@form">
+
+									<f:param value="#{cargo.id}" name="codigo" />
+								</p:commandButton>
+							</p:column>
+						</bnu:dataTable>
+
+					</bnu:panelGrid>
+
+
+					<p:dialog id="dlg" header="Parametriar cargo" widgetVar="dialog"
+						showEffect="explode" minHeight="40">
+
+
+						<p:pickList value="#{ParametrizarBean.competencias}"
+							var="competencia" itemValue="#{competencia}"
+							itemLabel="#{competencia.nome}">
+							<o:converter converterId="omnifaces.ListIndexConverter"
+								list="#{ParametrizarBean.competencias.source}" />
+						</p:pickList>
+						<p:commandButton value="Salvar"
+							action="#{ParametrizarBean.Salvar()}" />
+
+					</p:dialog>
+
+				</h:form>
+			</bnu:panel>
+
+
+
+	</ui:define>
+</ui:composition>
+
+
+</html>
