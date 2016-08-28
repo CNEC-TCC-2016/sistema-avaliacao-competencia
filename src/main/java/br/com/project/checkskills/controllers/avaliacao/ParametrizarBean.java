@@ -13,9 +13,7 @@ import org.primefaces.model.DualListModel;
 
 import br.com.project.checkskills.entities.dadosbasicos.CargoEntity;
 import br.com.project.checkskills.entities.dadosbasicos.CompetenciaEntity;
-import br.com.project.checkskills.entities.jointables.CargoCompetenciaEntity;
 import br.com.project.checkskills.repositories.avaliacao.ICargoCompetenciaRepository;
-import br.com.project.checkskills.repositories.avaliacao.ICicloAvaliacaoRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.ICargoRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.ICompetenciaRepository;
 import br.com.project.checkskills.utils.BaseEntity;
@@ -39,9 +37,6 @@ public class ParametrizarBean extends BaseEntity<Long> {
 
 	@ManagedProperty(value="#{cargoCompetenciaRepository}")
 	private ICargoCompetenciaRepository cargoCompetenciaRepository;
-	
-	@ManagedProperty(value="#{cicloAvaliacaoRepository}")
-	private ICicloAvaliacaoRepository cicloAvaliacaoRepository;
 
 	private CargoEntity cargo;
 	
@@ -76,15 +71,8 @@ public class ParametrizarBean extends BaseEntity<Long> {
 	
 	public void loadCadastro(){
 		this.cargo = this.cargoRepository.findOne(Long.parseLong(codigo));
-	//	this.competenciaEscolhidas = this.cargoRepository.findOne(Long.parseLong(codigo)).getCompetencias();
-		
-		List<CargoCompetenciaEntity> entity = this.cicloAvaliacaoRepository.findOne(1L).getCargoCompetencia();
-		for (CargoCompetenciaEntity item : entity) {
-			Long valor = item.getId().getCarogId();
-			this.competenciaEscolhidas = this.cargoRepository.findOne(valor).getCompetencias();
-					break;
-		}
-		
+		this.competenciaEscolhidas = this.cargoRepository.findOne(Long.parseLong(codigo)).getCompetencias();
+
 		this.competenciaDisponiveis = this.competenciaRepository.findAll();
 		filtrarDisponiveis();
 		competencias.setSource(competenciaDisponiveis);
@@ -179,16 +167,4 @@ public class ParametrizarBean extends BaseEntity<Long> {
 	}
 
 
-	public ICicloAvaliacaoRepository getCicloAvaliacaoRepository() {
-		return cicloAvaliacaoRepository;
-	}
-
-
-	public void setCicloAvaliacaoRepository(ICicloAvaliacaoRepository cicloAvaliacaoRepository) {
-		this.cicloAvaliacaoRepository = cicloAvaliacaoRepository;
-	}
-
-
-
-	
 }

@@ -14,16 +14,17 @@
 			<f:viewParam name="acao" value="#{cargoBean.acao}" />
 			<f:viewParam name="codigo" value="#{cargoBean.codigo}" />
 			<f:event listener="#{cargoBean.loadCadastro()}" type="preRenderView"></f:event>
+			<f:event listener="#{departamentoBean.onLoad()}" type="preRenderView"></f:event>
 			<f:event listener="#{cargoBean.onLoad()}" type="preRenderView"></f:event>
 		</f:metadata>
 
 		<h:form id="frm">
-			<h:inputHidden value="#{cargoBean.cargoEntity.id}" />
+			<h:inputHidden value="#{cargoBean.cargo.id}" />
 
 			<bnu:panel id="pnl_cad" title="Dados do Cargo">
 				<h:message for="org_razao" />
 				<bnu:inputText id="org_razao"
-					value="#{cargoBean.cargoEntity.nomeCargo}" label="Nome cargo"
+					value="#{cargoBean.cargo.nomeCargo}" label="Nome cargo"
 					required="true" required-message="Campo obrigatório"
 					readonly="#{cargoBean.acao == 'DELETE'}">
 					<f:validateBean />
@@ -33,7 +34,7 @@
 
 				<h:message for="car_desc" />
 				<bnu:inputText id="car_desc"
-					value="#{cargoBean.cargoEntity.descricao}" label="Descrição"
+					value="#{cargoBean.cargo.descricao}" label="Descrição"
 					required="true" required-message="Campo obrigatório"
 					readonly="#{cargoBean.acao == 'DELETE'}">
 					<f:validateBean />
@@ -47,6 +48,16 @@
 					converter="omnifaces.SelectItemsConverter">
 					<f:selectItems value="#{cargoBean.niveis}" var="nivel"
 						itemValue="#{nivel}" itemLabel="#{nivel.nivel}">
+					</f:selectItems>
+				</h:selectOneMenu>
+
+				<br />
+				
+				<bnu:label text="Departamento" />
+				<h:selectOneMenu value="#{cargoBean.departamentoSelecionado}"
+					converter="omnifaces.SelectItemsConverter">
+					<f:selectItems value="#{departamentoBean.departamentos}" var="departamento"
+						itemValue="#{departamento}" itemLabel="#{departamento.nomeDepartamento}">
 					</f:selectItems>
 				</h:selectOneMenu>
 

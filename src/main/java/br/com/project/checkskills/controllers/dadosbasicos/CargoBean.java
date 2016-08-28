@@ -27,19 +27,16 @@ public class CargoBean extends BaseEntity<Long> {
 	@ManagedProperty(value = "#{cargoRepository}")
 	private ICargoRepository cargoRepository;
 
-	@ManagedProperty(value = "#{departamentoRepository}")
-	private IDepartamentoRepository departamentoRepository;
-
 	@ManagedProperty(value = "#{nivelRepository}")
 	private INivelRepository nivelRepository;
 
 	public List<CargoEntity> cargos;
 
-	@ManagedProperty(value = "#{cargoEntity}")
-	private CargoEntity cargoEntity;
+	@ManagedProperty(value = "#{cargo}")
+	private CargoEntity cargo;
 
 	@ManagedProperty(value = "#{departamentoEntity}")
-	private DepartamentoEntity departamentoEntity;
+	private DepartamentoEntity departamentoSelecionado;
 
 	private NivelEntity nivelSelecionado;
 	
@@ -66,27 +63,38 @@ public class CargoBean extends BaseEntity<Long> {
 	}
 
 	public String salvarOuDeletar() {
-		if (this.cargoEntity.getId() == null) {
-			cargoEntity.setNivelEntity(nivelSelecionado);
-			this.cargoRepository.save(cargoEntity);
-			Messages.addFlashGlobalInfo("Cargo Salvo com Sucesso.");
-
+	try {
+		if (this.cargo.getId() == null) {
+			atualizarItensSelecionados();
+			this.cargoRepository.save(cargo);
+			Messages.addFlashGlobalInfo("Dados do cargo salvo com sucesso.");
+			
 		} else {
-
-			this.cargoRepository.save(cargoEntity);
-			Messages.addFlashGlobalInfo("Cargo editado com sucesso.");
-
+			
+			this.cargoRepository.save(cargo);
+			Messages.addFlashGlobalInfo("Dados do cargo editado com sucesso.");
 		}
-		LOGGER.info(cargoEntity);
-		return "/pages/cargo/cargoList.xhtml?faces-redirect=true";
+	} catch (Exception ex) {
+		ex.printStackTrace();
+		Messages.addFlashGlobalInfo("Houve um erro ao tentar salvar", cargo.getNomeCargo());
+	}
+	return "/pages/cargo/cargoList.xhtml?faces-redirect=true";
 
 	}
 
-	public String deletar() {
-		if (this.cargoEntity.getId() != null)
-			this.cargoRepository.delete(this.cargoEntity.getId());
-		return "/pages/cargo/cargoList.xhtml?faces-redirect=true";
+	public void atualizarItensSelecionados() {
+		cargo.setNivelEntity(nivelSelecionado);
+		cargo.setDepartamento(departamentoSelecionado);
+	}
 
+	public String deletar() {
+		try{
+				this.cargoRepository.delete(this.cargo.getId());
+		}catch(Exception ex ){
+			ex.printStackTrace();
+			Messages.addFlashGlobalError("Houve um erro ao tentar deletar", cargo.getNomeCargo());
+		}
+		return "/pages/cargo/cargoList.xhtml?faces-redirect=true";
 	}
 
 	public void loadCadastro() {
@@ -94,14 +102,14 @@ public class CargoBean extends BaseEntity<Long> {
 			if (codigo != null) {
 				Long codigo = Long.parseLong(this.codigo);
 
-				cargoEntity = new CargoEntity();
-				cargoEntity = this.cargoRepository.findOne(codigo);
-				LOGGER.info(cargoEntity);
+				cargo = new CargoEntity();
+				cargo = this.cargoRepository.findOne(codigo);
+				LOGGER.info(cargo);
 				Messages.addFlashGlobalInfo("Dados carregado com sucesso.");
 
 			}
 			if (acao.equals("ADICIONAR")) {
-				this.cargoEntity = new CargoEntity();
+				this.cargo = new CargoEntity();
 
 			}
 		} catch (Exception e) {
@@ -110,12 +118,12 @@ public class CargoBean extends BaseEntity<Long> {
 	}
 	
 	public String cancel(){
-		this.setCargoEntity(null);
+		this.setCargo(null);
 		return "/pages/cargo/cargoList.xhtml?faces-redirect=true";
 		
 	}
 	public String add(){
-		this.cargoEntity = new CargoEntity();
+		this.cargo = new CargoEntity();
 		return "/pages/cargo/cargoAddEdit.xhtml?faces-redirect=true";
 		
 		
@@ -139,14 +147,6 @@ public class CargoBean extends BaseEntity<Long> {
 		this.cargoRepository = cargoRepository;
 	}
 
-	public IDepartamentoRepository getDepartamentoRepository() {
-		return departamentoRepository;
-	}
-
-	public void setDepartamentoRepository(
-			IDepartamentoRepository departamentoRepository) {
-		this.departamentoRepository = departamentoRepository;
-	}
 
 	public INivelRepository getNivelRepository() {
 		return nivelRepository;
@@ -164,22 +164,22 @@ public class CargoBean extends BaseEntity<Long> {
 		this.cargos = cargos;
 	}
 
-	public CargoEntity getCargoEntity() {
-		return cargoEntity;
+	public CargoEntity getCargo() {
+		return cargo;
 	}
 
-	public void setCargoEntity(CargoEntity cargoEntity) {
-		this.cargoEntity = cargoEntity;
+	public void setCargo(CargoEntity cargoEntity) {
+		this.cargo = cargoEntity;
 	}
 
-	public DepartamentoEntity getDepartamentoEntity() {
-		return departamentoEntity;
+
+	public DepartamentoEntity getDepartamentoSelecionado() {
+		return departamentoSelecionado;
 	}
 
-	public void setDepartamentoEntity(DepartamentoEntity departamentoEntity) {
-		this.departamentoEntity = departamentoEntity;
+	public void setDepartamentoSelecionado(DepartamentoEntity departamentoSelecionado) {
+		this.departamentoSelecionado = departamentoSelecionado;
 	}
-
 
 	public Long getId() {
 		return id;

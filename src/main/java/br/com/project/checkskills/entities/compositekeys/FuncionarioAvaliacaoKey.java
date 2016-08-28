@@ -17,19 +17,6 @@ public class FuncionarioAvaliacaoKey extends BaseKey {
 	@Column(name = "ID_FUNCIONARIO")
 	private Long funcionarioId;
 
-	@Column(name = "ID_CICLO")
-	private Long cicloId;
-	
-	public Long getCicloId() {
-		return cicloId;
-	}
-
-
-
-	public void setCicloId(Long cicloId) {
-		this.cicloId = cicloId;
-	}
-
 
 
 	public FuncionarioAvaliacaoKey() {

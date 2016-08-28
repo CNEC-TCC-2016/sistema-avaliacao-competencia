@@ -17,9 +17,6 @@ public class CargoCompetenciaKey extends BaseKey {
 	@Column(name = "ID_CARGO")
 	private Long carogId;
 
-	@Column(name = "ID_CICLO")
-	private Long cicloId;
-	
 
 	public CargoCompetenciaKey() {
 
@@ -30,7 +27,6 @@ public class CargoCompetenciaKey extends BaseKey {
 		super();
 		this.competenciaId = competenciaId;
 		this.carogId = carogId;
-		this.cicloId = cicloId;
 	}
 
 	
@@ -53,15 +49,5 @@ public class CargoCompetenciaKey extends BaseKey {
 		this.carogId = carogId;
 	}
 	
-
-	public Long getCicloId() {
-		return cicloId;
-	}
-
-
-	public void setCicloId(Long cicloId) {
-		this.cicloId = cicloId;
-	}
-
 
 }
