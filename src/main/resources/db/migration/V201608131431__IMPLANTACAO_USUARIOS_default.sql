@@ -1,10 +1,7 @@
-INSERT INTO TB_usuario (EMAIL,PASSWORD,USERNAME) VALUES ("matheus@analiseinfo.com.br","DGK97BUN3TD","matheus");
-INSERT INTO TB_usuario (EMAIL,PASSWORD,USERNAME) VALUES ("thiago@analiseinfo.com.br","PNN62MZL0QN","thiago");
-INSERT INTO TB_usuario (EMAIL,PASSWORD,USERNAME) VALUES ("giovane@analiseinfo.com.br","DWC90WRN1FW","giovane");
-INSERT INTO TB_usuario (EMAIL,PASSWORD,USERNAME) VALUES ("luan@analiseinfo.com.br","luan","luan");
-INSERT INTO TB_usuario (EMAIL,PASSWORD,USERNAME) VALUES ("joyce@analiseinfo.com.br","VPF58AMW0VR","joyce");
-INSERT INTO TB_usuario (EMAIL,PASSWORD,USERNAME) VALUES ("marcos@analiseinfo.com.br","VIR74VLQ4KY","marcos");
-INSERT INTO TB_usuario (EMAIL,PASSWORD,USERNAME) VALUES ("denio@analiseinfo.com.br","ARA14ZAY0XR","denio");
-INSERT INTO TB_usuario (EMAIL,PASSWORD,USERNAME) VALUES ("lucas@analiseinfo.com.br","RFN67PKJ3YB","lucas");
-INSERT INTO TB_usuario (EMAIL,PASSWORD,USERNAME) VALUES ("alex@analiseinfo.com.br","GXV63UBQ4CS","alex");
-INSERT INTO TB_usuario (EMAIL,PASSWORD,USERNAME) VALUES ("pedro@analiseinfo.com.br","TVE73UPH4XH","pedro");
+/*
+-- Query: SELECT * FROM db_projeto.tb_usuario
+LIMIT 0, 1000
+
+-- Date: 2016-08-25 11:13
+*/
+INSERT INTO `tb_usuario` (`ID_USUARIO`,`EMAIL`,`PASSWORD`,`USERNAME`) VALUES (1,'adm@analiseinfo.com.br','admin','admin');

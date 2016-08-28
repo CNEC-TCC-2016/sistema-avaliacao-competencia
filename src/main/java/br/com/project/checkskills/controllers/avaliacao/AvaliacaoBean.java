@@ -14,11 +14,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoCompetenciaEntity;
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoEntity;
-import br.com.project.checkskills.entities.dadosbasicos.CargoCompetenciaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.CompetenciaEntity;
-import br.com.project.checkskills.entities.dadosbasicos.DepartamentoEntity;
 import br.com.project.checkskills.entities.dadosbasicos.EscalaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.FuncionarioEntity;
+import br.com.project.checkskills.entities.jointables.CargoCompetenciaEntity;
 import br.com.project.checkskills.repositories.autenticacao.IUsuarioRepository;
 import br.com.project.checkskills.repositories.avaliacao.IAvaliacaoRepository;
 import br.com.project.checkskills.repositories.avaliacao.ICargoCompetenciaRepository;
@@ -90,8 +89,9 @@ private static final long serialVersionUID = 1L;
 	}
 
 	public void gerarMatrizFunPorDepartamento() {
-		DepartamentoEntity departamento = this.funcionarioRepository.findOne(isLider().getId()).getCargo().getDepartamento();
-		funcionarioColecao = this.funcionarioRepository.procuraEmDepartamentos(departamento.getId());
+		FuncionarioEntity entity= this.funcionarioRepository.findOne(isLider().getId());
+		entity.getCargo().getDepartamento();
+		funcionarioColecao = this.funcionarioRepository.procuraEmDepartamentos(entity.getCargo().getDepartamento().getId());
 		funcionarioColecao = new ArrayList<>( new HashSet<FuncionarioEntity>(funcionarioColecao));
 		
 	}

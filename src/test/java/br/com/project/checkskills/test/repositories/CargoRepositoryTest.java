@@ -7,15 +7,18 @@ import javax.inject.Inject;
 import org.apache.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import br.com.project.checkskills.entities.dadosbasicos.CargoEntity;
 import br.com.project.checkskills.entities.dadosbasicos.NivelEntity;
 import br.com.project.checkskills.repositories.dadosbasicos.ICargoRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.INivelRepository;
-import br.com.project.checkskills.test.utils.AbstractDatabaseTest;
 
-
-public class CargoRepositoryTest extends AbstractDatabaseTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "/applicationContext-test.xml" })
+public class CargoRepositoryTest  {
 
 	private static final Logger LOGGER = Logger
 			.getLogger(CargoRepositoryTest.class);

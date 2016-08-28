@@ -50,10 +50,8 @@ public class FuncionarioBean extends BaseEntity<Long> {
 
 	private List<PermissaoEntity> permissaoSelecionadas;
 
-	//private DepartamentoEntity departamentoSelecionado;
 	private CargoEntity cargoSelecionado;
-	
-	private List<CargoEntity> cargos;
+
 	
 	@ManagedProperty(value = "#{permissaoRepository}")
 	private IPermissaoRepository permissaoRepository;
@@ -73,8 +71,6 @@ public class FuncionarioBean extends BaseEntity<Long> {
 	// carregar lista
 	public void onLoad() {
 		this.funcionarios = this.funcionarioRepository.findAll();
-		this.departamentos = this.departamentoRepository.findAll();
-		this.cargos = this.cargoRepository.findAll();
 	}
 
 	// salvar ou atualizar
@@ -82,7 +78,7 @@ public class FuncionarioBean extends BaseEntity<Long> {
 	public String salvarOuDeletar() {
 		atualizaModificacoesFuncionario();
 			this.funcionarioRepository.save(funcionarioEntity);
-		
+			this.funcionarioEntity = new FuncionarioEntity();
 			return "/pages/funcionario/funcionarioList.xhtml?faces-redirect=true";
 	}
 
@@ -90,7 +86,6 @@ public class FuncionarioBean extends BaseEntity<Long> {
 		this.usuarioEntity.setPermissions(permissaoSelecionadas);
 		funcionarioEntity.setUsuarioEntity(usuarioEntity);
 		funcionarioEntity.setCargo(cargoSelecionado);
-		//funcionarioEntity.setDepartamento(departamentoSelecionado);
 	}
 
 	public String deletar() {
@@ -107,8 +102,7 @@ public class FuncionarioBean extends BaseEntity<Long> {
 				funcionarioEntity = new FuncionarioEntity();
 				funcionarioEntity = this.funcionarioRepository.findOne(codigo);
 				usuarioEntity = funcionarioEntity.getUsuarioEntity();
-				LOGGER.info(funcionarioEntity);
-				LOGGER.info(usuarioEntity);
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -230,14 +224,7 @@ public class FuncionarioBean extends BaseEntity<Long> {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-//
-//	public DepartamentoEntity getDepartamentoSelecionado() {
-//		return departamentoSelecionado;
-//	}
-//
-//	public void setDepartamentoSelecionado(DepartamentoEntity departamentoSelecionado) {
-//		this.departamentoSelecionado = departamentoSelecionado;
-//	}
+
 
 	public List<DepartamentoEntity> getDepartamentos() {
 		return departamentos;
@@ -264,14 +251,6 @@ public class FuncionarioBean extends BaseEntity<Long> {
 		this.cargoSelecionado = cargoSelecionado;
 	}
 
-	public List<CargoEntity> getCargos() {
-		return cargos;
-	}
-
-	public void setCargos(List<CargoEntity> cargos) {
-		this.cargos = cargos;
-	}
-	
 
 	public ICargoRepository getCargoRepository() {
 		return cargoRepository;

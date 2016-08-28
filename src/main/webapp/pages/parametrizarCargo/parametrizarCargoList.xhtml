@@ -5,66 +5,81 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" xmlns:bnu="http://bootsfaces.net/ui"
-      xmlns:o="http://omnifaces.org/ui">
+	xmlns:o="http://omnifaces.org/ui">
 
 <ui:composition template="/tampletes/modeloGeral.xhtml">
 	<ui:define name="conteudo">
-		<f:view>
+		<f:metadata>
 			<f:event listener="#{cargoBean.onLoad()}" type="preRenderView"></f:event>
-		</f:view>
+			<f:viewParam name="codigo" value="#{ParametrizarBean.codigo}" />
 
-			<bnu:panel id="funcPanel" title="Avaliacoes" look="primary"
-				panel-footer="primary">
-				<h:form id="oForm">
-					<bnu:panelGrid columns="2" cellpadding="5">
-						<bnu:dataTable widgetVar="FormDataTable" var="cargo"
-							value="#{cargoBean.cargos}" searching="false" paginated="false">
-							<p:column>
-								<f:facet name="header">
-									<h:outputText value="CARGO" />
-								</f:facet>
-								<h:outputText value="#{cargo.nomeCargo}" />
-							</p:column>
-							<p:column>
-								<f:facet name="header">
-									<h:outputText value="E-MAIL" />
-								</f:facet>
-								<h:outputText value="#{cargo.nivelEntity.nivel}" />
-							</p:column>
+		</f:metadata>
 
-							<p:column>
-								<f:facet name="header">
-									<h:outputText value="OPÇÕES" />
-								</f:facet>
-								<p:commandButton value="Parametrizar"
-									action="#{ParametrizarBean.loadForm()}"
-									oncomplete="PF('dialog').show();" update="@form">
+		<bnu:panel id="funcPanel" title="Avaliacoes" look="primary"
+			panel-footer="primary">
+			<h:form id="oForm">
+				<bnu:panelGrid columns="2" cellpadding="5">
+					<bnu:dataTable widgetVar="FormDataTable" var="cargo"
+						value="#{cargoBean.cargos}" searching="false" paginated="false">
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="CARGO" />
+							</f:facet>
+							<h:outputText value="#{cargo.nomeCargo}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="E-MAIL" />
+							</f:facet>
+							<h:outputText value="#{cargo.nivelEntity.nivel}" />
+						</p:column>
 
-									<f:param value="#{cargo.id}" name="codigo" />
-								</p:commandButton>
-							</p:column>
-						</bnu:dataTable>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="OPÇÕES" />
+							</f:facet>
+							<p:commandButton value="Parametrizar"
+								actionListener="#{ParametrizarBean.loadCadastro()}"
+								oncomplete="PF('dialog').show();" update="@form">
 
+								<f:param value="#{cargo.id}" name="codigo" />
+							</p:commandButton>
+						</p:column>
+					</bnu:dataTable>
+
+				</bnu:panelGrid>
+
+
+				<p:dialog id="dlg" header="Parametriar cargo" widgetVar="dialog"
+					showEffect="explode" minHeight="40">
+					<bnu:panel>
+						<bnu:panelGrid columns="1">
+
+						<p:column>
+							<h:outputText value="#{ParametrizarBean.cargo.nomeCargo}" />
+						</p:column>
+
+						<p:column>
+							<h:outputText value="#{ParametrizarBean.cargo.nivelEntity.nivel}" />
+						</p:column>
 					</bnu:panelGrid>
+						
+					</bnu:panel>
+										<p:pickList value="#{ParametrizarBean.competencias}"
+						var="competencia" itemValue="#{competencia}"
+						itemLabel="#{competencia.nome}" showCheckbox="true" showSourceFilter="true" onTransfer="true">
+						<o:converter converterId="omnifaces.ListConverter"
+							list="#{ParametrizarBean.competencias.source}" />
+						<f:facet name="sourceCaption">DISPONÍVEIS</f:facet>
+						<f:facet name="targetCaption">ESCOLHIDAS</f:facet>
+					</p:pickList>
+					<p:commandButton value="Salvar"
+						action="#{ParametrizarBean.salvarOuEditar()}" />
 
+				</p:dialog>
 
-					<p:dialog id="dlg" header="Parametriar cargo" widgetVar="dialog"
-						showEffect="explode" minHeight="40">
-
-
-						<p:pickList value="#{ParametrizarBean.competencias}"
-							var="competencia" itemValue="#{competencia}"
-							itemLabel="#{competencia.nome}">
-							<o:converter converterId="omnifaces.ListIndexConverter"
-								list="#{ParametrizarBean.competencias.source}" />
-						</p:pickList>
-						<p:commandButton value="Salvar"
-							action="#{ParametrizarBean.Salvar()}" />
-
-					</p:dialog>
-
-				</h:form>
-			</bnu:panel>
+			</h:form>
+		</bnu:panel>
 
 
 

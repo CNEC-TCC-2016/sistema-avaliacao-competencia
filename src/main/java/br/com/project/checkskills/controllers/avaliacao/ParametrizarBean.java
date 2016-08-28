@@ -13,7 +13,9 @@ import org.primefaces.model.DualListModel;
 
 import br.com.project.checkskills.entities.dadosbasicos.CargoEntity;
 import br.com.project.checkskills.entities.dadosbasicos.CompetenciaEntity;
+import br.com.project.checkskills.entities.jointables.CargoCompetenciaEntity;
 import br.com.project.checkskills.repositories.avaliacao.ICargoCompetenciaRepository;
+import br.com.project.checkskills.repositories.avaliacao.ICicloAvaliacaoRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.ICargoRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.ICompetenciaRepository;
 import br.com.project.checkskills.utils.BaseEntity;
@@ -24,6 +26,7 @@ public class ParametrizarBean extends BaseEntity<Long> {
 
 	private static final long serialVersionUID = 1L;
 
+	@SuppressWarnings("unused")
 	private static final Logger LOGGER = Logger.getLogger(ParametrizarBean.class);
 
 
@@ -37,7 +40,11 @@ public class ParametrizarBean extends BaseEntity<Long> {
 	@ManagedProperty(value="#{cargoCompetenciaRepository}")
 	private ICargoCompetenciaRepository cargoCompetenciaRepository;
 	
+	@ManagedProperty(value="#{cicloAvaliacaoRepository}")
+	private ICicloAvaliacaoRepository cicloAvaliacaoRepository;
 
+	private CargoEntity cargo;
+	
 	//source
 	private List<CompetenciaEntity> competenciaDisponiveis ;
 	//target
@@ -49,17 +56,46 @@ public class ParametrizarBean extends BaseEntity<Long> {
 	private String codigo;
 
 	
-	@PostConstruct
-    public void init() {
-		competenciaDisponiveis = this.competenciaRepository.findAll();
-		 competenciaEscolhidas =  new ArrayList<>();
-		competencias = new DualListModel<CompetenciaEntity>(competenciaDisponiveis, competenciaEscolhidas);
-	}
-	
-	
 	public void Salvar (){
 		
 		
+	}
+	
+
+	@PostConstruct
+	public void init(){
+		this.competenciaDisponiveis = this.competenciaRepository.findAll();
+		competencias = new DualListModel<CompetenciaEntity>(competenciaDisponiveis, competenciaEscolhidas);
+	}
+
+	
+	public void salvarOuEditar(){
+		this.cargo.setCompetencias(competencias.getTarget());
+		this.cargoRepository.save(cargo);
+	}
+	
+	public void loadCadastro(){
+		this.cargo = this.cargoRepository.findOne(Long.parseLong(codigo));
+	//	this.competenciaEscolhidas = this.cargoRepository.findOne(Long.parseLong(codigo)).getCompetencias();
+		
+		List<CargoCompetenciaEntity> entity = this.cicloAvaliacaoRepository.findOne(1L).getCargoCompetencia();
+		for (CargoCompetenciaEntity item : entity) {
+			Long valor = item.getId().getCarogId();
+			this.competenciaEscolhidas = this.cargoRepository.findOne(valor).getCompetencias();
+					break;
+		}
+		
+		this.competenciaDisponiveis = this.competenciaRepository.findAll();
+		filtrarDisponiveis();
+		competencias.setSource(competenciaDisponiveis);
+		competencias.setTarget(competenciaEscolhidas);
+	}
+
+
+	public void filtrarDisponiveis() {
+		for (CompetenciaEntity entity : competenciaEscolhidas) {
+			this.competenciaDisponiveis.remove(entity);
+		}
 	}
 	
 	//get and set
@@ -132,6 +168,27 @@ public class ParametrizarBean extends BaseEntity<Long> {
 		this.codigo = codigo;
 	}
 
-	
+
+	public CargoEntity getCargo() {
+		return cargo;
+	}
+
+
+	public void setCargo(CargoEntity cargo) {
+		this.cargo = cargo;
+	}
+
+
+	public ICicloAvaliacaoRepository getCicloAvaliacaoRepository() {
+		return cicloAvaliacaoRepository;
+	}
+
+
+	public void setCicloAvaliacaoRepository(ICicloAvaliacaoRepository cicloAvaliacaoRepository) {
+		this.cicloAvaliacaoRepository = cicloAvaliacaoRepository;
+	}
+
+
+
 	
 }

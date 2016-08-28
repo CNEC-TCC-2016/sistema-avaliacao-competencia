@@ -74,15 +74,18 @@ private static final long serialVersionUID = 1L;
 	//salvar ou atualizar
 	
 	public String salvarOuDeletar(){
+		try {
 			if(this.departamentoEntity.getId() == null){
-			departamentoEntity.setOrganizacao(organizacaoSelecionado);
-			this.departamentoRepository.save(departamentoEntity);
-			Messages.addFlashGlobalInfo("Organização salva com sucesso");
-		}else {
-			this.departamentoRepository.save(departamentoEntity);
-			Messages.addFlashGlobalInfo("Organização editada com sucesso");
+				departamentoEntity.setOrganizacao(organizacaoSelecionado);
+				this.departamentoRepository.save(departamentoEntity);
+				Messages.addFlashGlobalInfo("Dados salvos com sucesso.");
+			}else {
+				this.departamentoRepository.save(departamentoEntity);
+				Messages.addFlashGlobalInfo("Dados editados com sucesso.");
+			}
+		} catch (Exception e) {
+			Messages.addFlashGlobalError("Houve um erro ao tentar executar essa operação");
 		}
-			LOGGER.info(departamentoEntity);
 		return "/pages/departamento/departamentoList.xhtml?faces-redirect=true";		
 	}
 	
