@@ -10,7 +10,6 @@
 	<ui:define name="conteudo">
 		<f:view>
 			<f:event listener="#{funcionarioBean.onLoad()}" type="preRenderView"></f:event>
-			<f:event listener="#{funcionarioBean.onLoad()}" type="preRenderView"></f:event>
 		</f:view>
 
 		<bnu:panel id="funcPanel" title="Funcionarios" look="primary"
@@ -19,11 +18,11 @@
 
 
 				<h:panelGrid>
-						<h:button value="Adicionar" outcome="#{funcionarioBean.add()}" styleClass="but but-primary"
-							update="FuncionarioDataTable" ajax="true" look="danger" >
+						<p:button value="Adicionar" outcome="#{funcionarioBean.add()}" styleClass="but but-primary"
+							update="FuncionarioDataTable" ajax="true" look="success" >
 
 							<f:param value="ADICIONAR" name="acao"/>
-							</h:button>
+							</p:button>
 
 				</h:panelGrid>
 				<br />
@@ -63,13 +62,6 @@
 							<br />
 						</ui:repeat>
 
-					</bnu:column>
-					
-					<bnu:column>
-						<f:facet name="header">
-							<h:outputText value="CARGO" />
-						</f:facet>
-						<h:outputText value="#{funcionario.cargo.nomeCargo}" />
 					</bnu:column>
 					
 					
