@@ -37,7 +37,6 @@ public class AvaliacaoCompetenciaEntity extends BaseEntity<Long> {
 	@JoinColumns({
 		@JoinColumn(name="ID_COMPETENCIA",referencedColumnName = "ID_COMPETENCIA"),
 		@JoinColumn(name="ID_CARGO", referencedColumnName="ID_CARGO"),
-		@JoinColumn(name="ID_CICLO", referencedColumnName="ID_CICLO")
 	})
 	private CargoCompetenciaEntity cargoCompetencia;
 

@@ -72,7 +72,6 @@ public class ParametrizarBean extends BaseEntity<Long> {
 	public void loadCadastro(){
 		this.cargo = this.cargoRepository.findOne(Long.parseLong(codigo));
 		this.competenciaEscolhidas = this.cargoRepository.findOne(Long.parseLong(codigo)).getCompetencias();
-
 		this.competenciaDisponiveis = this.competenciaRepository.findAll();
 		filtrarDisponiveis();
 		competencias.setSource(competenciaDisponiveis);

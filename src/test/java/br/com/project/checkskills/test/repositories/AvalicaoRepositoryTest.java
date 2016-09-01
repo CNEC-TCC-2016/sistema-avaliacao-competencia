@@ -67,8 +67,7 @@ public class AvalicaoRepositoryTest   {
 	
 	
 		
-		entity.setFuncionarios(funcionarios);
-	
+		
 		
 		this.avaliacaoRepository.save(entity);
 		

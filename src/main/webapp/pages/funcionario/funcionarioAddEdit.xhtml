@@ -17,8 +17,6 @@
 				type="preRenderView"></f:event>
 			<f:event listener="#{funcionarioBean.onLoad()}"
 				type="preRenderView"></f:event>	
-			<f:event listener="#{cargoBean.onLoad()}"
-				type="preRenderView"></f:event>	
 		</f:metadata>
 
 
@@ -73,7 +71,7 @@
 				<bnu:label text="CARGO"/>		
 				<h:selectOneMenu value="#{funcionarioBean.cargoSelecionado}" 
 				converter="omnifaces.SelectItemsConverter">
-						<f:selectItems value="#{cargoBean.cargos}"
+						<f:selectItems value="#{funcionarioBean.cargos}"
 						var="cargo" itemValue="#{cargo}"
 						itemLabel="#{cargo.nomeCargo}"
 						itemDisabled="#{funcionarioBean.acao == 'DELETE'}" />

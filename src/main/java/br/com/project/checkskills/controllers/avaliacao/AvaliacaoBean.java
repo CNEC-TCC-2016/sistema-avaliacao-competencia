@@ -64,6 +64,7 @@ private static final long serialVersionUID = 1L;
 	private List<AvaliacaoCompetenciaEntity> avaliacaoCompetencia;
 	private List<AvaliacaoEntity> avaliacaosTemp;
 	private List <FuncionarioEntity> funcionarioColecao;
+	private FuncionarioEntity funcionarioSelecionado;
 	
 	
 	private Long id;
@@ -115,29 +116,26 @@ private static final long serialVersionUID = 1L;
 	
 	//salva avaliacao temporariamente
 	public void salvarAvaliacao(){
-		AvaliacaoEntity item = new AvaliacaoEntity(avaliacaoCompetencia, obterFuncionariosAvaliado());
+		loadFunAvaliado();
+		AvaliacaoEntity item = new AvaliacaoEntity(avaliacaoCompetencia, funcionarioSelecionado);
 		item.setStatus(true);
 		this.avaliacaoRepository.save(item);
 		LOGGER.info(item);
 	}
 
-	public List<FuncionarioEntity> obterFuncionariosAvaliado() {
-		List<FuncionarioEntity> funcionarios = new ArrayList<>();
-		funcionarios.add(isLider());
-		funcionarios.add(isAvaliado());
-		return funcionarios;
-	}
 
 
-	public FuncionarioEntity isAvaliado(){
+	public void  loadFunAvaliado(){
 		Long valor = Long.parseLong(codigo);
-		return this.funcionarioRepository.findOne(valor);
+		funcionarioSelecionado =  this.funcionarioRepository.findOne(valor);
 	}
 	
 	//Obtem o funcionario Lider
 	public FuncionarioEntity isLider(){
 		String username =  SecurityContextHolder.getContext().getAuthentication().getName();
-		return this.usuarioRepository.findByUsername(username).getFuncionarioEntity();
+		Long valor = this.usuarioRepository.findByUsername(username).getId();
+		
+		return this.funcionarioRepository.findOne(valor);
 	}
 	
 	public String deletar(){
@@ -347,6 +345,14 @@ private static final long serialVersionUID = 1L;
 
 	public void setCargoCompetenciaRepository(ICargoCompetenciaRepository cargoCompetenciaRepository) {
 		this.cargoCompetenciaRepository = cargoCompetenciaRepository;
+	}
+
+	public FuncionarioEntity getFuncionarioSelecionado() {
+		return funcionarioSelecionado;
+	}
+
+	public void setFuncionarioSelecionado(FuncionarioEntity funcionarioSelecionado) {
+		this.funcionarioSelecionado = funcionarioSelecionado;
 	}
 
 

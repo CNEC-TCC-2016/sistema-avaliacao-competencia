@@ -74,7 +74,7 @@
 						<f:facet name="targetCaption">ESCOLHIDAS</f:facet>
 					</p:pickList>
 					<p:commandButton value="Salvar"
-						action="#{ParametrizarBean.salvarOuEditar()}" />
+						action="#{ParametrizarBean.salvarOuEditar()}" oncomplete="PF('dialog').hide();"/>
 
 				</p:dialog>
 
