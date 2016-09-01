@@ -18,7 +18,8 @@
 			<f:event listener="#{funcionarioBean.onLoad()}"
 				type="preRenderView"></f:event>	
 		</f:metadata>
-
+		
+		<bnu:messages autoUpdate="true" id="msgForm" showDetail="true"   show-detail="true" infoClass="success"/>
 
 		<h:form id="frmuser">
 			<h:inputHidden value="#{funcionarioBean.funcionarioEntity.id}" />
@@ -81,7 +82,8 @@
 					
 				<p:commandButton value="salvar" styleClass="but but-success"
 					rendered="#{funcionarioBean.acao == 'ADICIONAR'}"
-					action="#{funcionarioBean.salvarOuDeletar()}" />
+					action="#{funcionarioBean.salvarOuEditar()}" update=":msgGlobal">
+					</p:commandButton>
 
 
 				<p:commandButton value="Excluir" styleClass="but but-danger"
@@ -92,8 +94,8 @@
 					</p:commandButton>
 
 				<p:commandButton value="Editar" styleClass="but but-warning"
-					action="#{funcionarioBean.salvarOuDeletar()}"
-					rendered="#{funcionarioBean.acao == 'EDIT'}" />
+					action="#{funcionarioBean.salvarOuEditar()}"
+					rendered="#{funcionarioBean.acao == 'EDIT'}" update=":msgGlobal"/>
 
 				<p:button value="Voltar" styleClass="but but-primary"
 					outcome="/pages/funcionario/funcionarioList.xhtml" />
