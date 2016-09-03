@@ -11,8 +11,8 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Avaliador Skills</title>
-	<h:outputStylesheet library="css" name="bootstrap.min.css"/>
-	<h:outputStylesheet library="css" name="style.css"/>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="style.css" />
 </h:head>
 <h:body>
 
@@ -21,10 +21,10 @@
 
 		<p:layoutUnit position="north" resizable="false" closable="false"
 			collapsible="false">
-				<h4>
+			<h4>
 				<h:outputText
 					value="CheckSkills System - Sistema de Avaliação de Competências" />
-				</h4>
+			</h4>
 		</p:layoutUnit>
 
 		<!-- 		<p:layoutUnit header="Desenvolvido por Luan Lucas" position="south" -->
@@ -33,43 +33,47 @@
 
 		<p:layoutUnit position="west" resizable="false" closable="false"
 			collapsible="false">
-			<bnu:panel style="width: 200px !important;" look="blue">
-				<h4>
-				<h:outputText value="Menu Principal" />
-				</h4>
+			<h4 align="left">Menu Principal</h4>
+			<h:form>
+				<p:panelMenu style="width:250px">
+					<p:submenu label="Dados Básicos">
+						<p:separator />
+						<p:menuitem value="Manter Organização"
+							outcome="/pages/organizacao/organizacaoList.xhtml?faces-redirect=true"
+							icon="ui-icon-star" />
+						<p:menuitem value="Manter Departamento"
+							outcome="/pages/departamento/departamentoList.xhtml?faces-redirect=true"
+							icon="ui-icon-pin-w" />
+						<p:menuitem value="Manter Cargo"
+							outcome="/pages/cargo/cargoList.xhtml?faces-redirect=true"
+							icon="ui-icon-signal-diag" />
+						<p:menuitem value="Manter Competências"
+							outcome="/pages/competencia/competenciaList.xhtml?faces-redirect=true"
+							icon="ui-icon-link" />
+						<p:menuitem value="Manter Funcionários"
+							outcome="/pages/funcionario/funcionarioList.xhtml?faces-redirect=true"
+							icon="ui-icon-lightbulb" />
+						<p:menuitem value="Parametrizar Cargo"
+							outcome="/pages/parametrizarCargo/parametrizarCargoList.xhtml?faces-redirect=true"
+							icon="ui-icon-disk" />
+					</p:submenu>
+					<p:separator />
+					<p:submenu label="Avaliação">
+						<p:menuitem value="Realizar Avaliação"
+							outcome="/pages/avaliacao/avaliacaoList.xhtml?faces-redirect=true"
+							icon="ui-icon-disk" />
+					</p:submenu>
+				</p:panelMenu>
+			</h:form>
 
-
-				<h:form>
-					<bnu:listLinks>
-						<bnu:navLink />
-						<bnu:navLink outcome="/pages/funcionario/funcionarioList.xhtml?faces-redirect=true" value="Funcionarios"
-							icon="link" />
-						<bnu:navLink />
-						<bnu:navLink outcome="/pages/organizacao/organizacaoList.xhtml?faces-redirect=true" value="Organização"
-							icon="link" />
-						<bnu:navLink />
-						<bnu:navLink outcome="/pages/departamento/departamentoList.xhtml?faces-redirect=true" value="Departamento"
-							icon="link" />
-						<bnu:navLink />
-						<bnu:navLink outcome="/pages/competencia/competenciaList.xhtml?faces-redirect=true" value="Competência"
-							icon="link" />
-						<bnu:navLink outcome="/pages/avaliacao/avaliacaoList.xhtml?faces-redirect=true" value="Realizar avaliação"
-							icon="link" />
-						<bnu:navLink outcome="/pages/cargo/cargoList.xhtml?faces-redirect=true" value="Cargo"
-							icon="link" />
-						<bnu:navLink outcome="/pages/parametrizarCargo/parametrizarCargoList.xhtml?faces-redirect=true" value="Parametrizar cargo"
-							icon="link" />
-					</bnu:listLinks>
-					
-				</h:form>
-			</bnu:panel>
 		</p:layoutUnit>
 
 		<p:layoutUnit position="center" resizable="false" closable="false"
 			collapsible="false">
-			<bnu:messages autoUpdate="true" id="msgGlobal" showDetail="true" globalOnly="true"  show-detail="true" infoClass="success"/>
-			<ui:insert name="conteudo" >
-			 
+			<bnu:messages autoUpdate="true" id="msgGlobal" showDetail="true"
+				globalOnly="true" show-detail="true" infoClass="success" />
+			<ui:insert name="conteudo">
+
 			</ui:insert>
 		</p:layoutUnit>
 
