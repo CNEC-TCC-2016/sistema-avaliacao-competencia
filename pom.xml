@@ -13,6 +13,7 @@
 	</properties>
 
 	<repositories>
+
 		<!-- MAVEN REPOSITORY -->
 		<repository>
 			<id>mvn-repository</id>
@@ -177,6 +178,12 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-asm</artifactId>
+				</exclusion>
+			</exclusions>
 			<version>${spring.version}</version>
 		</dependency>
 
@@ -186,6 +193,13 @@
 			<artifactId>spring-core</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+
+		<!-- SPRING SECURITY CORE --> 
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.security</groupId> -->
+<!-- 			<artifactId>spring-security-core</artifactId> -->
+<!-- 			<version>${spring.security.version}</version> -->
+<!-- 		</dependency> -->
 
 		<!-- SPRING SECURITY WEB -->
 		<dependency>
@@ -208,11 +222,11 @@
 			<version>4.0</version>
 		</dependency>
 
-		<!-- PRIMEFACES ALL THEMES -->
+		<!-- spring-security-taglibs -->
 		<dependency>
-			<groupId>org.primefaces.themes</groupId>
-			<artifactId>all-themes</artifactId>
-			<version>1.0.10</version>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>3.2.1.RELEASE</version>
 		</dependency>
 
 		<!-- SPRING DATA JPA -->
