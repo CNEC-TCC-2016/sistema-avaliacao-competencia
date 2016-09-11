@@ -55,6 +55,20 @@
 					
 					<bnu:column>
 						<f:facet name="header">
+							<h:outputText value="Departamento" />
+						</f:facet>
+						<h:outputText value="#{funcionario.cargo.departamento.nomeDepartamento}" />
+					</bnu:column>
+					
+					<bnu:column>
+						<f:facet name="header">
+							<h:outputText value="Cargo" />
+						</f:facet>
+						<h:outputText value="#{funcionario.cargo.nomeCargo}" />
+					</bnu:column>
+					
+					<bnu:column>
+						<f:facet name="header">
 							<h:outputText value="Permissão" />
 						</f:facet>
 						<ui:repeat var="permissao" value="#{funcionario.usuarioEntity.permissions}">

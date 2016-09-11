@@ -74,7 +74,7 @@
 				converter="omnifaces.SelectItemsConverter">
 						<f:selectItems value="#{funcionarioBean.cargos}"
 						var="cargo" itemValue="#{cargo}"
-						itemLabel="#{cargo.nomeCargo}"
+						itemLabel="#{cargo.departamento.nomeDepartamento} - #{cargo.nomeCargo}"
 						itemDisabled="#{funcionarioBean.acao == 'DELETE'}" />
 				</h:selectOneMenu>
 				

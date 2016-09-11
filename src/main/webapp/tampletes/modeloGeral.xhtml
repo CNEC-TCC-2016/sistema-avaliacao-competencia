@@ -37,12 +37,13 @@
 			collapsible="false">
 			<h4 align="left">Menu Principal</h4>
 			<f:view>
-				<f:event listener="#{usuarioBean.carregarPermissoes()}" type="preRenderView"></f:event>
+				<f:event listener="#{usuarioBean.carregarPermissoes()}"
+					type="preRenderView"></f:event>
 			</f:view>
 			<h:form>
-
 				<p:menu style="width:270px">
-					<p:submenu label="Dados Básicos" rendered="#{usuarioBean.roleAdmin}">
+					<p:submenu label="Dados Básicos"
+						rendered="#{usuarioBean.roleAdmin}">
 						<p:separator />
 						<p:menuitem value="Manter Organização"
 							outcome="/pages/organizacao/organizacaoList.xhtml?faces-redirect=true"
@@ -72,19 +73,14 @@
 					</p:submenu>
 				</p:menu>
 			</h:form>
-
 		</p:layoutUnit>
-
 		<p:layoutUnit position="center" resizable="false" closable="false"
 			collapsible="false">
 			<bnu:messages autoUpdate="true" id="msgGlobal" showDetail="true"
 				globalOnly="true" show-detail="true" infoClass="success" />
 			<ui:insert name="conteudo">
-
 			</ui:insert>
 		</p:layoutUnit>
-
-
 	</p:layout>
 
 </h:body>
