@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 import br.com.project.checkskills.entities.autenticacao.UsuarioEntity;
+import br.com.project.checkskills.entities.avaliacao.AvaliacaoEntity;
 import br.com.project.checkskills.utils.BaseEntity;
 
 @Entity
@@ -37,11 +38,19 @@ public class FuncionarioEntity extends BaseEntity<Long> {
 	@JoinColumn(name="ID_CARGO")
 	private CargoEntity cargo;
 
-	
-	
+	@OneToOne(mappedBy="funcionario")
+	private AvaliacaoEntity avaliacao;
 
 	public CargoEntity getCargo() {
 		return cargo;
+	}
+
+	public AvaliacaoEntity getAvaliacao() {
+		return avaliacao;
+	}
+
+	public void setAvaliacao(AvaliacaoEntity avaliacao) {
+		this.avaliacao = avaliacao;
 	}
 
 	public void setCargo(CargoEntity cargo) {

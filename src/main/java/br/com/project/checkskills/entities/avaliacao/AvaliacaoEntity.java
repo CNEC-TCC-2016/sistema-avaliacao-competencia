@@ -8,9 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -31,23 +30,15 @@ public class AvaliacaoEntity extends BaseEntity<Long> {
 	@JoinColumn(name="ID_AVALICAO",referencedColumnName="ID_AVALIACAO")
 	private List<AvaliacaoCompetenciaEntity> avaliacaoCompetencias;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "ASS_FUNCIONARIO_AVALIACAO", joinColumns = 
-	@JoinColumn(name = "ID_AVALIACAO"), inverseJoinColumns = 
-	@JoinColumn(name = "ID_FUNCIONARIO"))
-	private List<FuncionarioEntity> funcionarios;
+	
+	@OneToOne( optional = false, fetch = FetchType.EAGER)
+	@JoinColumn(name="ID_FUNCIONARIO")
+	private FuncionarioEntity funcionario;
 	
 	@Column(name="STATUS")
 	private Boolean status;
 
-	public List<FuncionarioEntity> getFuncionarios() {
-		return funcionarios;
-	}
-
-	public void setFuncionarios(List<FuncionarioEntity> funcionarios) {
-		this.funcionarios = funcionarios;
-	}
-
+	
 	public AvaliacaoEntity() {
 	}
 	
@@ -64,10 +55,13 @@ public class AvaliacaoEntity extends BaseEntity<Long> {
 		this.avaliacaoCompetencias = avaliacaoCompetencias;
 	}
 
-	public AvaliacaoEntity(List<AvaliacaoCompetenciaEntity> avaliacaoCompetencias, List<FuncionarioEntity> funcionarios) {
+	
+
+	public AvaliacaoEntity(List<AvaliacaoCompetenciaEntity> avaliacaoCompetencias, FuncionarioEntity funcionario) {
 		super();
 		this.avaliacaoCompetencias = avaliacaoCompetencias;
-		this.funcionarios = funcionarios;
+		this.funcionario = funcionario;
+
 	}
 
 	public Boolean getStatus() {
@@ -76,6 +70,16 @@ public class AvaliacaoEntity extends BaseEntity<Long> {
 
 	public void setStatus(Boolean status) {
 		this.status = status;
+	}
+	
+
+
+	public FuncionarioEntity getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(FuncionarioEntity funcionario) {
+		this.funcionario = funcionario;
 	}
 
 

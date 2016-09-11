@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:bnu="http://bootsfaces.net/ui">
+
+
+<ui:composition template="/tampletes/modeloGeral.xhtml">
+
+	<ui:define name="conteudo">
+		<f:metadata>
+			<f:viewParam name="acao" value="#{cicloAvaliacaoBean.acao}" />
+			<f:viewParam name="codigo" value="#{cicloAvaliacaoBean.codigo}" />
+			<f:event listener="#{cicloAvaliacaoBean.loadCadastro()}"
+				type="preRenderView"></f:event>
+			<f:event listener="#{cicloAvaliacaoBean.onLoad()}"
+				type="preRenderView"></f:event>
+		</f:metadata>
+
+		<h:form id="frm">
+			<h:inputHidden value="#{cicloAvaliacaoBean.cicloAvaliacaoEntity.id}" />
+
+			<bnu:panel id="painel_cad" title="Dados do Ciclo">
+				<h:message for="cic_nome" />
+				<bnu:inputText id="cic_nome"
+					value="#{cicloAvaliacaoBean.cicloAvaliacaoEntity.nome}"
+					label="Nome cicloAvaliacao" required="true"
+					required-message="Campo obrigatório"
+					readonly="#{cicloAvaliacaoBean.acao == 'DELETE'}">
+					<f:validateBean />
+
+				</bnu:inputText>
+			
+				
+				
+				
+				<br/>
+				<br/>
+				
+				<p:commandButton value="salvar" update="frm" styleClass="but but-success"
+					action="#{cicloAvaliacaoBean.salvarOuDeletar()}"
+					rendered="#{cicloAvaliacaoBean.acao == 'ADICIONAR'}" />
+
+				<p:commandButton value="Editar" update="frm" styleClass="but but-warning"
+					action="#{cicloAvaliacaoBean.salvarOuDeletar()}"
+					rendered="#{cicloAvaliacaoBean.acao == 'EDIT'}" />
+
+				<p:commandButton value="Excluir" update="frm" styleClass="but but-danger"
+					action="#{cicloAvaliacaoBean.deletar()}" 
+					rendered="#{cicloAvaliacaoBean.acao == 'DELETE'}" >
+					 <p:confirm header="Confirmar" message="Todos Dados relacionados a ciclo serão perdidos. Deseja confirmar ?" 
+					 icon="ui-icon-alert" />
+					</p:commandButton>
+
+				
+
+				<p:button value="Voltar" styleClass="but but-primary"
+					outcome="/pages/cicloAvaliacao/cicloAvaliacaoList.xhtml" />
+					
+			</bnu:panel>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

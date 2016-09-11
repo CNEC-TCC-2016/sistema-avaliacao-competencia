@@ -24,33 +24,55 @@
 			<h:form id="oForm">
 				<bnu:panelGrid columns="2" cellpadding="5">
 					<bnu:dataTable widgetVar="FormDataTable" var="funcionario"
-						value="#{avaliacaoBean.funcionarioColecao}" searching="false" paginated="false" >
+						value="#{avaliacaoBean.funcionarioColecao}" searching="false"
+						paginated="false">
 						<p:column>
-						<f:facet name="header">
-							<h:outputText value="FUNCIONÁRIO" />
-						</f:facet>
+							<f:facet name="header">
+								<h:outputText value="FUNCIONÁRIO" />
+							</f:facet>
 							<h:outputText value="#{funcionario.nome}" />
 						</p:column>
 						<p:column>
-						<f:facet name="header">
-							<h:outputText value="E-MAIL" />
-						</f:facet>
+							<f:facet name="header">
+								<h:outputText value="E-MAIL" />
+							</f:facet>
 							<h:outputText value="#{funcionario.usuarioEntity.email}" />
 						</p:column>
 						<p:column>
-						<f:facet name="header">
-							<h:outputText value="CARGO" />
-						</f:facet>
+							<f:facet name="header">
+								<h:outputText value="CARGO" />
+							</f:facet>
 							<h:outputText value="#{funcionario.cargo.nomeCargo}" />
 						</p:column>
-															
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="NÍVEL" />
+							</f:facet>
+							<h:outputText value="#{funcionario.cargo.nivelEntity.nivel}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="DEPARTAMENTO" />
+							</f:facet>
+							<h:outputText
+								value="#{funcionario.cargo.departamento.nomeDepartamento}" />
+						</p:column>
 						
 						<p:column>
-						<f:facet name="header">
-							<h:outputText value="OPÇÕES" />
-						</f:facet>
+							<f:facet name="header">
+								<h:outputText value="STATUS" />
+							</f:facet>
+							<h:outputLabel value="Concluido" rendered="#{funcionario.avaliacao.status}" />
+						</p:column> 
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="OPÇÕES" />
+							</f:facet>
 							<p:commandButton value="AVALIAR"
-								action="#{avaliacaoBean.loadForm()}"
+								action="#{avaliacaoBean.loadForm()}" disabled="#{funcionario.avaliacao.status == true}"
 								oncomplete="PF('dialog').show();" update="@form">
 								<f:param value="AVALIAR" name="acao" />
 								<f:param value="#{funcionario.id}" name="codigo" />
@@ -66,7 +88,7 @@
 
 
 					<p:dataTable id="DataTable" widgetVar="dataTable" searching="false"
-						var="avaliacao" value="#{avaliacaoBean.avaliacaoCompetencia}" 
+						var="avaliacao" value="#{avaliacaoBean.avaliacaoCompetencia}"
 						paginated="false" select="false">
 						<p:column>
 							<f:facet name="header">
@@ -80,11 +102,13 @@
 								<h:outputText value="COMPETÊNCIA" />
 							</f:facet>
 							<ui:repeat var="item" value="#{competenciaBean.competencias}">
-								<h:outputText rendered="#{avaliacao.cargoCompetencia.id.competenciaId == item.id}" value="#{item.nome}"/>
-							</ui:repeat>						
+								<h:outputText
+									rendered="#{avaliacao.cargoCompetencia.id.competenciaId == item.id}"
+									value="#{item.nome}" />
+							</ui:repeat>
 						</p:column>
-						
-						
+
+
 						<p:column>
 							<f:facet name="header">
 								<h:outputText value="ESCALA" />
@@ -93,19 +117,19 @@
 								converter="omnifaces.SelectItemsConverter">
 								<f:selectItems value="#{avaliacaoBean.escalas}" var="escala"
 									itemValue="#{escala}" itemLabel="#{escala.nome}">
-									
+
 								</f:selectItems>
 							</h:selectOneMenu>
 						</p:column>
 
 						<f:facet name="footer">
-							<p:commandButton action="#{avaliacaoBean.salvarAvaliacao()}" oncomplete="PF('dialog').hide();"
-								value="Salvar" />
+							<p:commandButton action="#{avaliacaoBean.salvarAvaliacao()}"
+								oncomplete="PF('dialog').hide();" value="Salvar" update="@form"/>
 						</f:facet>
 
 					</p:dataTable>
 				</p:dialog>
-				
+
 			</h:form>
 		</bnu:panel>
 	</ui:define>

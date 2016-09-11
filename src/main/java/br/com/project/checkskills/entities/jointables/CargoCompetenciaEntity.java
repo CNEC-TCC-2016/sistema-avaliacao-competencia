@@ -3,7 +3,7 @@
  * @author LUAN LUCAS
  *
  */
-package br.com.project.checkskills.entities.dadosbasicos;
+package br.com.project.checkskills.entities.jointables;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -17,7 +17,7 @@ public class CargoCompetenciaEntity extends  BaseEntity<CargoCompetenciaKey>{
 
 	private static final long serialVersionUID = 1L;
 
-	
 
+	
 
 }

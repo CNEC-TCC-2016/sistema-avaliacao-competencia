@@ -2,6 +2,45 @@
 	font-size: 12px!important;
 }
 
+.ui-panelmenu .ui-panelmenu-header{
+	font-family: "latoregular","Trebuchet MS",Arial,Helvetica,sans-serif !important;
+	font-size: 1.3em;
+	font-weight: normal;
+	padding: !important;
+	display: !important;
+	background-color: #ffffff!important;
+	border-color: rgba(0, 0, 0, 0.1) !important;
+	border-style:groove;
+    color: #fff;
+}
+
+.ui-menu {
+	background-color: #ffffff!important;
+}
+
+.ui-widget-header{
+	background-color: #fdffff!important;
+	font-size: 1.3em !important;
+	font-weight: bold !important;
+}
+
+.ui-panel-content .ui-widget-content{
+	font-family: "latoregular","Trebuchet MS",Arial,Helvetica,sans-serif !important;
+	font-size: 1.3em;
+	font-weight: normal;
+	padding: !important;
+	display: !important;
+	background-color: #ffffff!important;
+	border-color: rgba(0, 0, 0, 0.1) !important;
+	border-style:groove;
+    color: #fff;
+}
+
+.ui-menu-list .ui-helper-reset{
+	
+	background-color: #ffffff!important;
+}
+
 button {
 	background-color: #fff !important;
 	border-color: rgba(0, 0, 0, 0.1) !important;
@@ -20,6 +59,13 @@ button {
 	border-radius: 4px !important;
 	-webkit-user-select: none !important;
 	font-family: Arial, sans-serif !important;
+	font-weight: bold !important;
+}
+
+.but-colorless{
+	background-color: #fff !important;
+	border-color: rgba(0, 0, 0, 0.1) !important;
+	
 }
 
 .but-primary {

@@ -1,6 +1,7 @@
 package br.com.project.checkskills.controllers.dadosbasicos;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -8,6 +9,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.log4j.Logger;
+import org.omnifaces.util.Messages;
+import org.omnifaces.util.Messages.Message;
 
 import br.com.project.checkskills.entities.autenticacao.PermissaoEntity;
 import br.com.project.checkskills.entities.autenticacao.UsuarioEntity;
@@ -79,11 +82,45 @@ public class FuncionarioBean extends BaseEntity<Long> {
 
 	// salvar ou atualizar
 
-	public String salvarOuDeletar() {
+	public String salvarOuEditar() {
 		atualizaModificacoesFuncionario();
+		if(verificaSeLiderEstaSelecionado()){	
+			if(verificaSeDepTemLider()){
+			Messages.addGlobalError("Este departamento já possui um lider");
+			return "/pages/funcionario/funcionarioAddEdit.xhtml?faces-redirect=false";
+			}else{
+				this.funcionarioRepository.save(funcionarioEntity);
+				return "/pages/funcionario/funcionarioList.xhtml?faces-redirect=true";
+			}
+		}else{
 			this.funcionarioRepository.save(funcionarioEntity);
-		
-			return "/pages/funcionario/funcionarioList.xhtml?faces-redirect=true";
+		return "/pages/funcionario/funcionarioList.xhtml?faces-redirect=true";
+		}
+	}
+
+	public boolean verificaSeLiderEstaSelecionado() {
+		boolean retorno = false;
+		for (PermissaoEntity item : permissaoSelecionadas) {
+			if (item.getRole().equals("ROLE_LIDER") )
+				retorno = true;
+		}
+		return retorno;
+	}
+
+	
+	public boolean verificaSeDepTemLider() {
+		boolean hasLider = false;
+		List<FuncionarioEntity> ListaFuncionarios = this.funcionarioRepository.procuraEmDepartamentos(cargoSelecionado.getDepartamento().getId());
+		ListaFuncionarios = new ArrayList<>(new HashSet<>(ListaFuncionarios));
+		for (FuncionarioEntity item : ListaFuncionarios) {
+			List<PermissaoEntity> permissoes =  item.getUsuarioEntity().getPermissions();
+			    for (PermissaoEntity entity : permissoes) {
+					if(entity.getRole().equalsIgnoreCase("ROLE_LIDER")){
+						hasLider = true;
+					}
+				}
+		}
+		return hasLider;
 	}
 
 	public void atualizaModificacoesFuncionario() {
@@ -102,19 +139,27 @@ public class FuncionarioBean extends BaseEntity<Long> {
 	public void loadCadastro() {
 		try {
 
-			if (this.codigo != null) {
+			if (this.codigo != null && funcionarioEntity.getId() == null) {
 				Long codigo = Long.parseLong(this.codigo);
 				funcionarioEntity = new FuncionarioEntity();
 				funcionarioEntity = this.funcionarioRepository.findOne(codigo);
 				usuarioEntity = funcionarioEntity.getUsuarioEntity();
 				LOGGER.info(funcionarioEntity);
 				LOGGER.info(usuarioEntity);
+			}else{
+				prepararNovoCadastro();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	public void prepararNovoCadastro() {
+		funcionarioEntity = new FuncionarioEntity();
+		usuarioEntity = new UsuarioEntity();
+	}
+
+	
 	public List<PermissaoEntity> loadPermissoes() {
 		return this.permissaoRepository.findAll();
 	}

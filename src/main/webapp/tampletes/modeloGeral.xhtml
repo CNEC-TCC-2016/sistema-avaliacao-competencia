@@ -4,15 +4,17 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:p="http://primefaces.org/ui" xmlns:bnu="http://bootsfaces.net/ui">
+	xmlns:p="http://primefaces.org/ui" xmlns:bnu="http://bootsfaces.net/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <ui:insert name="metadata" />
 
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Avaliador Skills</title>
-	<h:outputStylesheet library="css" name="bootstrap.min.css"/>
-	<h:outputStylesheet library="css" name="style.css"/>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="style.css" />
 </h:head>
 <h:body>
 
@@ -21,12 +23,10 @@
 
 		<p:layoutUnit position="north" resizable="false" closable="false"
 			collapsible="false">
-			<bnu:well>
-				<h2>
+			<h4>
 				<h:outputText
 					value="CheckSkills System - Sistema de Avaliação de Competências" />
-				</h2>
-			</bnu:well>
+			</h4>
 		</p:layoutUnit>
 
 		<!-- 		<p:layoutUnit header="Desenvolvido por Luan Lucas" position="south" -->
@@ -35,43 +35,52 @@
 
 		<p:layoutUnit position="west" resizable="false" closable="false"
 			collapsible="false">
-			<bnu:panel style="width: 200px !important;" look="blue">
-				<h4>
-				<h:outputText value="Menu Principal" />
-				</h4>
-
-
-				<h:form>
-					<bnu:listLinks>
-						<bnu:navLink />
-						<bnu:navLink outcome="/pages/funcionario/funcionarioList.xhtml?faces-redirect=true" value="Funcionarios"
-							icon="link" />
-						<bnu:navLink />
-						<bnu:navLink outcome="/pages/organizacao/organizacaoList.xhtml?faces-redirect=true" value="Organização"
-							icon="link" />
-						<bnu:navLink />
-						<bnu:navLink outcome="/pages/departamento/departamentoList.xhtml?faces-redirect=true" value="Departamento"
-							icon="link" />
-						<bnu:navLink />
-						<bnu:navLink outcome="/pages/competencia/competenciaList.xhtml?faces-redirect=true" value="Competência"
-							icon="link" />
-						<bnu:navLink outcome="/pages/avaliacao/avaliacaoList.xhtml?faces-redirect=true" value="Realizar avaliação"
-							icon="link" />
-					</bnu:listLinks>
-					
-				</h:form>
-			</bnu:panel>
+			<h4 align="left">Menu Principal</h4>
+			<f:view>
+				<f:event listener="#{usuarioBean.carregarPermissoes()}"
+					type="preRenderView"></f:event>
+			</f:view>
+			<h:form>
+				<p:menu style="width:270px">
+					<p:submenu label="Dados Básicos"
+						rendered="#{usuarioBean.roleAdmin}">
+						<p:separator />
+						<p:menuitem value="Manter Organização"
+							outcome="/pages/organizacao/organizacaoList.xhtml?faces-redirect=true"
+							icon="ui-icon-star" />
+						<p:menuitem value="Manter Departamento"
+							outcome="/pages/departamento/departamentoList.xhtml?faces-redirect=true"
+							icon="ui-icon-pin-w" />
+						<p:menuitem value="Manter Cargo"
+							outcome="/pages/cargo/cargoList.xhtml?faces-redirect=true"
+							icon="ui-icon-signal-diag" />
+						<p:menuitem value="Manter Competências"
+							outcome="/pages/competencia/competenciaList.xhtml?faces-redirect=true"
+							icon="ui-icon-link" />
+						<p:menuitem value="Manter Funcionários"
+							outcome="/pages/funcionario/funcionarioList.xhtml?faces-redirect=true"
+							icon="ui-icon-lightbulb" />
+						<p:menuitem value="Parametrizar Cargo"
+							outcome="/pages/parametrizarCargo/parametrizarCargoList.xhtml?faces-redirect=true"
+							icon="ui-icon-disk" />
+					</p:submenu>
+					<p:separator />
+					<p:submenu label="Avaliação" rendered="#{usuarioBean.roleLider}">
+						<p:menuitem value="Realizar Avaliação"
+							outcome="/pages/avaliacao/avaliacaoList.xhtml?faces-redirect=true"
+							icon="ui-icon-disk" />
+						<p:menuitem value="Analisar Resultados" icon="ui-icon-disk" />
+					</p:submenu>
+				</p:menu>
+			</h:form>
 		</p:layoutUnit>
-
 		<p:layoutUnit position="center" resizable="false" closable="false"
 			collapsible="false">
-			<bnu:messages autoUpdate="true" id="msgGlobal" showDetail="true" globalOnly="true"  show-detail="true" infoClass="success"/>
-			<ui:insert name="conteudo" >
-			 
+			<bnu:messages autoUpdate="true" id="msgGlobal" showDetail="true"
+				globalOnly="true" show-detail="true" infoClass="success" />
+			<ui:insert name="conteudo">
 			</ui:insert>
 		</p:layoutUnit>
-
-
 	</p:layout>
 
 </h:body>

@@ -11,8 +11,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
-import br.com.project.checkskills.entities.dadosbasicos.CargoCompetenciaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.EscalaEntity;
+import br.com.project.checkskills.entities.jointables.CargoCompetenciaEntity;
 import br.com.project.checkskills.utils.BaseEntity;
 
 @Entity
@@ -36,7 +36,7 @@ public class AvaliacaoCompetenciaEntity extends BaseEntity<Long> {
 	@ManyToOne(fetch=FetchType.EAGER,optional=false)
 	@JoinColumns({
 		@JoinColumn(name="ID_COMPETENCIA",referencedColumnName = "ID_COMPETENCIA"),
-		@JoinColumn(name="ID_CARGO", referencedColumnName="ID_CARGO")
+		@JoinColumn(name="ID_CARGO", referencedColumnName="ID_CARGO"),
 	})
 	private CargoCompetenciaEntity cargoCompetencia;
 

@@ -54,25 +54,31 @@ private static final long serialVersionUID = 1L;
 		this.codigo = codigo;
 	}
 
-	//carregar lista
+
 	public void onLoad(){
 		this.competencias = this.competenciaRepository.findAll();
 		this.tipoCompetencias = this.tipoCompetenciaRepository.findAll();
 	}
 
 	//salvar ou atualizar
-	
 	public String salvarOuDeletar(){
+		try {
 			if(this.competenciaEntity.getId() == null){
-			competenciaEntity.setTipoCompetencia(tipoSelecionado);
-			this.competenciaRepository.save(competenciaEntity);
-			Messages.addFlashGlobalInfo("Dados salvos com sucesso");
-		}else {
-			this.competenciaRepository.save(competenciaEntity);
-			Messages.addFlashGlobalInfo("Dados salvos com sucesso");
+				competenciaEntity.setTipoCompetencia(tipoSelecionado);
+				this.competenciaRepository.save(competenciaEntity);
+				Messages.addFlashGlobalInfo("Dados salvos com sucesso");
+			}else {
+				this.competenciaRepository.save(competenciaEntity);
+				Messages.addFlashGlobalInfo("Dados editados com sucesso");
+			}
+		} catch (Exception e) {
+			erroGenerico();
 		}
-			LOGGER.info(competenciaEntity);
 		return "/pages/competencia/competenciaList.xhtml?faces-redirect=true";		
+	}
+
+	public void erroGenerico() {
+		Messages.addFlashGlobalError("Houve um erro ao tentar executar essa operação ");
 	}
 	
 	
