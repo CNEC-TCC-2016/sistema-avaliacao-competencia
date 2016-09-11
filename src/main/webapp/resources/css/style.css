@@ -14,6 +14,16 @@
     color: #fff;
 }
 
+.ui-menu {
+	background-color: #ffffff!important;
+}
+
+.ui-widget-header{
+	background-color: #fdffff!important;
+	font-size: 1.3em !important;
+	font-weight: bold !important;
+}
+
 .ui-panel-content .ui-widget-content{
 	font-family: "latoregular","Trebuchet MS",Arial,Helvetica,sans-serif !important;
 	font-size: 1.3em;
