@@ -80,9 +80,7 @@ public class ParametrizarBean extends BaseEntity<Long> {
 
 
 	public void filtrarDisponiveis() {
-		for (CompetenciaEntity entity : competenciaEscolhidas) {
-			this.competenciaDisponiveis.remove(entity);
-		}
+		competenciaEscolhidas.forEach(item -> this.competenciaDisponiveis.remove(item));
 	}
 	
 	//get and set
