@@ -46,6 +46,9 @@ public class EscalaEntity extends BaseEntity<Long>{
 		}
 
 
-	    
+		@Override
+		public String toString() {
+			return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+		}
 	
 }

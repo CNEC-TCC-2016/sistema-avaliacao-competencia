@@ -43,13 +43,23 @@
 				</bnu:inputTextarea>
 				
 				
-				<bnu:label text="Tipo Competência" />
+				<!-- <bnu:label text="Tipo Competência" />
 				<h:selectOneMenu value="#{competenciaBean.tipoSelecionado}" converter="omnifaces.SelectItemsConverter">
 					<f:selectItem itemLabel=""/>
 					<f:selectItems value="#{competenciaBean.tipoCompetencias}" 
 						var="tipoCompetencia" itemValue="#{tipoCompetencia}" itemLabel="#{tipoCompetencia.nome}">
+					</f:selectItems>
+				</h:selectOneMenu> -->
+				
+				<h:panelGroup id="panelGrup">
+					<bnu:label id="labelpanel" text="Tipo Competência"/>
+					<h:selectOneMenu id="oneMenu" value="#{competenciaBean.tipoSelecionado}" converter="omnifaces.SelectItemsConverter">
+						<f:selectItem itemLabel=""/>
+						<f:selectItems value="#{competenciaBean.tipoCompetencias}" 
+							var="tipoCompetencia" itemValue="#{tipoCompetencia}" itemLabel="#{tipoCompetencia.nome}">
 						</f:selectItems>
-				</h:selectOneMenu>
+					</h:selectOneMenu>
+				</h:panelGroup>
 				
 				<br/>
 				<br/>

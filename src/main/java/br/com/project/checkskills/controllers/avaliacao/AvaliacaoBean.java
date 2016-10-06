@@ -90,10 +90,16 @@ private static final long serialVersionUID = 1L;
 	}
 
 	public void gerarMatrizFunPorDepartamento() {
-		FuncionarioEntity entity= this.funcionarioRepository.findOne(isLider().getId());
-		entity.getCargo().getDepartamento();
-		funcionarioColecao = this.funcionarioRepository.procuraEmDepartamentos(entity.getCargo().getDepartamento().getId());
-		funcionarioColecao = new ArrayList<>( new HashSet<FuncionarioEntity>(funcionarioColecao));
+		if(isLider() != null && isLider().getId() != null){
+			
+			FuncionarioEntity entity= this.funcionarioRepository.findOne(isLider().getId());
+
+			entity.getCargo().getDepartamento();
+			
+			funcionarioColecao = this.funcionarioRepository.procuraEmDepartamentos(entity.getCargo().getDepartamento().getId());
+		}
+		
+		funcionarioColecao = funcionarioColecao == null ? funcionarioColecao = new ArrayList<>() : new ArrayList<>( new HashSet<FuncionarioEntity>(funcionarioColecao));
 		
 	}
 

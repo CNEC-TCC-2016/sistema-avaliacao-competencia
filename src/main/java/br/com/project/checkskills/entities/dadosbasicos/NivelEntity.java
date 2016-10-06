@@ -24,5 +24,10 @@ public class NivelEntity extends BaseEntity<Long> {
 	public void setNivel(String nivel) {
 		this.nivel = nivel;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+	}
 
 }
