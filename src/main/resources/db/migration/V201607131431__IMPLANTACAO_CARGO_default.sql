@@ -1,0 +1,9 @@
+/*
+-- Query: SELECT * FROM db_projeto.tb_cargo
+LIMIT 0, 1000
+
+-- Date: 2016-10-06 10:44
+*/
+INSERT INTO `tb_cargo` (`ID_CARGO`,`descricao`,`nome_cargo`,`ID_DEPARTAMENTO`,`ID_NIVEL`) VALUES (1,'DESENVOLVEDOR JAVA','DESENVOLVIMENTO JAVA',1,1);
+INSERT INTO `tb_cargo` (`ID_CARGO`,`descricao`,`nome_cargo`,`ID_DEPARTAMENTO`,`ID_NIVEL`) VALUES (2,'DASFDSA','DESENVOLVIMENTO C#',2,2);
+INSERT INTO `tb_cargo` (`ID_CARGO`,`descricao`,`nome_cargo`,`ID_DEPARTAMENTO`,`ID_NIVEL`) VALUES (3,'SLKFJLASDÇFJÇA','RECURSOS UMANOS',3,2);
