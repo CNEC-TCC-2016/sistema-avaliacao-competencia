@@ -12,7 +12,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 
@@ -38,20 +37,19 @@ public class CompetenciaReportBean {
 		try {
 			this.competencias = competenciaRepository.findAll();
 
-			this.competencias.forEach(c -> System.out.println(c));
+			this.competencias.forEach(c -> System.out.println(c.getNome()));
 
 			FacesContext fc = FacesContext.getCurrentInstance();
 			ExternalContext ec = fc.getExternalContext();
 
-			HttpServletResponse response = (HttpServletResponse) fc
-					.getExternalContext().getResponse();
+//			HttpServletResponse response = (HttpServletResponse) fc.getExternalContext().getResponse();
 			
 			ec.responseReset();
 
 			ec.setResponseContentType("application/pdf");
 			ec.setResponseContentLength(200);
 
-			ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + competencias + "\"");
+			ec.setResponseHeader("Content-Disposition", "attachment; filename=\"competencias.pdf\"");
 			OutputStream output = ec.getResponseOutputStream();
 
 			// GERAR O RELATORIO E PEGAR O OUTPUSTREAM
@@ -60,8 +58,7 @@ public class CompetenciaReportBean {
 //			JasperPrint printer = JasperFillManager.fillReport(
 //					"C:\\Users\\luana\\JaspersoftWorkspace\\MyReports\\competencia.jasper", getParametros(), jrds);
 
-			InputStream fonte =  this.getClass().getClassLoader()
-					.getResourceAsStream("competencia.jasper");
+			InputStream fonte =  this.getClass().getClassLoader().getResourceAsStream("competencia.jasper");
 			
 			JasperPrint printer = JasperFillManager.fillReport(fonte, getParametros(), jrds);
 
@@ -78,11 +75,11 @@ public class CompetenciaReportBean {
 			ex.printStackTrace();
 		}
 
-		return null;// "/pages/cargo/cargoList.xhtml?faces-redirect=true";
+		return null;
 	}
 
-	private Map getParametros() {
-		Map parametros = new HashMap();
+	private Map<String, Object> getParametros() {
+		Map<String, Object> parametros = new HashMap<String, Object>();
 		parametros.put("P_ID_CARGO", 1l);
 		parametros.put("P_TITULO", "TESTE RODOLFO");
 		return parametros;

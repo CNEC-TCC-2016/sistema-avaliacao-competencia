@@ -1,7 +1,0 @@
-/*
--- Query: SELECT * FROM db_projeto.tb_organizacao
-LIMIT 0, 1000
-
--- Date: 2016-10-06 10:43
-*/
-INSERT INTO `tb_organizacao` (`ID_ORGANIZACAO`,`RAMO_ATUACAO`,`RAZAO_SOCIAL`) VALUES (1,'CONSULTORIA','SB CONSULTORIA');

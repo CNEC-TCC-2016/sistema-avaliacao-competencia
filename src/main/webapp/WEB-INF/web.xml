@@ -16,19 +16,20 @@
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
+  
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
   <listener>
     <listener-class>
             org.springframework.web.context.request.RequestContextListener
-        	</listener-class>
+    </listener-class>
   </listener>
-  
-    <context-param>
-  <param-name>facelets.LIBRARIES</param-name>
-  <param-value>classpath:spring-security.taglib.xml</param-value>
-  </context-param>
+
+	<context-param>
+		<param-name>facelets.LIBRARIES</param-name>
+		<param-value>classpath:spring-security.taglib.xml</param-value>
+	</context-param>
   
   
   <context-param>
