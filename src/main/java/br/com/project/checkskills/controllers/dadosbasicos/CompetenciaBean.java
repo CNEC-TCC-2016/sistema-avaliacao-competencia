@@ -9,13 +9,13 @@ import javax.faces.bean.ViewScoped;
 import org.apache.log4j.Logger;
 import org.omnifaces.util.Messages;
 
+import br.com.project.checkskills.controllers.reports.RelatorioHelp;
 import br.com.project.checkskills.entities.dadosbasicos.CompetenciaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.TipoCompetenciaEntity;
 import br.com.project.checkskills.repositories.dadosbasicos.ICompetenciaRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.ITipoCompetenciaRepository;
 import br.com.project.checkskills.utils.BaseEntity;
 import report.Relatorio;
-import report.RelatorioHelp;
 
 @ManagedBean(name="competenciaBean")
 @ViewScoped
@@ -109,6 +109,7 @@ private static final long serialVersionUID = 1L;
 	
 	
 	public void gerarRelatorio(){
+		Relatorio relatorio = new Relatorio();
 		try {
 			new RelatorioHelp().gerarRelatorio(competencias);
 		} catch (Exception e) {

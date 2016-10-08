@@ -1,4 +1,4 @@
-package report;
+package br.com.project.checkskills.controllers.reports;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
