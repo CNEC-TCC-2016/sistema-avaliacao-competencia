@@ -15,6 +15,7 @@ import br.com.project.checkskills.repositories.dadosbasicos.ICompetenciaReposito
 import br.com.project.checkskills.repositories.dadosbasicos.ITipoCompetenciaRepository;
 import br.com.project.checkskills.utils.BaseEntity;
 import report.Relatorio;
+import report.RelatorioHelp;
 
 @ManagedBean(name="competenciaBean")
 @ViewScoped
@@ -108,9 +109,8 @@ private static final long serialVersionUID = 1L;
 	
 	
 	public void gerarRelatorio(){
-		Relatorio relatorio = new Relatorio();
 		try {
-			relatorio.create(competencias);
+			new RelatorioHelp().gerarRelatorio(competencias);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
