@@ -8,17 +8,53 @@
 
 <ui:composition template="/tampletes/modeloGeral.xhtml">
 	<ui:define name="conteudo">
-		<f:view>
-			<f:event listener="#{competenciaBean.onLoad()}" type="preRenderView"></f:event>
-		</f:view>
+		<f:metadata>
+			<f:event listener="#{avaliacaoBean.gerarMatrizFunPorDepartamento()}"
+				type="preRenderView"></f:event>
+		
+			<f:event listener="#{avaliacaoBean.carregarCargo()}"
+				type="preRenderView"></f:event>
+		</f:metadata>
+		<bnu:panel title="Analisar resultados por funcionário">
 			<h:form>
-			
-			<p:commandButton action="#{competenciaReportBean.relatorio()}" value="Relatorio" ajax="false">
-			</p:commandButton>
-			
-			
+				<h:panelGroup id="panelGrup">
+					<bnu:label id="labelpanel" text="Escolha um funcionário" />
+					<h:selectOneMenu id="oneMenu"
+						value="#{avaliacaoBean.funcionarioSelecionado}"
+						converter="omnifaces.SelectItemsConverter">
+						<f:selectItems value="#{avaliacaoBean.funcionarioColecao}"
+							var="funcionario" itemValue="#{funcionario}"
+							itemLabel="#{funcionario.nome}">
+						</f:selectItems>
+					</h:selectOneMenu>
+				</h:panelGroup>
+
+				<p:commandButton action="#{avaliacaoBean.gerarRelatorio()}"
+					value="Gerar Relatório" ajax="false">
+				</p:commandButton>
 			</h:form>
-				
+		</bnu:panel>
+		
+		<bnu:panel title="Analisar resultados por cargo">
+			<h:form>
+				<h:panelGroup id="panelGrup">
+					<bnu:label id="labelpanel" text="Escolha um cargo" />
+					<h:selectOneMenu id="oneMenu"
+						value="#{avaliacaoBean.cargoSelecionado}"
+						converter="omnifaces.SelectItemsConverter">
+						<f:selectItems value="#{avaliacaoBean.cargoColecao}"
+							var="cargo" itemValue="#{cargo}"
+							itemLabel="#{cargo.nomeCargo}">
+						</f:selectItems>
+					</h:selectOneMenu>
+				</h:panelGroup>
+
+				<p:commandButton action="#{avaliacaoBean.gerarRelatorioCargo()}"
+					value="Gerar Relatório" ajax="false">
+				</p:commandButton>
+			</h:form>
+		</bnu:panel>
+
 	</ui:define>
 </ui:composition>
 
