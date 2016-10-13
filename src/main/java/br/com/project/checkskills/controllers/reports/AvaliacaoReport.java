@@ -18,6 +18,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 
@@ -35,8 +36,38 @@ public class AvaliacaoReport {
 		
         Map parametros = getParametros(cargo, funcionario);
         
-		InputStream stream =  this.getClass().getResourceAsStream("/report/relatorio_avaliacao.jrxml");
-		JasperReport jr = JasperCompileManager.compileReport(stream);
+		InputStream stream =  this.getClass().getResourceAsStream("/report/relatorio_avaliacao.jasper");
+
+		JasperReport jr = (JasperReport) JRLoader.loadObject(stream);
+		
+		JasperPrint printer = JasperFillManager.fillReport(jr,parametros, getConecction());
+		
+		JRPdfExporter exporter = new JRPdfExporter();
+	       
+        exporter.setExporterInput(new SimpleExporterInput(printer));
+        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(response.getOutputStream()));
+        exporter.exportReport();
+        
+        
+        response.getOutputStream().flush();
+        response.getOutputStream().close();
+		
+		
+	}
+	
+	public void gerarRelatorio(Long cargo) throws JRException, SQLException, IOException{
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = facesContext.getExternalContext();
+        HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
+		
+        externalContext.responseReset();
+        externalContext.setResponseContentType("application/pdf");
+		
+        Map parametros = getParametros(cargo);
+        
+		InputStream stream =  this.getClass().getResourceAsStream("/report/relatorio_avaliacao_setor.jasper");
+		JasperReport jr = (JasperReport) JRLoader.loadObject(stream);
 
 		JasperPrint printer = JasperFillManager.fillReport(jr,parametros, getConecction());
 		
@@ -54,10 +85,20 @@ public class AvaliacaoReport {
 	}
 	
 	
+	
+	
+	
+	
 	public static Map getParametros(Long cargo, Long funcionario) {
 		Map parametros = new HashMap();
 		parametros.put("P_ID_CARGO", cargo);
 		parametros.put("P_ID_FUNCIONARIO", funcionario);
+		return parametros;
+	}
+	
+	public static Map getParametros(Long cargo) {
+		Map parametros = new HashMap();
+		parametros.put("P_ID_CARGO", cargo);
 		return parametros;
 	}
 

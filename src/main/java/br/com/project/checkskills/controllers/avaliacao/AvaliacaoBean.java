@@ -16,6 +16,7 @@ import br.com.project.checkskills.controllers.reports.AvaliacaoReport;
 import br.com.project.checkskills.controllers.reports.RelatorioHelp;
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoCompetenciaEntity;
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoEntity;
+import br.com.project.checkskills.entities.dadosbasicos.CargoEntity;
 import br.com.project.checkskills.entities.dadosbasicos.CompetenciaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.EscalaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.FuncionarioEntity;
@@ -68,7 +69,8 @@ private static final long serialVersionUID = 1L;
 	private List<AvaliacaoEntity> avaliacaosTemp;
 	private List <FuncionarioEntity> funcionarioColecao;
 	private FuncionarioEntity funcionarioSelecionado;
-	
+	private CargoEntity cargoSelecionado;
+	private HashSet<CargoEntity> cargoColecao;
 	
 	private Long id;
 	
@@ -305,7 +307,9 @@ private static final long serialVersionUID = 1L;
 	
 	public void gerarRelatorio(){
 		try {
-			new AvaliacaoReport().gerarRelatorio(1L, 3L);
+			Long cargo = funcionarioSelecionado.getCargo().getId();
+			Long funcionario  = funcionarioSelecionado.getId();
+			new AvaliacaoReport().gerarRelatorio(cargo, funcionario);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -313,6 +317,31 @@ private static final long serialVersionUID = 1L;
 		
 	}
 	
+	public void gerarRelatorioCargo(){
+		try {
+			Long cargo = cargoSelecionado.getId();
+			new AvaliacaoReport().gerarRelatorio(cargo);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void carregarCargo(){
+		this.gerarMatrizFunPorDepartamento();
+		cargoColecao = new HashSet<CargoEntity>();
+		funcionarioColecao.forEach(item -> popularCargoColecao(item));
+		
+	}
+	
+	
+	
+	public void popularCargoColecao(FuncionarioEntity item) {
+		
+		cargoColecao.add(item.getCargo());
+	}
+
 	public List<AvaliacaoCompetenciaEntity> getAvaliacaoCompetencia() {
 		//loadForm();
 		return avaliacaoCompetencia;
@@ -374,5 +403,22 @@ private static final long serialVersionUID = 1L;
 		this.funcionarioSelecionado = funcionarioSelecionado;
 	}
 
+	public CargoEntity getCargoSelecionado() {
+		return cargoSelecionado;
+	}
+
+	public void setCargoSelecionado(CargoEntity cargoSelecionado) {
+		this.cargoSelecionado = cargoSelecionado;
+	}
+
+	public HashSet<CargoEntity> getCargoColecao() {
+		return cargoColecao;
+	}
+
+	public void setCargoColecao(HashSet<CargoEntity> cargoColecao) {
+		this.cargoColecao = cargoColecao;
+	}
+
+		
 
 }
