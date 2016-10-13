@@ -12,6 +12,8 @@ import org.apache.log4j.Logger;
 import org.omnifaces.util.Messages;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import br.com.project.checkskills.controllers.reports.AvaliacaoReport;
+import br.com.project.checkskills.controllers.reports.RelatorioHelp;
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoCompetenciaEntity;
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoEntity;
 import br.com.project.checkskills.entities.dadosbasicos.CompetenciaEntity;
@@ -25,6 +27,7 @@ import br.com.project.checkskills.repositories.dadosbasicos.ICompetenciaReposito
 import br.com.project.checkskills.repositories.dadosbasicos.IEscalaRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.IFuncionarioRepository;
 import br.com.project.checkskills.utils.BaseEntity;
+import report.Relatorio;
 
 @ManagedBean(name="avaliacaoBean")
 @ViewScoped
@@ -298,6 +301,16 @@ private static final long serialVersionUID = 1L;
 					new AvaliacaoCompetenciaEntity(new EscalaEntity(), cargoCompetencia);
 			avaliacaoCompetencia.add(item);
 		}
+	}
+	
+	public void gerarRelatorio(){
+		try {
+			new AvaliacaoReport().gerarRelatorio(1L, 3L);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public List<AvaliacaoCompetenciaEntity> getAvaliacaoCompetencia() {
