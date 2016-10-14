@@ -10,8 +10,6 @@ import javax.faces.bean.ViewScoped;
 
 import org.apache.log4j.Logger;
 import org.omnifaces.util.Messages;
-import org.omnifaces.util.Messages.Message;
-
 import br.com.project.checkskills.entities.autenticacao.PermissaoEntity;
 import br.com.project.checkskills.entities.autenticacao.UsuarioEntity;
 import br.com.project.checkskills.entities.dadosbasicos.CargoEntity;

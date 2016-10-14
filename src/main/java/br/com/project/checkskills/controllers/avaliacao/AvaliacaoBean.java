@@ -13,7 +13,6 @@ import org.omnifaces.util.Messages;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.project.checkskills.controllers.reports.AvaliacaoReport;
-import br.com.project.checkskills.controllers.reports.RelatorioHelp;
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoCompetenciaEntity;
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoEntity;
 import br.com.project.checkskills.entities.dadosbasicos.CargoEntity;
@@ -28,7 +27,6 @@ import br.com.project.checkskills.repositories.dadosbasicos.ICompetenciaReposito
 import br.com.project.checkskills.repositories.dadosbasicos.IEscalaRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.IFuncionarioRepository;
 import br.com.project.checkskills.utils.BaseEntity;
-import report.Relatorio;
 
 @ManagedBean(name="avaliacaoBean")
 @ViewScoped
@@ -311,7 +309,7 @@ private static final long serialVersionUID = 1L;
 			Long funcionario  = funcionarioSelecionado.getId();
 			new AvaliacaoReport().gerarRelatorio(cargo, funcionario);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		
@@ -322,7 +320,7 @@ private static final long serialVersionUID = 1L;
 			Long cargo = cargoSelecionado.getId();
 			new AvaliacaoReport().gerarRelatorio(cargo);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		
@@ -336,7 +334,7 @@ private static final long serialVersionUID = 1L;
 	}
 	
 	
-	
+	//teste
 	public void popularCargoColecao(FuncionarioEntity item) {
 		
 		cargoColecao.add(item.getCargo());

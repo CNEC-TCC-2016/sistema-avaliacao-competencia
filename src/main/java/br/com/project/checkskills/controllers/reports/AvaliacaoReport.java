@@ -13,7 +13,6 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -89,6 +88,7 @@ public class AvaliacaoReport {
 	
 	
 	
+	@SuppressWarnings("rawtypes")
 	public static Map getParametros(Long cargo, Long funcionario) {
 		Map parametros = new HashMap();
 		parametros.put("P_ID_CARGO", cargo);
@@ -96,6 +96,7 @@ public class AvaliacaoReport {
 		return parametros;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public static Map getParametros(Long cargo) {
 		Map parametros = new HashMap();
 		parametros.put("P_ID_CARGO", cargo);

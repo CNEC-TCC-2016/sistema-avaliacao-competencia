@@ -1,9 +1,6 @@
 package br.com.project.checkskills.controllers.autenticacao;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -13,11 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.project.checkskills.entities.autenticacao.PermissaoEntity;
 import br.com.project.checkskills.entities.autenticacao.UsuarioEntity;
-import br.com.project.checkskills.entities.dadosbasicos.FuncionarioEntity;
-import br.com.project.checkskills.repositories.autenticacao.IPermissaoRepository;
 import br.com.project.checkskills.repositories.autenticacao.IUsuarioRepository;
-import br.com.project.checkskills.repositories.dadosbasicos.IFuncionarioRepository;
-import br.com.project.checkskills.utils.FacesUtil;
 
 @ManagedBean(name = "usuarioBean")
 @ViewScoped

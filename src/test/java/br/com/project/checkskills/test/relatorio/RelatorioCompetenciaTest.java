@@ -2,14 +2,11 @@ package br.com.project.checkskills.test.relatorio;
 
 import static java.lang.System.out;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
@@ -78,13 +75,14 @@ public class RelatorioCompetenciaTest {
 	    	System.out.println("Finalizado");
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}
 	
 	
 	
+	@SuppressWarnings("rawtypes")
 	private Map getParametros() {
 		Map parametros = new HashMap();
 		parametros.put("P_ID_CARGO", 2l);

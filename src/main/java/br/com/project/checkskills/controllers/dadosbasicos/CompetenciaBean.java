@@ -113,7 +113,7 @@ private static final long serialVersionUID = 1L;
 		try {
 			new RelatorioHelp().gerarRelatorio(competencias);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		

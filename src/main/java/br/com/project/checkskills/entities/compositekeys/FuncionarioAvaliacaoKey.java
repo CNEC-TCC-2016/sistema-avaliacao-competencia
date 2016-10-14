@@ -20,7 +20,7 @@ public class FuncionarioAvaliacaoKey extends BaseKey {
 
 
 	public FuncionarioAvaliacaoKey() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	
