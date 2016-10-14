@@ -342,7 +342,7 @@ private static final long serialVersionUID = 1L;
 		cargoColecao.add(item.getCargo());
 	}
 	
-	//teste 
+	//teste
 	public List<AvaliacaoCompetenciaEntity> getAvaliacaoCompetencia() {
 		//loadForm();
 		return avaliacaoCompetencia;
