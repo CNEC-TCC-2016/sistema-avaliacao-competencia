@@ -27,6 +27,7 @@ public class TesteReport {
     	System.out.println("Finalizado");
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static Map getParametros() {
 		Map parametros = new HashMap();
 		parametros.put("P_ID_CARGO", 1l);

@@ -12,7 +12,6 @@ import br.com.project.checkskills.entities.dadosbasicos.CargoEntity;
 import br.com.project.checkskills.entities.dadosbasicos.DepartamentoEntity;
 import br.com.project.checkskills.entities.dadosbasicos.NivelEntity;
 import br.com.project.checkskills.repositories.dadosbasicos.ICargoRepository;
-import br.com.project.checkskills.repositories.dadosbasicos.IDepartamentoRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.INivelRepository;
 import br.com.project.checkskills.utils.BaseEntity;
 

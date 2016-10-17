@@ -12,8 +12,10 @@ import org.apache.log4j.Logger;
 import org.omnifaces.util.Messages;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import br.com.project.checkskills.controllers.reports.AvaliacaoReport;
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoCompetenciaEntity;
 import br.com.project.checkskills.entities.avaliacao.AvaliacaoEntity;
+import br.com.project.checkskills.entities.dadosbasicos.CargoEntity;
 import br.com.project.checkskills.entities.dadosbasicos.CompetenciaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.EscalaEntity;
 import br.com.project.checkskills.entities.dadosbasicos.FuncionarioEntity;
@@ -65,7 +67,8 @@ private static final long serialVersionUID = 1L;
 	private List<AvaliacaoEntity> avaliacaosTemp;
 	private List <FuncionarioEntity> funcionarioColecao;
 	private FuncionarioEntity funcionarioSelecionado;
-	
+	private CargoEntity cargoSelecionado;
+	private HashSet<CargoEntity> cargoColecao;
 	
 	private Long id;
 	
@@ -300,6 +303,44 @@ private static final long serialVersionUID = 1L;
 		}
 	}
 	
+	public void gerarRelatorio(){
+		try {
+			Long cargo = funcionarioSelecionado.getCargo().getId();
+			Long funcionario  = funcionarioSelecionado.getId();
+			new AvaliacaoReport().gerarRelatorio(cargo, funcionario);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void gerarRelatorioCargo(){
+		try {
+			Long cargo = cargoSelecionado.getId();
+			new AvaliacaoReport().gerarRelatorio(cargo);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void carregarCargo(){
+		this.gerarMatrizFunPorDepartamento();
+		cargoColecao = new HashSet<CargoEntity>();
+		funcionarioColecao.forEach(item -> popularCargoColecao(item));
+		
+	}
+	
+	
+	//teste
+	public void popularCargoColecao(FuncionarioEntity item) {
+		
+		cargoColecao.add(item.getCargo());
+	}
+	
+	//teste
 	public List<AvaliacaoCompetenciaEntity> getAvaliacaoCompetencia() {
 		//loadForm();
 		return avaliacaoCompetencia;
@@ -361,5 +402,22 @@ private static final long serialVersionUID = 1L;
 		this.funcionarioSelecionado = funcionarioSelecionado;
 	}
 
+	public CargoEntity getCargoSelecionado() {
+		return cargoSelecionado;
+	}
+
+	public void setCargoSelecionado(CargoEntity cargoSelecionado) {
+		this.cargoSelecionado = cargoSelecionado;
+	}
+
+	public HashSet<CargoEntity> getCargoColecao() {
+		return cargoColecao;
+	}
+
+	public void setCargoColecao(HashSet<CargoEntity> cargoColecao) {
+		this.cargoColecao = cargoColecao;
+	}
+
+		
 
 }

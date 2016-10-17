@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-10-13T15:20:07 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio_avaliacao" printOrder="Horizontal" pageWidth="1000" pageHeight="760" orientation="Landscape" columnWidth="960" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="87cae4c7-ca90-46c4-bb96-1e4490244d77">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="274"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="714"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="checkSkillsDA"/>
+	<parameter name="P_ID_CARGO" class="java.lang.String"/>
+	<parameter name="P_ID_FUNCIONARIO" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT DISTINCT
+	db_projeto.`TB_ORGANIZACAO`.`RAZAO_SOCIAL`,
+	db_projeto.`TB_CARGO`.nome_cargo,
+	db_projeto.`TB_FUNCIONARIO`.nome,
+	db_projeto.`TB_COMPETENCIA`.nome AS competencia,
+	db_projeto.`TB_ESCALA`.`NOME` AS nome_escala,
+	db_projeto.`TB_ESCALA`.`VALOR`
+FROM db_projeto.`TB_CARGO`,
+	db_projeto.`TB_COMPETENCIA`,
+	db_projeto.`ASS_CARGO_COMPETENCIA`,
+	db_projeto.`TB_AVALIACAO_COMPETENCIA`,
+	db_projeto.`TB_AVALIACAO`,
+	db_projeto.`TB_ESCALA`,
+	db_projeto.`TB_FUNCIONARIO`,
+	db_projeto.`TB_DEPARTAMENTO`,
+	db_projeto.`TB_ORGANIZACAO`
+WHERE 
+	 db_projeto.`ASS_CARGO_COMPETENCIA`.`ID_CARGO` = db_projeto.`TB_CARGO`.`ID_CARGO` 
+	 AND db_projeto.`ASS_CARGO_COMPETENCIA`.`ID_COMPETENCIA` = db_projeto.`TB_COMPETENCIA`.`ID_COMPETENCIA` 
+	 AND db_projeto.`TB_AVALIACAO_COMPETENCIA`.`ID_CARGO` = db_projeto.`TB_CARGO`.`ID_CARGO` 
+	 AND db_projeto.`TB_AVALIACAO_COMPETENCIA`.`ID_COMPETENCIA` = db_projeto.`TB_COMPETENCIA`.`ID_COMPETENCIA` 
+	 AND db_projeto.`TB_AVALIACAO_COMPETENCIA`.`ID_ESCALA` = db_projeto.`TB_ESCALA`.`ID_ESCALA` 
+	 AND db_projeto.`TB_AVALIACAO_COMPETENCIA`.`ID_AVALICAO` = db_projeto.`TB_AVALIACAO`.`ID_AVALIACAO` 
+	 AND db_projeto.`TB_FUNCIONARIO`.`ID_FUNCIONARIO` = db_projeto.`TB_AVALIACAO`.`ID_FUNCIONARIO` 
+	 AND db_projeto.`TB_DEPARTAMENTO`.`ID_DEPARTAMENTO` = db_projeto.`TB_CARGO`.`ID_DEPARTAMENTO` 
+	 AND db_projeto.`TB_ORGANIZACAO`.`ID_ORGANIZACAO` = db_projeto.`TB_DEPARTAMENTO`.`ID_ORGANIZACAO` 
+	 AND db_projeto.`TB_FUNCIONARIO`.`ID_FUNCIONARIO` = $P{P_ID_FUNCIONARIO} 
+	 AND db_projeto.`TB_FUNCIONARIO`.`ID_CARGO` = $P{P_ID_CARGO}]]>
+	</queryString>
+	<field name="RAZAO_SOCIAL" class="java.lang.String"/>
+	<field name="nome_cargo" class="java.lang.String"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="competencia" class="java.lang.String"/>
+	<field name="nome_escala" class="java.lang.String"/>
+	<field name="VALOR" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="720" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<componentElement>
+				<reportElement x="0" y="-10" width="530" height="260" uuid="af5f67ed-1e92-4a37-bc4e-f6989fdd74a4"/>
+				<sc:spiderChart xmlns:sc="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<sc:chartSettings>
+						<chartTitle/>
+						<chartSubtitle/>
+						<chartLegend/>
+					</sc:chartSettings>
+					<sc:spiderDataset>
+						<categorySeries>
+							<seriesExpression><![CDATA[$F{nome_cargo}]]></seriesExpression>
+							<categoryExpression><![CDATA[$F{competencia}]]></categoryExpression>
+							<valueExpression><![CDATA[$F{VALOR}]]></valueExpression>
+							<labelExpression><![CDATA[$F{nome_escala}]]></labelExpression>
+						</categorySeries>
+					</sc:spiderDataset>
+					<sc:spiderPlot isWebFilled="true"/>
+				</sc:spiderChart>
+			</componentElement>
+			<barChart>
+				<chart evaluationTime="Report" theme="aegean">
+					<reportElement x="0" y="260" width="960" height="450" uuid="f167e4c1-2003-40c4-a918-96926d11b589"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{nome}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{competencia}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{VALOR}]]></valueExpression>
+						<labelExpression><![CDATA[$F{nome_escala}]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+			<pie3DChart>
+				<chart evaluationTime="Report">
+					<reportElement x="540" y="0" width="410" height="240" uuid="cd9872df-468d-4a4e-9438-078199b273f1"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{competencia}]]></keyExpression>
+					<valueExpression><![CDATA[$F{VALOR}]]></valueExpression>
+					<labelExpression><![CDATA[$F{nome_escala}]]></labelExpression>
+				</pieDataset>
+				<pie3DPlot>
+					<plot/>
+					<itemLabel/>
+				</pie3DPlot>
+			</pie3DChart>
+		</band>
+	</detail>
+</jasperReport>
