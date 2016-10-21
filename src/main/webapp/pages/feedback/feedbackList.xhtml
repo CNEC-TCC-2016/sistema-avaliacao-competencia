@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:bnu="http://bootsfaces.net/ui">
+
+<ui:composition template="/tampletes/modeloGeral.xhtml">
+	<ui:define name="conteudo">
+		<f:view>
+			<f:event listener="#{feedbackBean.onLoad()}" type="preRenderView"></f:event>
+		</f:view>
+
+		<bnu:panel id="funcPanel" title="Feedbacks" look="primary"
+			panel-footer="primary">
+			<h:form id="feedbackForm">
+
+
+				<h:panelGrid>
+					<p:button outcome="#{feedbackBean.add()}" value="Adicionar"
+						styleClass="but but-success">
+						<f:param value="ADICIONAR" name="acao" />
+					</p:button>
+
+				</h:panelGrid>
+				<br />
+				<bnu:dataTable id="FeedbackDataTable" widgetVar="dataTable"
+					var="feedback" value="#{feedbackBean.feedbacks}" paginator="true"
+					rows="10"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="5,10,20" rowKey="#{feedback.id}"
+					select="false" selectionMode="single">
+					<bnu:column>
+						<f:facet name="header">
+							<h:outputText value="ID" />
+						</f:facet>
+						<h:outputText value="#{feedback.id}" />
+					</bnu:column>
+					
+					<bnu:column>
+						<f:facet name="header">
+							<h:outputText value="Titulo" />
+						</f:facet>
+						<h:outputText value="#{feedback.titulo}" />
+					</bnu:column>
+					
+					<bnu:column>
+						<f:facet name="header">
+							<h:outputText value="Observação" />
+						</f:facet>
+						<h:outputText value="#{feedback.observacao}" />
+					</bnu:column>
+				
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Opções" />
+						</f:facet>
+						<p:row>
+							<p:button outcome="#{feedbackBean.editar()}" value="Editar"
+								styleClass="but but-warning">
+								<f:param value="#{feedback.id}" name="codigo" />
+								<f:param value="EDIT" name="acao" />
+							</p:button>
+							<p:button outcome="#{feedbackBean.excluir()}" value="Excluir"
+								styleClass="but but-danger">
+								<f:param value="#{feedback.id}" name="codigo" />
+								<f:param value="DELETE" name="acao" />
+							</p:button>
+						</p:row>
+
+					</p:column>
+
+				</bnu:dataTable>
+			</h:form>
+		</bnu:panel>
+	</ui:define>
+</ui:composition>
+
+
+</html>
