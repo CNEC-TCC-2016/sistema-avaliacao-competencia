@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:bnu="http://bootsfaces.net/ui">
+
+
+<ui:composition template="/tampletes/modeloGeral.xhtml">
+
+	<ui:define name="conteudo">
+		<f:metadata>
+			<f:viewParam name="acao" value="#{feedbackBean.acao}" />
+			<f:viewParam name="codigo" value="#{feedbackBean.codigo}" />
+			<f:event listener="#{feedbackBean.loadCadastro()}"
+				type="preRenderView"></f:event>
+		</f:metadata>
+
+		<h:form id="frm">
+			<h:inputHidden value="#{feedbackBean.feedbackEntity.id}" />
+
+			<bnu:panel id="pnl_cad" title="Dados do Feedback">
+				<h:message for="fdb_razao" />
+				<bnu:inputText id="fdb_razao"
+					value="#{feedbackBean.feedbackEntity.titulo}"
+					label="Titulo" required="true"
+					required-message="Campo obrigatório"
+					readonly="#{feedbackBean.acao == 'DELETE'}">
+					<f:validateBean />
+
+				</bnu:inputText>
+
+				<h:message for="fdb_ramo" />
+				<bnu:inputTextarea id="fdb_ramo"
+					value="#{feedbackBean.feedbackEntity.observacao}"
+					label="Observação" required="true"
+					required-message="Campo obrigatório"
+					readonly="#{feedbackBean.acao == 'DELETE'}">
+					<f:validateBean />
+				</bnu:inputTextarea>
+
+
+				<p:commandButton value="salvar" update="frm" styleClass="but but-success"
+					action="#{feedbackBean.salvarOuDeletar()}"
+					rendered="#{feedbackBean.acao == 'ADICIONAR'}" />
+
+				<p:commandButton value="Editar" update="frm" styleClass="but but-warning"
+					action="#{feedbackBean.salvarOuDeletar()}"
+					rendered="#{feedbackBean.acao == 'EDIT'}" />
+
+				<p:commandButton value="Excluir" update="frm" styleClass="but but-danger"
+					action="#{feedbackBean.deletar()}" 
+					rendered="#{feedbackBean.acao == 'DELETE'}" >
+					 <p:confirm header="Confirmar" message="Todos Dados relacionados a organização serão perdidos. Deseja confirmar ?" 
+					 icon="ui-icon-alert" />
+					</p:commandButton>
+
+				
+
+				<p:button value="Voltar" styleClass="but but-primary"
+					outcome="/pages/feedback/feedbackList.xhtml" />
+			</bnu:panel>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

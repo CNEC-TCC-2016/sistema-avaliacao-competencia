@@ -6,27 +6,38 @@
 						http://www.springframework.org/schema/security
 						http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-	<beans:bean id="customAuthenticationProvider" class="br.com.project.checkskills.utils.CustomAuthenticationProvider" />
+	<beans:bean id="customAuthenticationProvider"
+		class="br.com.project.checkskills.utils.CustomAuthenticationProvider" />
 
 	<http auto-config="true" use-expressions="true">
 		<intercept-url pattern="/login.xhtml" access="permitAll" />
 		<intercept-url pattern="/public/**" access="permitAll" />
 		<intercept-url pattern="/resources/**" access="hasAuthority('ROLE_ADMIN')" />
-		
+
 		<!-- Dados básicos -->
 		<intercept-url pattern="/pages/cargo/**" access="hasAuthority('ROLE_ADMIN')" />
 		<intercept-url pattern="/pages/competencia/**" access="hasAuthority('ROLE_ADMIN')" />
 		<intercept-url pattern="/pages/departamento/**" access="hasAuthority('ROLE_ADMIN')" />
 		<intercept-url pattern="/pages/funcionario/**" access="hasAuthority('ROLE_ADMIN')" />
 		<intercept-url pattern="/pages/organizacao/**" access="hasAuthority('ROLE_ADMIN')" />
-		<intercept-url pattern="/pages/parametrizarCargo/**" access="hasAuthority('ROLE_ADMIN')" />
-		
+		<intercept-url pattern="/pages/parametrizarCargo/**"
+			access="hasAuthority('ROLE_ADMIN')" />
+		<intercept-url pattern="/pages/feedback/**" access="hasAuthority('ROLE_ADMIN')" />
+
+
 		<!-- Relativos a avaliação -->
 		<intercept-url pattern="/pages/avaliado/**" access="hasAuthority('ROLE_LIDER')" />
 
+
+		<!-- Consultar resultados avaliação -->
+		<intercept-url pattern="/pages/reports/**" access="hasAuthority('ROLE_AVALIADO')" />
+
+
 		<intercept-url pattern="/pages/**" access="!isAnonymous()" />
 
-		<form-login login-page="/login.xhtml" authentication-failure-url="/login.xhtml?erro=true" default-target-url="/pages/principal.xhtml" />
+		<form-login login-page="/login.xhtml"
+			authentication-failure-url="/login.xhtml?erro=true"
+			default-target-url="/pages/principal.xhtml" />
 
 		<logout logout-success-url="/login.xhtml" />
 	</http>

@@ -106,9 +106,10 @@ private static final long serialVersionUID = 1L;
 		
 	}
 
-	
-	
-	
+	public void carregarColecaoFun(){
+		funcionarioColecao = new ArrayList<>();
+		funcionarioColecao.add(isLider());
+	}
 	
 	//salvar ou atualizar
 	public String salvarOuDeletar(){
@@ -325,6 +326,18 @@ private static final long serialVersionUID = 1L;
 		}
 		
 	}
+	
+	public void gerarRelatorioAvaliado(){
+		try {
+			Long cargo = funcionarioSelecionado.getCargo().getId();
+			Long funcionario  = funcionarioSelecionado.getId();
+			new AvaliacaoReport().gerarRelatorio(cargo, funcionario);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public void carregarCargo(){
 		this.gerarMatrizFunPorDepartamento();
