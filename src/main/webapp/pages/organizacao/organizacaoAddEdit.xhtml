@@ -40,7 +40,24 @@
 					<f:validateBean />
 				</bnu:inputText>
 
-
+				<h:message for="org_cnpj" />
+				<bnu:inputText id="org_cnpj"
+					value="#{organizacaoBean.organizacaoEntity.cnpj}"
+					label="CNPJ" required="true" placeholder="99.999.999/9999-99"
+					required-message="Campo obrigatório" 
+					readonly="#{organizacaoBean.acao == 'DELETE'}">
+					<f:validateBean />
+				</bnu:inputText>
+				
+				<h:message for="org_tel" />
+				<bnu:inputText id="org_tel"
+					value="#{organizacaoBean.organizacaoEntity.telefone}"
+					label="TELEFONE" required="true" placeholder="xx xxxx-xxxx" maxlength="13"
+					required-message="Campo obrigatório" 
+					readonly="#{organizacaoBean.acao == 'DELETE'}">
+					<f:validateBean />
+				</bnu:inputText>
+				
 				<p:commandButton value="salvar" update="frm" styleClass="but but-success"
 					action="#{organizacaoBean.salvarOuDeletar()}"
 					rendered="#{organizacaoBean.acao == 'ADICIONAR'}" />
