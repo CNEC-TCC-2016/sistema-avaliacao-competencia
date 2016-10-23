@@ -142,8 +142,7 @@ public class FuncionarioBean extends BaseEntity<Long> {
 				funcionarioEntity = new FuncionarioEntity();
 				funcionarioEntity = this.funcionarioRepository.findOne(codigo);
 				usuarioEntity = funcionarioEntity.getUsuarioEntity();
-				LOGGER.info(funcionarioEntity);
-				LOGGER.info(usuarioEntity);
+				this.cargoSelecionado = funcionarioEntity.getCargo();
 			}else{
 				prepararNovoCadastro();
 			}

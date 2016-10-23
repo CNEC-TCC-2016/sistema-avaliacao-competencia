@@ -25,11 +25,20 @@
 			<h:inputHidden value="#{funcionarioBean.funcionarioEntity.id}" />
 
 			<bnu:panel title="Dados do Funcionario" look="primary">
+			<h:message for="frm_fun_nome" />
 				<bnu:inputText id="frm_fun_nome"
 					value="#{funcionarioBean.funcionarioEntity.nome}"
 					label="Nome Do Funcionário" required="true"
 					required-message="Campo obrigatório"
 					readonly="#{funcionarioBean.acao == 'DELETE'}" />
+				
+				<h:message for="sel_radio"/>
+				<p:selectOneRadio id="sel_radio" value="#{funcionarioBean.funcionarioEntity.sexo}" required="true"
+					requiredMessage="Campo obrigatório"
+					readonly="#{funcionarioBean.acao == 'DELETE'}" >
+					<f:selectItem itemLabel="Masculino" itemValue="M"/>
+					<f:selectItem itemLabel="Feminino" itemValue="F"/>
+				</p:selectOneRadio>
 
 			</bnu:panel>
 
@@ -72,9 +81,10 @@
 				<bnu:label text="CARGO"/>		
 				<h:selectOneMenu value="#{funcionarioBean.cargoSelecionado}" 
 				converter="omnifaces.SelectItemsConverter">
+						<f:selectItem itemLabel=""/>
 						<f:selectItems value="#{funcionarioBean.cargos}"
 						var="cargo" itemValue="#{cargo}"
-						itemLabel="#{cargo.departamento.nomeDepartamento} - #{cargo.nomeCargo}"
+						itemLabel="#{cargo.nomeCargo}"
 						itemDisabled="#{funcionarioBean.acao == 'DELETE'}" />
 				</h:selectOneMenu>
 				
@@ -82,7 +92,7 @@
 					
 				<p:commandButton value="salvar" styleClass="but but-success"
 					rendered="#{funcionarioBean.acao == 'ADICIONAR'}"
-					action="#{funcionarioBean.salvarOuEditar()}" update=":msgGlobal">
+					action="#{funcionarioBean.salvarOuEditar()}" update="@form">
 					</p:commandButton>
 
 
