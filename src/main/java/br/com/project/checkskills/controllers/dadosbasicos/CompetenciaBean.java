@@ -97,8 +97,8 @@ private static final long serialVersionUID = 1L;
 				Long codigo = Long.parseLong(this.codigo);
 				competenciaEntity = new CompetenciaEntity();
 				competenciaEntity = this.competenciaRepository.findOne(codigo);
+				tipoSelecionado = competenciaEntity.getTipoCompetencia();
 				LOGGER.info(competenciaEntity);
-				Messages.addFlashGlobalInfo("Dados carregados com sucesso");
 			}if (acao.equals("ADICIONAR")) {
 				this.competenciaEntity = new CompetenciaEntity();
 			}

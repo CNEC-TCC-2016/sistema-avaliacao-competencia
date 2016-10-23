@@ -45,16 +45,16 @@ private static final long serialVersionUID = 1L;
 	private String codigo;
 	private String acao;
 	
-    private Boolean tipoCadastro;
+    private boolean tipoCadastro;
 	
 
 	
 	
-	public Boolean getTipoCadastro() {
+	public boolean getTipoCadastro() {
 		return tipoCadastro;
 	}
 
-	public void setTipoCadastro(Boolean tipoCadastro) {
+	public void setTipoCadastro(boolean tipoCadastro) {
 		this.tipoCadastro = tipoCadastro;
 	}
 
@@ -103,8 +103,8 @@ private static final long serialVersionUID = 1L;
 				Long codigo = Long.parseLong(this.codigo);
 				departamentoEntity = new DepartamentoEntity();
 				departamentoEntity = this.departamentoRepository.findOne(codigo);
+				organizacaoSelecionado = departamentoEntity.getOrganizacao();
 				LOGGER.info(departamentoEntity);
-				Messages.addFlashGlobalInfo("Dados carregados com sucesso");
 			}if (acao.equals("ADICIONAR")) {
 				this.departamentoEntity = new DepartamentoEntity();
 			}

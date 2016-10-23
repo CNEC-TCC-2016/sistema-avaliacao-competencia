@@ -12,7 +12,7 @@
 			<f:event listener="#{cargoBean.onLoad()}" type="preRenderView"></f:event>
 		</f:view>
 
-		<bnu:panel id="funcPanel" title="Cargos" look="primary"
+		<bnu:panel id="funcPanel" title="Painel de Cargos" look="primary"
 			panel-footer="primary">
 			<h:form id="cargoForm">
 
@@ -47,7 +47,7 @@
 					
 					<bnu:column>
 						<f:facet name="header">
-							<h:outputText value="Cargo" />
+							<h:outputText value="Nivel" />
 						</f:facet>
 						<h:outputText value="#{cargo.nivelEntity.nivel}" />
 					</bnu:column>

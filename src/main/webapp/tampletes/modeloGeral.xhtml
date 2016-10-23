@@ -79,6 +79,12 @@
 							outcome="/pages/reports/avaliadoRelatorio.xhtml?faces-redirect=true"
 							icon="ui-icon-disk" />
 					</p:submenu>
+
+					<p:submenu label="Configurações">
+						<p:menuitem value="Logout" />
+						<p:menuitem value="Cliclo De Avaliação"
+							rendered="#{usuarioBean.roleAdmin}" />
+					</p:submenu>
 				</p:menu>
 			</h:form>
 		</p:layoutUnit>

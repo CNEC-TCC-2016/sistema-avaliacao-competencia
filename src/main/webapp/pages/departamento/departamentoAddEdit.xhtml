@@ -33,10 +33,11 @@
 
 				</bnu:inputText>
 				
-				<h:selectOneRadio value="#{departamentoBean.tipoCadastro}" required="true">
+				<h:selectOneRadio id="pnl_dep" value="#{departamentoBean.tipoCadastro}" required="true" readonly="#{departamentoBean.acao == 'DELETE'}">
 					<f:selectItem  itemLabel="Departamento" itemValue="false" />
 					<f:selectItem  itemLabel="Subdepartamento" itemValue="true"/>
 					<f:ajax event="change"  update="panelGrup:labelpanel" render="panelGrup"/>
+					<f:validateRequired for="pnl_dep"/>
 				</h:selectOneRadio>
 				
 				<h:panelGroup id="panelGrup">
@@ -52,7 +53,8 @@
 				<br/>
 				
 				<bnu:label text="Organização:" />
-				<h:selectOneMenu value="#{departamentoBean.organizacaoSelecionado}" converter="omnifaces.SelectItemsConverter">
+				<h:selectOneMenu value="#{departamentoBean.organizacaoSelecionado}" converter="omnifaces.SelectItemsConverter" readonly="#{departamentoBean.acao == 'DELETE'}">
+					<f:selectItem itemLabel=""/>
 					<f:selectItems value="#{departamentoBean.organizacoes}" 
 						var="organizacao" itemValue="#{organizacao}" itemLabel="#{organizacao.razaoSocial}">
 						</f:selectItems>
@@ -71,7 +73,7 @@
 				<p:commandButton value="Excluir" update="frm" styleClass="but but-danger"
 					action="#{departamentoBean.deletar()}" 
 					rendered="#{departamentoBean.acao == 'DELETE'}" >
-					 <p:confirm header="Confirmar" message="Todos Dados relacionados a organização serão perdidos. Deseja confirmar ?" 
+					 <p:confirm header="Confirmar" message="Todos Dados relacionados ao departamento serão perdidos. Deseja confirmar ?" 
 					 icon="ui-icon-alert" />
 					</p:commandButton>
 

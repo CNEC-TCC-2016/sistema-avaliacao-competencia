@@ -12,7 +12,7 @@
 			<f:event listener="#{departamentoBean.onLoad()}" type="preRenderView"></f:event>
 		</f:view>
 
-		<bnu:panel id="funcPanel" title="Departamentos" look="primary"
+		<bnu:panel id="funcPanel" title="Painel De Departamentos" look="primary"
 			panel-footer="primary">
 			<h:form id="departamentoForm">
 
@@ -36,6 +36,20 @@
 							<h:outputText value="Departamento" />
 						</f:facet>
 						<h:outputText value="#{departamento.nomeDepartamento}" />
+					</bnu:column>
+				
+					<bnu:column>
+						<f:facet name="header">
+							<h:outputText value="Departamento Pai" />
+						</f:facet>
+						<h:outputText value="#{departamento.departamentoPai.nomeDepartamento}" />
+					</bnu:column>
+				
+					<bnu:column>
+						<f:facet name="header">
+							<h:outputText value="Organização" />
+						</f:facet>
+						<h:outputText value="#{departamento.organizacao.razaoSocial}" />
 					</bnu:column>
 				
 					
