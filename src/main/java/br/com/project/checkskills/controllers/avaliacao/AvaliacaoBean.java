@@ -28,55 +28,50 @@ import br.com.project.checkskills.repositories.dadosbasicos.IEscalaRepository;
 import br.com.project.checkskills.repositories.dadosbasicos.IFuncionarioRepository;
 import br.com.project.checkskills.utils.BaseEntity;
 
-@ManagedBean(name="avaliacaoBean")
+@ManagedBean(name = "avaliacaoBean")
 @ViewScoped
-public class AvaliacaoBean extends BaseEntity<Long>{
+public class AvaliacaoBean extends BaseEntity<Long> {
 
-private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;
+
 	private static final Logger LOGGER = Logger.getLogger(AvaliacaoBean.class);
 
-	@ManagedProperty(value="#{avaliacaoRepository}")
+	@ManagedProperty(value = "#{avaliacaoRepository}")
 	private IAvaliacaoRepository avaliacaoRepository;
-	
 
-	@ManagedProperty(value="#{avaliacaoEntity}")
+	@ManagedProperty(value = "#{avaliacaoEntity}")
 	private AvaliacaoEntity avaliacaoEntity;
-	
-	@ManagedProperty(value="#{competenciaRepository}")
+
+	@ManagedProperty(value = "#{competenciaRepository}")
 	private ICompetenciaRepository competenciaRepository;
 
-	@ManagedProperty(value="#{usuarioRepository}")
+	@ManagedProperty(value = "#{usuarioRepository}")
 	private IUsuarioRepository usuarioRepository;
-	
 
-	@ManagedProperty(value="#{escalaRepository}")
+	@ManagedProperty(value = "#{escalaRepository}")
 	private IEscalaRepository escalaRepository;
 
-	@ManagedProperty(value="#{funcionarioRepository}")
+	@ManagedProperty(value = "#{funcionarioRepository}")
 	private IFuncionarioRepository funcionarioRepository;
 
-	@ManagedProperty(value="#{cargoCompetenciaRepository}")
+	@ManagedProperty(value = "#{cargoCompetenciaRepository}")
 	private ICargoCompetenciaRepository cargoCompetenciaRepository;
-
 
 	private List<EscalaEntity> escalas;
 	private List<CompetenciaEntity> competencias;
 	private List<AvaliacaoEntity> avaliacaos;
 	private List<AvaliacaoCompetenciaEntity> avaliacaoCompetencia;
 	private List<AvaliacaoEntity> avaliacaosTemp;
-	private List <FuncionarioEntity> funcionarioColecao;
+	private List<FuncionarioEntity> funcionarioColecao;
 	private FuncionarioEntity funcionarioSelecionado;
 	private CargoEntity cargoSelecionado;
 	private HashSet<CargoEntity> cargoColecao;
-	
+
 	private Long id;
-	
+
 	private String codigo;
 	private String acao;
-    
-	
-	
+
 	public String getCodigo() {
 		return codigo;
 	}
@@ -85,78 +80,94 @@ private static final long serialVersionUID = 1L;
 		this.codigo = codigo;
 	}
 
-	//carregar lista
-	public void onLoad(){
-		//this.avaliacaos = this.avaliacaoRepository.findAll();
+	// carregar lista
+	public void onLoad() {
+		// this.avaliacaos = this.avaliacaoRepository.findAll();
 		this.escalas = this.escalaRepository.findAll();
 		this.gerarMatrizFunPorDepartamento();
 	}
 
 	public void gerarMatrizFunPorDepartamento() {
-		if(isLider() != null && isLider().getId() != null){
-			
-			FuncionarioEntity entity= this.funcionarioRepository.findOne(isLider().getId());
+		if (isLider() != null && isLider().getId() != null) {
+
+			FuncionarioEntity entity = this.funcionarioRepository.findOne(isLider().getId());
 
 			entity.getCargo().getDepartamento();
-			
-			funcionarioColecao = this.funcionarioRepository.procuraEmDepartamentos(entity.getCargo().getDepartamento().getId());
+
+			funcionarioColecao = this.funcionarioRepository
+					.procuraEmDepartamentos(entity.getCargo().getDepartamento().getId());
 		}
-		
-		funcionarioColecao = funcionarioColecao == null ? funcionarioColecao = new ArrayList<>() : new ArrayList<>( new HashSet<FuncionarioEntity>(funcionarioColecao));
-		
+
+		funcionarioColecao = funcionarioColecao == null ? funcionarioColecao = new ArrayList<>()
+				: new ArrayList<>(new HashSet<FuncionarioEntity>(funcionarioColecao));
+
 	}
 
-	public void carregarColecaoFun(){
+	public void carregarColecaoFun() {
 		funcionarioColecao = new ArrayList<>();
 		funcionarioColecao.add(isLider());
 	}
-	
-	//salvar ou atualizar
-	public String salvarOuDeletar(){
-			if(this.avaliacaoEntity.getId() == null){
+
+	// salvar ou atualizar
+	public String salvarOuDeletar() {
+		if (this.avaliacaoEntity.getId() == null) {
 			this.avaliacaoRepository.save(avaliacaoEntity);
 			Messages.addFlashGlobalInfo("Avaliação salva com sucesso");
-		}else {
+		} else {
 			this.avaliacaoRepository.save(avaliacaoEntity);
 			Messages.addFlashGlobalInfo("Avaliação editada com sucesso");
 		}
-			LOGGER.info(avaliacaoEntity);
-		return "/pages/avaliacao/avaliacaoList.xhtml?faces-redirect=true";		
-	}
-	
-	//salva avaliacao temporariamente
-	public void salvarAvaliacao(){
-		loadFunAvaliado();
-		AvaliacaoEntity item = new AvaliacaoEntity(avaliacaoCompetencia, funcionarioSelecionado);
-		item.setStatus(true);
-		this.avaliacaoRepository.save(item);
-		LOGGER.info(item);
-	}
-
-
-
-	public void  loadFunAvaliado(){
-		Long valor = Long.parseLong(codigo);
-		funcionarioSelecionado =  this.funcionarioRepository.findOne(valor);
-	}
-	
-	//Obtem o funcionario Lider
-	public FuncionarioEntity isLider(){
-		String username =  SecurityContextHolder.getContext().getAuthentication().getName();
-		Long valor = this.usuarioRepository.findByUsername(username).getId();
-		
-		return this.funcionarioRepository.findOne(valor);
-	}
-	
-	public String deletar(){
-		if(this.avaliacaoEntity.getId() != null)
-			this.avaliacaoRepository.delete(this.avaliacaoEntity.getId());
-		
+		LOGGER.info(avaliacaoEntity);
 		return "/pages/avaliacao/avaliacaoList.xhtml?faces-redirect=true";
 	}
-	
 
-	public void loadCadastro(){
+	// salva avaliacao temporariamente
+	public String salvarAvaliacao() {
+		loadFunAvaliado();
+		AvaliacaoEntity item = new AvaliacaoEntity(avaliacaoCompetencia, funcionarioSelecionado);
+		
+		if (validarEscalas(item)) {
+			item.setStatus(true);
+			this.avaliacaoRepository.save(item);
+			return null;
+		}else{
+			return "/pages/avaliacao/avaliacaoList.xhtml?faces-redirect=true";
+		}
+	}
+	
+	public boolean validarEscalas(AvaliacaoEntity item) {
+		boolean retorno = true;
+		for (AvaliacaoCompetenciaEntity avaliacao : item.getAvaliacaoCompetencias()) {
+			if (avaliacao.getEscala() == null) {
+				retorno = false;
+				Messages.addFlashGlobalError("Operação não concluida.É obrigatório escolher uma competência para cada escala");
+				break;
+			}
+		}
+		return retorno;
+	}
+
+	public void loadFunAvaliado() {
+		Long valor = Long.parseLong(codigo);
+		funcionarioSelecionado = this.funcionarioRepository.findOne(valor);
+	}
+
+	// Obtem o funcionario Lider
+	public FuncionarioEntity isLider() {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		Long valor = this.usuarioRepository.findByUsername(username).getId();
+
+		return this.funcionarioRepository.findOne(valor);
+	}
+
+	public String deletar() {
+		if (this.avaliacaoEntity.getId() != null)
+			this.avaliacaoRepository.delete(this.avaliacaoEntity.getId());
+
+		return "/pages/avaliacao/avaliacaoList.xhtml?faces-redirect=true";
+	}
+
+	public void loadCadastro() {
 		try {
 			if (codigo != null) {
 				Long codigo = Long.parseLong(this.codigo);
@@ -164,63 +175,55 @@ private static final long serialVersionUID = 1L;
 				avaliacaoEntity = this.avaliacaoRepository.findOne(codigo);
 				LOGGER.info(avaliacaoEntity);
 				Messages.addFlashGlobalInfo("Dados carregados com sucesso");
-			}if (acao.equals("ADICIONAR")) {
+			}
+			if (acao.equals("ADICIONAR")) {
 				this.avaliacaoEntity = new AvaliacaoEntity();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
 
 	/**
-	**Botões de link, quando se trabalha com @ViewScoped é bom usar
-	**/
-	//botão cancelar
+	 ** Botões de link, quando se trabalha com @ViewScoped é bom usar
+	 **/
+	// botão cancelar
 	public String cancel() {
 		this.setAvaliacaoEntity(null);
 		return "/pages/avaliacao/avaliacaoList.xhtml?faces-redirect=true";
 	}
-	
-	
-	//botão adicionar
-	public String add(){
+
+	// botão adicionar
+	public String add() {
 		this.avaliacaoEntity = new AvaliacaoEntity();
 		return "/pages/avaliacao/avaliacaoAddEdit.xhtml?faces-redirect=true";
 	}
-	
-	//botão editar
-		public String editar(){
-			return "/pages/avaliacao/avaliacaoAddEdit.xhtml?faces-redirect=true";
-		}
-		
-		public String excluir(){
-			return "/pages/avaliacao/avaliacaoAddEdit.xhtml?faces-redirect=true";
-		}
-		
-	
-	
-	//todos get e set
+
+	// botão editar
+	public String editar() {
+		return "/pages/avaliacao/avaliacaoAddEdit.xhtml?faces-redirect=true";
+	}
+
+	public String excluir() {
+		return "/pages/avaliacao/avaliacaoAddEdit.xhtml?faces-redirect=true";
+	}
+
+	// todos get e set
 	public IAvaliacaoRepository getAvaliacaoRepository() {
 		return avaliacaoRepository;
 	}
-
 
 	public void setAvaliacaoRepository(IAvaliacaoRepository avaliacaoRepository) {
 		this.avaliacaoRepository = avaliacaoRepository;
 	}
 
-
 	public List<AvaliacaoEntity> getAvaliacaos() {
 		return avaliacaos;
 	}
 
-
 	public void setAvaliacaos(List<AvaliacaoEntity> avaliacaos) {
 		this.avaliacaos = avaliacaos;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -245,7 +248,6 @@ private static final long serialVersionUID = 1L;
 	public void setAcao(String acao) {
 		this.acao = acao;
 	}
-	
 
 	public ICompetenciaRepository getCompetenciaRepository() {
 		return competenciaRepository;
@@ -254,7 +256,6 @@ private static final long serialVersionUID = 1L;
 	public void setCompetenciaRepository(ICompetenciaRepository competenciaRepository) {
 		this.competenciaRepository = competenciaRepository;
 	}
-
 
 	public List<EscalaEntity> getEscalas() {
 		return escalas;
@@ -265,16 +266,13 @@ private static final long serialVersionUID = 1L;
 	}
 
 	public List<CompetenciaEntity> getCompetencias() {
-		return competencias ;
+		return competencias;
 	}
 
 	public void setCompetencias(List<CompetenciaEntity> competencias) {
 		this.competencias = competencias;
 	}
 
-
-
-	
 	public IEscalaRepository getEscalaRepository() {
 		return escalaRepository;
 	}
@@ -283,79 +281,80 @@ private static final long serialVersionUID = 1L;
 		this.escalaRepository = escalaRepository;
 	}
 
-	/** <p> Prenche o formulário de avaliação com base no cargo que o funcionario possui</p>
+	/**
+	 * <p>
+	 * Prenche o formulário de avaliação com base no cargo que o funcionario
+	 * possui
+	 * </p>
 	 * 
-	 * **/
-	public void loadForm(){
+	 **/
+	public void loadForm() {
 		if (acao.equals("AVALIAR")) {
 			List<CargoCompetenciaEntity> cargoCompetencias = this.cargoCompetenciaRepository.findAll();
-			avaliacaoCompetencia = new ArrayList<AvaliacaoCompetenciaEntity>();	
+			avaliacaoCompetencia = new ArrayList<AvaliacaoCompetenciaEntity>();
 			cargoCompetencias.forEach(cargoCompetencia -> popularFomPorCargo(cargoCompetencia));
 		}
-		
+
 	}
 
 	public void popularFomPorCargo(CargoCompetenciaEntity cargoCompetencia) throws NumberFormatException {
-		if (cargoCompetencia.getId().getCarogId() == funcionarioRepository.findOne( Long.parseLong(codigo))
-				.getCargo().getId() ) {
-			AvaliacaoCompetenciaEntity item = 
-					new AvaliacaoCompetenciaEntity(new EscalaEntity(), cargoCompetencia);
+		if (cargoCompetencia.getId().getCarogId() == funcionarioRepository.findOne(Long.parseLong(codigo)).getCargo()
+				.getId()) {
+			AvaliacaoCompetenciaEntity item = new AvaliacaoCompetenciaEntity(new EscalaEntity(), cargoCompetencia);
 			avaliacaoCompetencia.add(item);
 		}
 	}
-	
-	public void gerarRelatorio(){
+
+	public void gerarRelatorio() {
 		try {
 			Long cargo = funcionarioSelecionado.getCargo().getId();
-			Long funcionario  = funcionarioSelecionado.getId();
+			Long funcionario = funcionarioSelecionado.getId();
 			new AvaliacaoReport().gerarRelatorio(cargo, funcionario);
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
-		
+
 	}
-	
-	public void gerarRelatorioCargo(){
+
+	public void gerarRelatorioCargo() {
 		try {
 			Long cargo = cargoSelecionado.getId();
 			new AvaliacaoReport().gerarRelatorio(cargo);
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
-		
+
 	}
-	
-	public void gerarRelatorioAvaliado(){
+
+	public void gerarRelatorioAvaliado() {
 		try {
 			Long cargo = funcionarioSelecionado.getCargo().getId();
-			Long funcionario  = funcionarioSelecionado.getId();
+			Long funcionario = funcionarioSelecionado.getId();
 			new AvaliacaoReport().gerarRelatorio(cargo, funcionario);
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
 	}
-	
-	
-	public void carregarCargo(){
+
+	public void carregarCargo() {
 		this.gerarMatrizFunPorDepartamento();
 		cargoColecao = new HashSet<CargoEntity>();
 		funcionarioColecao.forEach(item -> popularCargoColecao(item));
-		
+
 	}
-	
-	
-	//teste
+
+	// teste
 	public void popularCargoColecao(FuncionarioEntity item) {
-		
+
 		cargoColecao.add(item.getCargo());
 	}
-	
-	//teste
+
+	// teste
 	public List<AvaliacaoCompetenciaEntity> getAvaliacaoCompetencia() {
-		//loadForm();
+		// loadForm();
 		return avaliacaoCompetencia;
 	}
 
@@ -372,7 +371,7 @@ private static final long serialVersionUID = 1L;
 	public void setAvaliacaosTemp(List<AvaliacaoEntity> avaliacaosTemp) {
 		this.avaliacaosTemp = avaliacaosTemp;
 	}
-	
+
 	public IUsuarioRepository getUsuarioRepository() {
 		return usuarioRepository;
 	}
@@ -380,7 +379,6 @@ private static final long serialVersionUID = 1L;
 	public void setUsuarioRepository(IUsuarioRepository usuarioRepository) {
 		this.usuarioRepository = usuarioRepository;
 	}
-
 
 	public IFuncionarioRepository getFuncionarioRepository() {
 		return funcionarioRepository;
@@ -390,14 +388,13 @@ private static final long serialVersionUID = 1L;
 		this.funcionarioRepository = funcionarioRepository;
 	}
 
-	public List <FuncionarioEntity> getFuncionarioColecao() {
-			return funcionarioColecao;
+	public List<FuncionarioEntity> getFuncionarioColecao() {
+		return funcionarioColecao;
 	}
 
-	public void setFuncionarioColecao(List <FuncionarioEntity> funcionarioColecao) {
+	public void setFuncionarioColecao(List<FuncionarioEntity> funcionarioColecao) {
 		this.funcionarioColecao = funcionarioColecao;
 	}
-	
 
 	public ICargoCompetenciaRepository getCargoCompetenciaRepository() {
 		return cargoCompetenciaRepository;
@@ -430,7 +427,5 @@ private static final long serialVersionUID = 1L;
 	public void setCargoColecao(HashSet<CargoEntity> cargoColecao) {
 		this.cargoColecao = cargoColecao;
 	}
-
-		
 
 }

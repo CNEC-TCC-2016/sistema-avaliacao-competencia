@@ -19,7 +19,7 @@
 
 		</f:metadata>
 
-		<bnu:panel id="funcPanel" title="Avaliacoes" look="primary"
+		<bnu:panel id="funcPanel" title="Painel De Avaliacões" look="primary"
 			panel-footer="primary">
 			<h:form id="oForm">
 				<bnu:panelGrid columns="2" cellpadding="5">
@@ -82,20 +82,13 @@
 
 				</bnu:panelGrid>
 
-
 				<p:dialog id="dlg" header="Formulario de avaliação"
 					widgetVar="dialog" showEffect="explode" minHeight="40">
-
+				
 
 					<p:dataTable id="DataTable" widgetVar="dataTable" searching="false"
 						var="avaliacao" value="#{avaliacaoBean.avaliacaoCompetencia}"
 						paginated="false" select="false">
-						<p:column>
-							<f:facet name="header">
-								<h:outputText value="CARGO" />
-							</f:facet>
-							<h:outputText value="#{avaliacao.cargoCompetencia.id.carogId}" />
-						</p:column>
 
 						<p:column>
 							<f:facet name="header">
@@ -114,7 +107,8 @@
 								<h:outputText value="ESCALA" />
 							</f:facet>
 							<h:selectOneMenu id="oneMenu" value="#{avaliacao.escala}"
-								converter="omnifaces.SelectItemsConverter">
+								converter="omnifaces.SelectItemsConverter" >
+								<f:selectItem itemValue=""/>
 								<f:selectItems value="#{avaliacaoBean.escalas}" var="escala"
 									itemValue="#{escala}" itemLabel="#{escala.nome}">
 

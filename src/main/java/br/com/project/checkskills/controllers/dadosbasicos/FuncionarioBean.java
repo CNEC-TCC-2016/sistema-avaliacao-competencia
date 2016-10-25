@@ -92,7 +92,16 @@ public class FuncionarioBean extends BaseEntity<Long> {
 			}
 		}else{
 			this.funcionarioRepository.save(funcionarioEntity);
+			emitirMsgGlobal();
 		return "/pages/funcionario/funcionarioList.xhtml?faces-redirect=true";
+		}
+	}
+
+	public void emitirMsgGlobal() {
+		if (funcionarioEntity.getId() == null){
+		Messages.addFlashGlobalInfo("Dados salvos com sucesso");
+		}else{
+		Messages.addFlashGlobalInfo("Dados editados com sucesso");	
 		}
 	}
 
