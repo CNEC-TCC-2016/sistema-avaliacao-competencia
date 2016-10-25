@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:bnu="http://bootsfaces.net/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="/tampletes/modeloGeral.xhtml">
+	<ui:define name="conteudo">
+		<f:view>
+			<f:event listener="#{feedbackBean.onLoad()}" type="preRenderView"></f:event>
+		</f:view>
+		<ui:repeat value="#{feedbackBean.feedbacks}" var="feedback">
+			<bnu:panel id="funcPanel" title="#{feedback.titulo}" look="info" show-collapse-link="false"
+				collapsed="true" panel-footer="primary">
+
+				<h:outputText value="#{feedback.observacao}"></h:outputText>
+				<f:facet name="footer">
+					<h:outputText value="#{feedback.dataCadastro}" />
+				</f:facet>
+			</bnu:panel>
+		</ui:repeat>
+
+
+	</ui:define>
+</ui:composition>
+
+
+</html>

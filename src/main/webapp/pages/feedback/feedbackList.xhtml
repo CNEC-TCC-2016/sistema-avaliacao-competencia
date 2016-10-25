@@ -9,76 +9,62 @@
 <ui:composition template="/tampletes/modeloGeral.xhtml">
 	<ui:define name="conteudo">
 		<f:view>
-			<f:event listener="#{organizacaoBean.onLoad()}" type="preRenderView"></f:event>
+			<f:event listener="#{feedbackBean.onLoad()}" type="preRenderView"></f:event>
 		</f:view>
 
-		<bnu:panel id="funcPanel" title="Painel de organizações" look="primary"
+		<bnu:panel id="funcPanel" title="Feedbacks" look="primary"
 			panel-footer="primary">
-			<h:form id="organizacaoForm">
+			<h:form id="feedbackForm">
 
 
 				<h:panelGrid>
-					<p:button outcome="#{organizacaoBean.add()}" value="Adicionar"
+					<p:button outcome="#{feedbackBean.add()}" value="Adicionar"
 						styleClass="but but-success">
 						<f:param value="ADICIONAR" name="acao" />
 					</p:button>
 
 				</h:panelGrid>
 				<br />
-				<bnu:dataTable id="OrganizacaoDataTable" widgetVar="dataTable"
-					var="organizacao" value="#{organizacaoBean.organizacaos}"
-					paginator="true" rows="10"
+				<bnu:dataTable id="FeedbackDataTable" widgetVar="dataTable"
+					var="feedback" value="#{feedbackBean.feedbacks}" paginator="true"
+					rows="10"
 					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-					rowsPerPageTemplate="5,10,20" rowKey="#{organizacao.id}"
+					rowsPerPageTemplate="5,10,20" rowKey="#{feedback.id}"
 					select="false" selectionMode="single">
 					<bnu:column>
 						<f:facet name="header">
 							<h:outputText value="ID" />
 						</f:facet>
-						<h:outputText value="#{organizacao.id}" />
+						<h:outputText value="#{feedback.id}" />
 					</bnu:column>
-
+					
 					<bnu:column>
 						<f:facet name="header">
-							<h:outputText value="Razão Social" />
+							<h:outputText value="Titulo" />
 						</f:facet>
-						<h:outputText value="#{organizacao.razaoSocial}" />
+						<h:outputText value="#{feedback.titulo}" />
 					</bnu:column>
-
+					
 					<bnu:column>
 						<f:facet name="header">
-							<h:outputText value="Ramo de atuação" />
+							<h:outputText value="Observação" />
 						</f:facet>
-						<h:outputText value="#{organizacao.ramoAtuacao}" />
+						<h:outputText value="#{feedback.observacao}" />
 					</bnu:column>
-
-					<bnu:column>
-						<f:facet name="header">
-							<h:outputText value="CNPJ" />
-						</f:facet>
-						<h:outputText value="#{organizacao.cnpj}" />
-					</bnu:column>
-
-					<bnu:column>
-						<f:facet name="header">
-							<h:outputText value="Telefone" />
-						</f:facet>
-						<h:outputText value="#{organizacao.telefone}" />
-					</bnu:column>
-
+				
 					<p:column>
 						<f:facet name="header">
 							<h:outputText value="Opções" />
 						</f:facet>
 						<p:row>
-							<p:button outcome="#{organizacaoBean.editar()}" value="Editar"
+							<p:button outcome="#{feedbackBean.editar()}" value="Editar"
 								styleClass="but but-warning">
-								<f:param value="#{organizacao.id}" name="codigo" />
+								<f:param value="#{feedback.id}" name="codigo" />
 								<f:param value="EDIT" name="acao" />
 							</p:button>
-							<p:button outcome="#{organizacaoBean.excluir()}" value="Excluir"
+							<p:button outcome="#{feedbackBean.excluir()}" value="Excluir"
 								styleClass="but but-danger">
-								<f:param value="#{organizacao.id}" name="codigo" />
+								<f:param value="#{feedback.id}" name="codigo" />
 								<f:param value="DELETE" name="acao" />
 							</p:button>
 						</p:row>

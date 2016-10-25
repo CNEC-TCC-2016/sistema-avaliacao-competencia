@@ -32,6 +32,7 @@ public class UsuarioBean implements Serializable {
 	
 		public void carregarPermissoes(){
 			usuarioLogado().getPermissions().forEach(item -> atribuiPermissao(item));
+			System.out.println(roleAvaliado);
 		}
 
 		public void atribuiPermissao(PermissaoEntity item) {

@@ -15,66 +15,124 @@
 
 		</f:metadata>
 
-		<bnu:panel id="funcPanel" title="Avaliacoes" look="primary"
+		<bnu:panel id="funcPanel" title="Painel De Avaliacões" look="primary"
 			panel-footer="primary">
 			<h:form id="oForm">
-				<bnu:panelGrid columns="2" cellpadding="5">
-					<bnu:dataTable widgetVar="FormDataTable" var="cargo"
-						value="#{cargoBean.cargos}" searching="false" paginated="false">
-						<p:column>
-							<f:facet name="header">
-								<h:outputText value="CARGO" />
-							</f:facet>
-							<h:outputText value="#{cargo.nomeCargo}" />
-						</p:column>
-						<p:column>
-							<f:facet name="header">
-								<h:outputText value="E-MAIL" />
-							</f:facet>
-							<h:outputText value="#{cargo.nivelEntity.nivel}" />
-						</p:column>
+				<bnu:dataTable widgetVar="FormDataTable" var="cargo"
+					value="#{cargoBean.cargos}" searching="false" paginated="false">
 
-						<p:column>
-							<f:facet name="header">
-								<h:outputText value="OPÇÕES" />
-							</f:facet>
-							<p:commandButton value="Parametrizar"
-								actionListener="#{ParametrizarBean.loadCadastro()}"
-								oncomplete="PF('dialog').show();" update="@form">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Organização" />
+						</f:facet>
+						<h:outputText
+							value="#{cargo.departamento.organizacao.razaoSocial}" />
+					</p:column>
 
-								<f:param value="#{cargo.id}" name="codigo" />
-							</p:commandButton>
-						</p:column>
-					</bnu:dataTable>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Departamento" />
+						</f:facet>
+						<h:outputText value="#{cargo.departamento.nomeDepartamento}" />
+					</p:column>
 
-				</bnu:panelGrid>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Cargo" />
+						</f:facet>
+						<h:outputText value="#{cargo.nomeCargo}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Nível" />
+						</f:facet>
+						<h:outputText value="#{cargo.nivelEntity.nivel}" />
+					</p:column>
+
+
+
+
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Opcões" />
+						</f:facet>
+						<p:commandButton value="Parametrizar"
+							actionListener="#{ParametrizarBean.loadCadastro()}"
+							oncomplete="PF('dialog').show();" update="@form">
+
+							<f:param value="#{cargo.id}" name="codigo" />
+						</p:commandButton>
+					</p:column>
+				</bnu:dataTable>
 
 
 				<p:dialog id="dlg" header="Parametriar cargo" widgetVar="dialog"
 					showEffect="explode" minHeight="40">
 					<bnu:panel>
-						<bnu:panelGrid columns="1">
+						<bnu:panelGrid columns="2">
 
-						<p:column>
-							<h:outputText value="#{ParametrizarBean.cargo.nomeCargo}" />
-						</p:column>
+							<p:column>
+								<p:outputLabel value="Organização :" />
+							</p:column>
 
-						<p:column>
-							<h:outputText value="#{ParametrizarBean.cargo.nivelEntity.nivel}" />
-						</p:column>
-					</bnu:panelGrid>
-						
+
+							<p:column>
+								<h:outputText
+									value="#{ParametrizarBean.cargo.departamento.organizacao.razaoSocial}" />
+							</p:column>
+
+							<p:column>
+								<p:outputLabel value="Departamento :" />
+							</p:column>
+
+							<p:column>
+								<h:outputText value="#{ParametrizarBean.cargo.departamento.nomeDepartamento}" />
+							</p:column>
+
+
+							<p:column>
+								<p:outputLabel value="Cargo :" />
+							</p:column>
+
+							<p:column>
+								<h:outputText value="#{ParametrizarBean.cargo.nomeCargo}" />
+							</p:column>
+
+							<p:column>
+								<p:outputLabel value="Nível :" />
+							</p:column>
+
+							<p:column>
+								<h:outputText
+									value="#{ParametrizarBean.cargo.nivelEntity.nivel}" />
+							</p:column>
+							
+							<p:column>
+								<p:outputLabel value="Descrição :" />
+							</p:column>
+
+							<p:column>
+								<h:outputText
+									value="#{ParametrizarBean.cargo.descricao}" />
+							</p:column>
+						</bnu:panelGrid>
+
 					</bnu:panel>
-										<p:pickList value="#{ParametrizarBean.competencias}"
+					<p:pickList value="#{ParametrizarBean.competencias}"
 						var="competencia" itemValue="#{competencia}"
-						itemLabel="#{competencia.nome}" showCheckbox="true" showSourceFilter="true" onTransfer="true">
+						itemLabel="#{competencia.nome}" showCheckbox="false"
+						showSourceFilter="false" onTransfer="true">
 						<o:converter converterId="omnifaces.ListConverter"
 							list="#{ParametrizarBean.competencias.source}" />
 						<f:facet name="sourceCaption">DISPONÍVEIS</f:facet>
 						<f:facet name="targetCaption">ESCOLHIDAS</f:facet>
 					</p:pickList>
 					<p:commandButton value="Salvar"
-						action="#{ParametrizarBean.salvarOuEditar()}" oncomplete="PF('dialog').hide();"/>
+						action="#{ParametrizarBean.salvarOuEditar()}" 
+						oncomplete="PF('dialog').hide();" />
+					<p:commandButton value="Cancelar"
+						oncomplete="PF('dialog').hide();" />
 
 				</p:dialog>
 

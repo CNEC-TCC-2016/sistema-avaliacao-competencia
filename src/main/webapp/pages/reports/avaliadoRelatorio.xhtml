@@ -9,21 +9,16 @@
 <ui:composition template="/tampletes/modeloGeral.xhtml">
 	<ui:define name="conteudo">
 		<f:metadata>
-			<f:event listener="#{avaliacaoBean.gerarMatrizFunPorDepartamento()}"
-				type="preRenderView"></f:event>
-		
-			<f:event listener="#{avaliacaoBean.carregarCargo()}"
+			<f:event listener="#{avaliacaoBean.carregarColecaoFun()}"
 				type="preRenderView"></f:event>
 		</f:metadata>
 		<bnu:panel title="Analisar resultados por funcionário">
 			<h:form>
 				<h:panelGroup id="panelGrup">
-				<h:message for="oneMenu" /><br />
 					<bnu:label id="labelpanel" text="Escolha um funcionário" />
-					<h:selectOneMenu id="oneMenu" required="true" requiredMessage="Campo obrigatório"
+					<h:selectOneMenu id="oneMenu"
 						value="#{avaliacaoBean.funcionarioSelecionado}"
 						converter="omnifaces.SelectItemsConverter">
-						<f:selectItem itemLabel=""/>
 						<f:selectItems value="#{avaliacaoBean.funcionarioColecao}"
 							var="funcionario" itemValue="#{funcionario}"
 							itemLabel="#{funcionario.nome}">
@@ -32,29 +27,7 @@
 				</h:panelGroup>
 
 				<p:commandButton action="#{avaliacaoBean.gerarRelatorio()}"
-					value="Gerar Relatório Individual" ajax="false">
-				</p:commandButton>
-			</h:form>
-		</bnu:panel>
-		
-		<bnu:panel title="Analisar resultados por cargo">
-			<h:form>
-				<h:panelGroup id="panelGrup">
-				<h:message for="oneMenu" /><br />
-					<bnu:label id="labelpanel" text="Escolha um cargo" />
-					<h:selectOneMenu id="oneMenu" required="true" requiredMessage="Campo obrigatório"
-						value="#{avaliacaoBean.cargoSelecionado}"
-						converter="omnifaces.SelectItemsConverter">
-						<f:selectItem itemLabel=""/>
-						<f:selectItems value="#{avaliacaoBean.cargoColecao}"
-							var="cargo" itemValue="#{cargo}"
-							itemLabel="#{cargo.nomeCargo}">
-						</f:selectItems>
-					</h:selectOneMenu>
-				</h:panelGroup>
-
-				<p:commandButton action="#{avaliacaoBean.gerarRelatorioCargo()}"
-					value="Gerar Relatório Por Cargo" ajax="false">
+					value="Gerar Relatório" ajax="false">
 				</p:commandButton>
 			</h:form>
 		</bnu:panel>

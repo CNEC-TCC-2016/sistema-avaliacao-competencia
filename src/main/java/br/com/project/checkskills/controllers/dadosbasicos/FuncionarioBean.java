@@ -92,7 +92,16 @@ public class FuncionarioBean extends BaseEntity<Long> {
 			}
 		}else{
 			this.funcionarioRepository.save(funcionarioEntity);
+			emitirMsgGlobal();
 		return "/pages/funcionario/funcionarioList.xhtml?faces-redirect=true";
+		}
+	}
+
+	public void emitirMsgGlobal() {
+		if (funcionarioEntity.getId() == null){
+		Messages.addFlashGlobalInfo("Dados salvos com sucesso");
+		}else{
+		Messages.addFlashGlobalInfo("Dados editados com sucesso");	
 		}
 	}
 
@@ -142,8 +151,7 @@ public class FuncionarioBean extends BaseEntity<Long> {
 				funcionarioEntity = new FuncionarioEntity();
 				funcionarioEntity = this.funcionarioRepository.findOne(codigo);
 				usuarioEntity = funcionarioEntity.getUsuarioEntity();
-				LOGGER.info(funcionarioEntity);
-				LOGGER.info(usuarioEntity);
+				this.cargoSelecionado = funcionarioEntity.getCargo();
 			}else{
 				prepararNovoCadastro();
 			}

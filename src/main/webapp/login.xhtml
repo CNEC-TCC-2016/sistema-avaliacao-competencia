@@ -16,26 +16,11 @@
 </h:head>
 <h:body style="background-position: 50% 0%;background-repeat: no-repeat">
 	
-	<p:dialog header="Efetuar Login" visible="true" closable="false"
+	<p:dialog header="CheckSkill System Tela De Login" visible="true" closable="false"
 		draggable="false" resizable="false" width="420">
 		<center> <h:outputText value="Usuário ou senha incorretos!"
 			rendered="#{param.erro}" style="color: darkred" /> </center>
-
-		<!-- 			<form action="j_spring_security_check" method="post"> -->
-
-		<!-- 				<h:panelGrid columns="2" cellpadding="5"> -->
-
-		<!-- 					<p:outputLabel for="j_username" value="Username:" /> -->
-		<!-- 					<p:inputText id="j_username" required="true" /> -->
-		<!-- 					<p:outputLabel for="j_password" value="Password:" /> -->
-		<!-- 					<p:password id="j_password" required="true" /> -->
-
-
-		<!-- 					<input type="submit" value="Logar" /> -->
-
-		<!-- 				</h:panelGrid> -->
-
-		<!-- 			</form> -->
+			
 		<b:panel>
 			<h:form id="loginForm" action="./j_spring_security_check"
 				method="post" prependId="false"

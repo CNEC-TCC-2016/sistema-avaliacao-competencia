@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Component;
 
@@ -24,9 +25,13 @@ public class FuncionarioEntity extends BaseEntity<Long> {
 
 	private static final long serialVersionUID = 1L;
 	
-	//teste comentario
+	@Column(name="NOME")
+	@NotNull(message="Campo obrigatório")
 	private String nome;
 	
+	@Column(name="SEXO")
+	@NotNull(message="Campo obrigatório")
+	private String sexo;
 	
 	@OneToOne( cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE}, 
 			optional = false, fetch = FetchType.EAGER)
@@ -41,6 +46,15 @@ public class FuncionarioEntity extends BaseEntity<Long> {
 	@OneToOne(mappedBy="funcionario")
 	private AvaliacaoEntity avaliacao;
 
+	
+	public String getSexo() {
+		return sexo;
+	}
+	
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+	
 	public CargoEntity getCargo() {
 		return cargo;
 	}

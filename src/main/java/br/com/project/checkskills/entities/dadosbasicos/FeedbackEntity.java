@@ -7,13 +7,17 @@ import javax.persistence.AttributeOverride;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.stereotype.Component;
 
+import br.com.project.checkskills.entities.avaliacao.AvaliacaoEntity;
 import br.com.project.checkskills.utils.BaseEntity;
 
 
@@ -25,23 +29,22 @@ public class FeedbackEntity extends BaseEntity<Long> {
 
 	private static final long serialVersionUID = 1L;
 
+	@Column(name = "titulo")
+	private String titulo;
+	
     @Lob
     @Column(name = "Observacao")
-    private byte[] observacao;
+    private String observacao;
     
     @Basic(optional = false)
     @Column(name = "data_cadastro")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCadastro;
 
-
-	public byte[] getObservacao() {
-		return observacao;
-	}
-
-	public void setObservacao(byte[] observacao) {
-		this.observacao = observacao;
-	}
+	@ManyToOne(fetch = FetchType.EAGER )
+	@JoinColumn(name="ID_AVALIACAO", referencedColumnName="ID_AVALIACAO")
+    private AvaliacaoEntity avaliacaoEntity;
+    
 
 	public Date getDataCadastro() {
 		return dataCadastro;
@@ -49,6 +52,30 @@ public class FeedbackEntity extends BaseEntity<Long> {
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
+	}
+
+	public AvaliacaoEntity getAvaliacaoEntity() {
+		return avaliacaoEntity;
+	}
+
+	public void setAvaliacaoEntity(AvaliacaoEntity avaliacaoEntity) {
+		this.avaliacaoEntity = avaliacaoEntity;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
 
 	

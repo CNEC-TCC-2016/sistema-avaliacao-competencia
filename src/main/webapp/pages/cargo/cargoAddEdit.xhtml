@@ -42,10 +42,12 @@
 				</bnu:inputText>
 
 
-
+				<h:message for="sel_car" />
+				<br />
 				<bnu:label text="Nível" />
-				<h:selectOneMenu value="#{cargoBean.nivelSelecionado}"
-					converter="omnifaces.SelectItemsConverter">
+				<h:selectOneMenu id="sel_car" value="#{cargoBean.nivelSelecionado}"
+					converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Campo obrigatório">
+					<f:selectItem itemLabel=""/>
 					<f:selectItems value="#{cargoBean.niveis}" var="nivel"
 						itemValue="#{nivel}" itemLabel="#{nivel.nivel}">
 					</f:selectItems>
@@ -53,9 +55,12 @@
 
 				<br />
 				
+				<h:message for="sel_dep" />
+				<br />
 				<bnu:label text="Departamento" />
-				<h:selectOneMenu value="#{cargoBean.departamentoSelecionado}"
-					converter="omnifaces.SelectItemsConverter">
+				<h:selectOneMenu id="sel_dep" value="#{cargoBean.departamentoSelecionado}"
+					converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Campo obrigatório">
+					<f:selectItem itemLabel=""/>
 					<f:selectItems value="#{departamentoBean.departamentos}" var="departamento"
 						itemValue="#{departamento}" itemLabel="#{departamento.nomeDepartamento}">
 					</f:selectItems>
@@ -77,7 +82,7 @@
 					styleClass="but but-danger" action="#{cargoBean.deletar()}"
 					rendered="#{cargoBean.acao == 'DELETE'}">
 					<p:confirm header="Confirmar"
-						message="Todos Dados relacionados a dados serão perdidos. Deseja confirmar ?"
+						message="Todos Dados relacionados a cargo serão perdidos. Deseja confirmar ?"
 						icon="ui-icon-alert" />
 				</p:commandButton>
 

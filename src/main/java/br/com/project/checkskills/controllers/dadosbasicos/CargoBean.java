@@ -103,6 +103,8 @@ public class CargoBean extends BaseEntity<Long> {
 
 				cargo = new CargoEntity();
 				cargo = this.cargoRepository.findOne(codigo);
+				nivelSelecionado = cargo.getNivelEntity();
+				departamentoSelecionado = cargo.getDepartamento();
 				LOGGER.info(cargo);
 				Messages.addFlashGlobalInfo("Dados carregado com sucesso.");
 

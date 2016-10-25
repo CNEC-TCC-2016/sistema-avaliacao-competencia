@@ -20,7 +20,7 @@
 		<h:form id="frm">
 			<h:inputHidden value="#{organizacaoBean.organizacaoEntity.id}" />
 
-			<bnu:panel id="pnl_cad" title="Dados do Organizacao">
+			<bnu:panel id="pnl_cad" title="Dados da organização">
 				<h:message for="org_razao" />
 				<bnu:inputText id="org_razao"
 					value="#{organizacaoBean.organizacaoEntity.razaoSocial}"
@@ -40,7 +40,24 @@
 					<f:validateBean />
 				</bnu:inputText>
 
-
+				<h:message for="org_cnpj" />
+				<bnu:inputText id="org_cnpj"
+					value="#{organizacaoBean.organizacaoEntity.cnpj}"
+					label="CNPJ" required="true" placeholder="99.999.999/9999-99"
+					required-message="Campo obrigatório" 
+					readonly="#{organizacaoBean.acao == 'DELETE'}">
+					<f:validateBean />
+				</bnu:inputText>
+				
+				<h:message for="org_tel" />
+				<bnu:inputText id="org_tel"
+					value="#{organizacaoBean.organizacaoEntity.telefone}"
+					label="TELEFONE" required="true" placeholder="somente números" maxlength="13"
+					required-message="Campo obrigatório" converterMessage="Dados inválidos"
+					readonly="#{organizacaoBean.acao == 'DELETE'}">
+					<f:validateBean />
+				</bnu:inputText>
+				
 				<p:commandButton value="salvar" update="frm" styleClass="but but-success"
 					action="#{organizacaoBean.salvarOuDeletar()}"
 					rendered="#{organizacaoBean.acao == 'ADICIONAR'}" />

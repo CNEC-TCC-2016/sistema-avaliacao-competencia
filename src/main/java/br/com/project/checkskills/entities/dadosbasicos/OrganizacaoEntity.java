@@ -5,7 +5,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Digits;
 
+import org.hibernate.validator.constraints.br.CNPJ;
 import org.springframework.stereotype.Component;
 
 import br.com.project.checkskills.utils.BaseEntity;
@@ -26,12 +28,29 @@ public class OrganizacaoEntity extends BaseEntity<Long>{
 	@Column(name="RAMO_ATUACAO")
 	private String ramoAtuacao;
 
-	
+	@CNPJ(message="Dados inválidos")
+	@Column(name="CNPJ")
+	@NotNull 
+	private String cnpj;
 	
 
+	@Column(name="TELEFONE")
+	@NotNull
+	private Integer telefone;
+	
+	public Integer getTelefone() {
+		return telefone;
+	}
+	
+	public void setTelefone(Integer telefone) {
+		this.telefone = telefone;
+	}
+	
 	public String getRazaoSocial() {
 		return razaoSocial;
 	}
+	
+	
 
 	public void setRazaoSocial(String razaoSocial) {
 		this.razaoSocial = razaoSocial;
@@ -76,6 +95,14 @@ public class OrganizacaoEntity extends BaseEntity<Long>{
 		} else if (!getId().equals(other.getId()))
 			return false;
 		return true;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
 	}
 	
 	

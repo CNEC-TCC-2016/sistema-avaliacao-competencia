@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.log4j.Logger;
+import org.omnifaces.util.Messages;
 import org.primefaces.model.DualListModel;
 
 import br.com.project.checkskills.entities.dadosbasicos.CargoEntity;
